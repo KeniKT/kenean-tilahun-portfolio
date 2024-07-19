@@ -147,7 +147,7 @@ const About = () => {
           </p>
         </div>
 
-        {/* Enhanced Creative Story Section with better mobile optimization */}
+        {/* Enhanced Creative Story Section with left-aligned text */}
         <div
           ref={storyAnimation.ref}
           className={`mb-12 xs:mb-14 sm:mb-16 md:mb-20 lg:mb-24 transition-all duration-1000 ${
@@ -172,8 +172,8 @@ const About = () => {
                   My <span className="bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent">Story</span>
                 </h2>
 
-                <div className="space-y-4 xs:space-y-6 sm:space-y-8 text-gray-300 text-sm xs:text-base lg:text-lg leading-relaxed" style={{ fontFamily: 'Livvic, sans-serif' }}>
-                  {/* Enhanced timeline styling with better mobile layout */}
+                <div className="space-y-4 xs:space-y-6 sm:space-y-8 text-gray-300 text-sm xs:text-base lg:text-lg leading-relaxed text-left" style={{ fontFamily: 'Livvic, sans-serif' }}>
+                  {/* Enhanced timeline styling with left-aligned text */}
                   <div className="relative">
                     <div className="absolute left-4 xs:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-500 via-orange-500 to-red-500 rounded-full" />
                     
@@ -184,10 +184,8 @@ const About = () => {
                       <div className="bg-gradient-to-r from-slate-700/30 to-slate-600/30 p-4 xs:p-6 rounded-lg xs:rounded-xl border-l-2 xs:border-l-4 border-red-500/50 hover:border-red-400 transition-all duration-300 group min-h-[44px] cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800" tabIndex={0} role="button" aria-label="Read about my programming journey">
                         <div className="flex items-start space-x-2 xs:space-x-3">
                           <Lightbulb className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-yellow-400 mt-1 group-hover:animate-pulse flex-shrink-0" />
-                          <p className="group-hover:text-white transition-colors duration-300">
-                            Hello! I'm Kenean Tilahun, a passionate full-stack developer with a love for creating 
-                            innovative digital solutions. My journey into programming began during my university years, 
-                            where I discovered the power of code to solve real-world problems.
+                          <p className="group-hover:text-white transition-colors duration-300 text-left">
+                           Hello! I'm Kenean Tilahun, a passionate full-stack developer with a strong interest in building impactful and user-focused digital solutions. My journey into software development began in Grade 10, when I was selected among the top 200 students nationwide to attend the Addis Coder Summer Camp—an experience that introduced me to data structures, algorithms, and the creative power of code.
                           </p>
                         </div>
                       </div>
@@ -200,10 +198,8 @@ const About = () => {
                       <div className="bg-gradient-to-r from-slate-700/30 to-slate-600/30 p-4 xs:p-6 rounded-lg xs:rounded-xl border-l-2 xs:border-l-4 border-orange-500/50 hover:border-orange-400 transition-all duration-300 group min-h-[44px] cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-slate-800" tabIndex={0} role="button" aria-label="Read about my development experience">
                         <div className="flex items-start space-x-2 xs:space-x-3">
                           <Code className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-blue-400 mt-1 group-hover:animate-bounce flex-shrink-0" />
-                          <p className="group-hover:text-white transition-colors duration-300">
-                            With over 3 years of experience in web development, I've worked on diverse projects 
-                            ranging from e-commerce platforms to enterprise applications. I believe in writing 
-                            clean, maintainable code and staying up-to-date with the latest technologies.
+                          <p className="group-hover:text-white transition-colors duration-300 text-left">
+                            Since then, I've been honing my skills through both academic studies and personal projects. My work includes building applications like SIRA, a mobile freelancing platform developed using Flutter and Firebase, and BookShare, a web-based book-sharing platform built with React and TypeScript. These projects, while personal and educational in nature, reflect my commitment to full-stack development and user-centered design
                           </p>
                         </div>
                       </div>
@@ -216,23 +212,14 @@ const About = () => {
                       <div className="bg-gradient-to-r from-slate-700/30 to-slate-600/30 p-4 xs:p-6 rounded-lg xs:rounded-xl border-l-2 xs:border-l-4 border-yellow-500/50 hover:border-yellow-400 transition-all duration-300 group min-h-[44px] cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-slate-800" tabIndex={0} role="button" aria-label="Read about my interests and community involvement">
                         <div className="flex items-start space-x-2 xs:space-x-3">
                           <Users className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-green-400 mt-1 group-hover:animate-pulse flex-shrink-0" />
-                          <p className="group-hover:text-white transition-colors duration-300">
-                            When I'm not coding, you can find me exploring new technologies, contributing to 
-                            open-source projects, or sharing knowledge with the developer community. I'm always 
-                            eager to take on new challenges and collaborate on exciting projects.
+                          <p className="group-hover:text-white transition-colors duration-300 text-left">
+                           In addition to development, I've taken on leadership and mentorship roles in the tech community—organizing workshops, supporting students as a teaching assistant, and promoting collaborative learning as part of a Google Developer Group on campus.
+
+I'm always exploring new technologies, contributing to open-source, and looking for opportunities to grow and collaborate on meaningful projects.
                           </p>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                {/* Enhanced floating quote with better mobile layout */}
-                <div className="mt-6 xs:mt-8 text-center">
-                  <div className="inline-block bg-gradient-to-r from-red-500/10 to-orange-500/10 p-3 xs:p-4 rounded-full border border-red-500/20 max-w-xs xs:max-w-sm mx-auto">
-                    <p className="text-red-300 italic text-base xs:text-lg font-medium" style={{ fontFamily: 'Literata, serif' }}>
-                      "Code is poetry written in logic"
-                    </p>
                   </div>
                 </div>
               </div>
@@ -240,7 +227,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Enhanced Skills Section with better mobile layout */}
+        {/* Enhanced Skills Section with left-aligned text */}
         <div
           ref={skillsAnimation.ref}
           className={`mb-12 xs:mb-14 sm:mb-16 md:mb-20 lg:mb-24 transition-all duration-1000 ${
@@ -273,7 +260,7 @@ const About = () => {
   );
 };
 
-// Enhanced SkillCard component with better mobile optimization
+// Enhanced SkillCard component with left-aligned text
 const SkillCard = ({ skill, index, isVisible }) => {
   const [animatedSkills, setAnimatedSkills] = useState({});
 
@@ -312,7 +299,7 @@ const SkillCard = ({ skill, index, isVisible }) => {
           <div className="flex-shrink-0 text-white group-hover:scale-110 group-focus:scale-110 transition-transform duration-300">
             {skill.logo}
           </div>
-          <h3 className="text-lg xs:text-xl sm:text-2xl font-bold text-red-400 leading-tight" style={{ fontFamily: 'Literata, serif' }}>
+          <h3 className="text-lg xs:text-xl sm:text-2xl font-bold text-red-400 leading-tight text-left" style={{ fontFamily: 'Literata, serif' }}>
             {skill.name}
           </h3>
         </div>
@@ -325,7 +312,7 @@ const SkillCard = ({ skill, index, isVisible }) => {
             return (
               <div key={skillIndex} className="space-y-1.5 xs:space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300 text-xs xs:text-sm sm:text-base font-medium truncate pr-2" style={{ fontFamily: 'Livvic, sans-serif' }}>
+                  <span className="text-slate-300 text-xs xs:text-sm sm:text-base font-medium truncate pr-2 text-left" style={{ fontFamily: 'Livvic, sans-serif' }}>
                     {individualSkill.name}
                   </span>
                   <span className="text-red-400 text-xs xs:text-sm sm:text-base font-bold flex-shrink-0" style={{ fontFamily: 'Livvic, sans-serif' }}>
@@ -393,5 +380,4 @@ const StatCard = ({ stat, index, isVisible }) => {
 };
 
 export default About;
-
 
