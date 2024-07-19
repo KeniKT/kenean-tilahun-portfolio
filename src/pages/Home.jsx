@@ -138,7 +138,7 @@ const Home = () => {
                 variants={staggerItem}
                 className="text-white inline-block text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight"
               >
-                FULL-STACK{' '}
+
               </motion.span>
               <motion.span 
                 variants={staggerItem}
@@ -158,11 +158,10 @@ const Home = () => {
                 lineHeight: '1.75',
               }}
             >
-              I'm a passionate and versatile Full-Stack Software Engineer dedicated to creating impactful web
-              and mobile applications. With a strong foundation in backend development and hands-on
-              experience across the full technology stack, I specialize in building scalable, user-focused
-              digital solutions. From designing intuitive user interfaces to architecting efficient backend systems,
-              I strive to deliver products that are both functional and meaningful.
+              I’m a passionate and versatile Software Engineer with hands-on experience in building full-stack web and mobile applications. With a strong foundation in backend development
+              and a solid grasp of frontend technologies, I specialize in creating scalable, user-centered digital solutions. From intuitive interfaces to robust system architectures,
+              I’m driven to craft software that is not only functional but also meaningful and impactful. My work spans frameworks like React, Flutter, and Node.js, and I thrive on
+              turning ideas into real-world products that improve lives.
             </motion.p>
 
             <motion.div 
