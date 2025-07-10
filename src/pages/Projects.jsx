@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ExternalLink, Github, Filter } from 'lucide-react';
-import BookShareImage from "../assets/BookShare.png";
-import MachineryImage from "../assets/Machinery Management.png";
+import sampleimage from "../assets/sample.png";
 
 // Custom hook for scroll animations (same as About page)
 const useScrollAnimation = (threshold = 0.1) => {
@@ -44,7 +43,7 @@ const Projects = () => {
   description: "A full-stack book sharing platform built with React, TypeScript, and Vite. It features a clean UI, fast navigation, and efficient deployment on Vercel. Designed to promote collaborative reading and book exchange.",
   category: "web",
   technologies: ["React", "TypeScript", "Vite", "ESLint", "Vercel"],
-  image: BookShareImage,
+  image: sampleimage,
   github: "https://github.com/KeniKT/BookShare",
   demo: "https://book-share-hazel.vercel.app/"
 },
@@ -55,50 +54,21 @@ const Projects = () => {
       description: "A full-stack web application designed to streamline machinery inventory and maintenance tracking. Features role-based access control, allowing Admins to manage machinery data and assign maintenance tasks, while Technicians track and update their task progress in a structured workflow.",
       category: "web",
       technologies: ["Node.js", "Express.js", "SQLite", "EJS", "JavaScript"],
-      image: MachineryImage,
+      image: sampleimage,
       github: "https://github.com/KeniKT/machinery_management_system",
       demo: "https://demo-taskapp.com"
     },
     {
       id: 3,
-      title: "Weather Mobile App",
-      description: "Cross-platform mobile weather application with location services, weather forecasts, and beautiful UI animations.",
+      title: "SIRA",
+      description: "A mobile freelancing platform that connects employers with skilled professionals. Built using Flutter and Firebase, the app features intuitive Talent and Employer profiles, seamless file uploads, and robust BLoC state management. Emphasizing scalability, performance, and security, SIRA ensures smooth collaboration and reliable data handling, making it a comprehensive solution for mobile-based freelancing.",
       category: "mobile",
-      technologies: ["React Native", "OpenWeather API", "AsyncStorage"],
-      image: BookShareImage,
+      technologies: ["Flutter", "Firebase", "BLoC", "Dart"],
+      image: sampleimage,
       github: "https://github.com/username/weatherapp",
       demo: "https://play.google.com/store/apps/details?id=com.weatherapp"
     },
-    {
-      id: 4,
-      title: "Portfolio Website",
-      description: "A responsive portfolio website showcasing creative design and smooth animations. Built with modern web technologies.",
-      category: "web",
-      technologies: ["React", "Tailwind CSS", "Framer Motion"],
-      image: "/api/placeholder/400/300",
-      github: "https://github.com/username/portfolio",
-      demo: "https://keneantilahun.com"
-    },
-    {
-      id: 5,
-      title: "Data Visualization Dashboard",
-      description: "Interactive dashboard for data visualization with charts, graphs, and real-time data updates for business analytics.",
-      category: "web",
-      technologies: ["React", "D3.js", "Python", "Flask"],
-      image: "/api/placeholder/400/300",
-      github: "https://github.com/username/dashboard",
-      demo: "https://demo-dashboard.com"
-    },
-    {
-      id: 6,
-      title: "Learning Management System",
-      description: "Comprehensive LMS with course management, video streaming, quiz system, and progress tracking for educational institutions.",
-      category: "web",
-      technologies: ["React", "Node.js", "MongoDB", "AWS"],
-      image: "/api/placeholder/400/300",
-      github: "https://github.com/username/lms",
-      demo: "https://demo-lms.com"
-    }
+    
   ];
 
   const categories = [
@@ -162,10 +132,10 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Projects Grid - Fully responsive */}
+        {/* Projects Grid - Full width single column */}
         <div
           ref={projectsAnimation.ref}
-          className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-16 sm:mb-20 md:mb-24 lg:mb-32 transition-all duration-1000 ${
+          className={`grid grid-cols-1 gap-8 sm:gap-10 md:gap-12 lg:gap-16 mb-16 sm:mb-20 md:mb-24 lg:mb-32 transition-all duration-1000 ${
             projectsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
@@ -198,21 +168,21 @@ const Projects = () => {
   );
 };
 
-// ProjectCard component - Fully responsive
+// ProjectCard component - Made significantly bigger
 const ProjectCard = ({ project, index, isVisible }) => {
   return (
     <div
-      className={`bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-slate-700/50 shadow-2xl relative group transition-all duration-800 hover:scale-105 hover:shadow-2xl hover:shadow-red-900/20 ${
+      className={`bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-700/50 shadow-2xl relative group transition-all duration-800 hover:scale-105 hover:shadow-2xl hover:shadow-red-900/20 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       {/* Background gradient on hover */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 to-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl sm:rounded-2xl" />
+      <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 to-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl sm:rounded-3xl" />
 
-      {/* Project Image - Responsive */}
+      {/* Project Image - Back to original height but wider layout */}
       <div className="relative overflow-hidden">
-        <div className="aspect-[16/9] sm:aspect-[16/10] h-40 sm:h-48 md:h-56 lg:h-64">
+        <div className="aspect-[16/9] h-48 sm:h-56 md:h-64 lg:h-72">
           <img 
             src={project.image} 
             alt={project.title} 
@@ -222,51 +192,51 @@ const ProjectCard = ({ project, index, isVisible }) => {
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-all duration-500"></div>
       </div>
 
-      {/* Project Content - Responsive */}
-      <div className="p-4 sm:p-5 md:p-6 lg:p-8 relative z-10">
-        <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 md:mb-4 text-white group-hover:text-red-400 transition-all duration-300">
+      {/* Project Content - Adjusted padding for wider layout */}
+      <div className="p-6 sm:p-8 md:p-10 lg:p-12 relative z-10">
+        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 md:mb-5 text-white group-hover:text-red-400 transition-all duration-300">
           {project.title}
         </h3>
-        <p className="text-gray-300 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 md:mb-6 line-clamp-3 sm:line-clamp-4 group-hover:text-gray-200 transition-all duration-300 leading-relaxed">
+        <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-4 sm:mb-5 md:mb-6 line-clamp-3 sm:line-clamp-4 group-hover:text-gray-200 transition-all duration-300 leading-relaxed">
           {project.description}
         </p>
 
-        {/* Technologies - Responsive */}
-        <div className="flex flex-wrap gap-1 sm:gap-2 md:gap-3 mb-3 sm:mb-4 md:mb-6">
-          {project.technologies.slice(0, 4).map((tech, techIndex) => (
+        {/* Technologies - Adjusted for wider layout */}
+        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-5 md:mb-6">
+          {project.technologies.slice(0, 5).map((tech, techIndex) => (
             <span 
               key={techIndex} 
-              className="bg-slate-700/70 text-red-400 px-2 py-1 sm:px-3 sm:py-1 md:px-4 md:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 hover:bg-red-900/30 hover:scale-105 border border-slate-600/50"
+              className="bg-slate-700/70 text-red-400 px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-3 rounded-full text-sm sm:text-base md:text-lg font-medium transition-all duration-300 hover:bg-red-900/30 hover:scale-105 border border-slate-600/50"
             >
               {tech}
             </span>
           ))}
-          {project.technologies.length > 4 && (
-            <span className="bg-slate-700/70 text-red-400 px-2 py-1 sm:px-3 sm:py-1 md:px-4 md:py-2 rounded-full text-xs sm:text-sm font-medium border border-slate-600/50">
-              +{project.technologies.length - 4}
+          {project.technologies.length > 5 && (
+            <span className="bg-slate-700/70 text-red-400 px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-3 rounded-full text-sm sm:text-base md:text-lg font-medium border border-slate-600/50">
+              +{project.technologies.length - 5}
             </span>
           )}
         </div>
 
-        {/* Action Buttons - Responsive */}
-        <div className="flex gap-3 sm:gap-4 md:gap-6 pt-2 sm:pt-3 md:pt-4">
+        {/* Action Buttons - Adjusted for wider layout */}
+        <div className="flex gap-4 sm:gap-6 md:gap-8 pt-3 sm:pt-4 md:pt-5">
           <a
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 sm:gap-2 md:gap-3 text-gray-300 hover:text-red-400 transition-all duration-300 hover:scale-105 group/btn"
+            className="flex items-center gap-2 sm:gap-3 md:gap-4 text-gray-300 hover:text-red-400 transition-all duration-300 hover:scale-105 group/btn"
           >
-            <Github className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover/btn:rotate-12" />
-            <span className="text-xs sm:text-sm md:text-base font-medium">Code</span>
+            <Github className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover/btn:rotate-12" />
+            <span className="text-sm sm:text-base md:text-lg lg:text-xl font-medium">Code</span>
           </a>
           <a
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 sm:gap-2 md:gap-3 text-gray-300 hover:text-red-400 transition-all duration-300 hover:scale-105 group/btn"
+            className="flex items-center gap-2 sm:gap-3 md:gap-4 text-gray-300 hover:text-red-400 transition-all duration-300 hover:scale-105 group/btn"
           >
-            <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover/btn:rotate-12" />
-            <span className="text-xs sm:text-sm md:text-base font-medium">Demo</span>
+            <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover/btn:rotate-12" />
+            <span className="text-sm sm:text-base md:text-lg lg:text-xl font-medium">Demo</span>
           </a>
         </div>
       </div>
