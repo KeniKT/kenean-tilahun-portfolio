@@ -150,15 +150,7 @@ const Home = () => {
                 <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                 Download CV
               </motion.button>
-
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border border-red-600 text-red-400 px-6 sm:px-8 py-3 rounded-lg font-medium hover:bg-red-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
-              >
-                <Play className="w-4 h-4 sm:w-5 sm:h-5" />
-                Watch The Video
-              </motion.button>
+              
             </motion.div>
           </motion.div>
 
@@ -188,7 +180,7 @@ const Home = () => {
               {/* Profile image container */}
               <motion.div 
                 className="w-64 h-64 xs:w-72 xs:h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-2xl sm:rounded-3xl overflow-hidden relative z-10 shadow-lg"
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.5 }}
                 transition={{ duration: 0.3 }}
               >
                 <img
