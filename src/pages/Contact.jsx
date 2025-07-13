@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle  } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -89,15 +89,7 @@ const Contact = () => {
                 >
                   <Linkedin className="w-7 h-7 sm:w-8 sm:h-8" />
                 </a>
-                <a 
-                  href="https://twitter.com/your-twitter" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-slate-300 hover:text-red-400 transition-all duration-300 hover:scale-110 transform"
-                  aria-label="Twitter Profile"
-                >
-                  <Twitter className="w-7 h-7 sm:w-8 sm:h-8" />
-                </a>
+                
               </div>
             </div>
           </div>
