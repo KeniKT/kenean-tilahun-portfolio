@@ -63,34 +63,50 @@ const About = () => {
   const skillsAnimation = useScrollAnimation(0.2);
   const statsAnimation = useScrollAnimation(0.3);
 
-  // Skills data with updated percentages
+  // Updated skills data with individual percentages for each skill
   const skills = [
     {
       logo: <Code className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400" />,
       name: "Frontend Development",
-      detailedSkills: ["React", "Vue.js", "JavaScript", "HTML5", "CSS3", "Modern Frameworks"],
-      level: 95,
+      detailedSkills: [
+        { name: "React", percentage: 95 },
+        { name: "Vue.js", percentage: 95 },
+        { name: "JavaScript", percentage: 95 },
+        { name: "HTML5", percentage: 95 },
+        { name: "CSS3", percentage: 95 },
+        { name: "Modern Frameworks", percentage: 95 }
+      ],
       color: "from-blue-500 to-cyan-500"
     },
     {
       logo: <Database className="w-6 h-6 sm:w-8 sm:h-8 text-green-400" />,
       name: "Backend Development",
-      detailedSkills: ["Node.js", "Python", "PHP", "Database Management Systems"],
-      level: 90,
+      detailedSkills: [
+        { name: "Node.js", percentage: 90 },
+        { name: "Python", percentage: 90 },
+        { name: "PHP", percentage: 90 },
+        { name: "Database Management Systems", percentage: 90 }
+      ],
       color: "from-green-500 to-emerald-500"
     },
     {
       logo: <Globe className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
       name: "Web Technologies",
-      detailedSkills: ["Full-stack development", "Responsive Solutions", "Scalable Solutions"],
-      level: 89,
+      detailedSkills: [
+        { name: "Full-stack Development", percentage: 89 },
+        { name: "Responsive Solutions", percentage: 89 },
+        { name: "Scalable Solutions", percentage: 89 }
+      ],
       color: "from-purple-500 to-pink-500"
     },
     {
       logo: <Smartphone className="w-6 h-6 sm:w-8 sm:h-8 text-orange-400" />,
       name: "Mobile Development",
-      detailedSkills: ["Cross-platform mobile apps", "React Native", "Flutter"],
-      level: 87,
+      detailedSkills: [
+        { name: "Cross-platform Mobile Apps", percentage: 89 },
+        { name: "React Native", percentage: 89 },
+        { name: "Flutter", percentage: 89 }
+      ],
       color: "from-orange-500 to-red-500"
     }
   ];
@@ -172,9 +188,9 @@ const About = () => {
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-10 sm:mb-12 lg:mb-16">
             My <span className="bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent">Skills</span>
           </h2>
-          <div className="space-y-6 sm:space-y-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {skills.map((skill, index) => (
-              <SkillProgressBar key={index} skill={skill} index={index} isVisible={skillsAnimation.isVisible} />
+              <SkillCard key={index} skill={skill} index={index} isVisible={skillsAnimation.isVisible} />
             ))}
           </div>
         </div>
@@ -195,62 +211,75 @@ const About = () => {
   );
 };
 
-// SkillProgressBar component
-const SkillProgressBar = ({ skill, index, isVisible }) => {
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const { count, startCounting } = useCountUp(skill.level, 2000);
+// Updated SkillCard component with individual skill percentages
+const SkillCard = ({ skill, index, isVisible }) => {
+  const [animatedSkills, setAnimatedSkills] = useState({});
 
   useEffect(() => {
-    if (isVisible && !hasAnimated) {
-      setTimeout(() => {
-        startCounting();
-        setHasAnimated(true);
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        const animated = {};
+        skill.detailedSkills.forEach((individualSkill, skillIndex) => {
+          const key = `${skill.name}-${skillIndex}`;
+          setTimeout(() => {
+            animated[key] = individualSkill.percentage;
+            setAnimatedSkills(prev => ({ ...prev, [key]: individualSkill.percentage }));
+          }, skillIndex * 150);
+        });
       }, index * 200);
+
+      return () => clearTimeout(timer);
     }
-  }, [isVisible, hasAnimated, startCounting, index]);
+  }, [isVisible, skill, index]);
 
   return (
     <div
-      className={`bg-slate-800/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-slate-700/50 shadow-lg relative overflow-hidden group transition-all duration-800 ${
+      className={`bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-slate-700/50 shadow-xl relative overflow-hidden group transition-all duration-800 h-full flex flex-col ${
         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
       {/* Background gradient on hover */}
-      <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-lg`} />
+      <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`} />
 
-      <div className="relative z-10">
-        <div className="flex items-center space-x-3 sm:space-x-4 mb-2">
+      <div className="relative z-10 flex-1">
+        <div className="flex items-center space-x-3 sm:space-x-4 mb-6">
           <div className="flex-shrink-0 text-white group-hover:scale-110 transition-transform duration-300">
             {skill.logo}
           </div>
-          <h3 className="text-lg sm:text-xl font-semibold text-white">
+          <h3 className="text-xl sm:text-2xl font-bold text-red-400">
             {skill.name}
           </h3>
         </div>
 
-        <div className="text-gray-400 text-xs sm:text-sm flex flex-wrap gap-x-2 gap-y-1 mb-2 pl-8 sm:pl-12">
-          {skill.detailedSkills.map((detail, idx) => (
-            <span key={idx} className="whitespace-nowrap">
-              {detail}{idx < skill.detailedSkills.length - 1 ? ' •' : ''}
-            </span>
-          ))}
+        <div className="space-y-4">
+          {skill.detailedSkills.map((individualSkill, skillIndex) => {
+            const skillKey = `${skill.name}-${skillIndex}`;
+            const animatedPercentage = animatedSkills[skillKey] || 0;
+
+            return (
+              <div key={skillIndex} className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-300 text-sm sm:text-base font-medium">
+                    {individualSkill.name}
+                  </span>
+                  <span className="text-red-400 text-sm sm:text-base font-bold">
+                    {individualSkill.percentage}%
+                  </span>
+                </div>
+                <div className="w-full bg-slate-700 rounded-full h-2 sm:h-2.5">
+                  <div
+                    className={`h-full rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out`}
+                    style={{ 
+                      width: `${animatedPercentage}%`,
+                      boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)'
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
-
-        <span className="text-red-400 text-base sm:text-lg font-bold block text-right mb-2">
-          {count}%
-        </span>
-      </div>
-
-      {/* Progress Bar Container */}
-      <div className="w-full bg-slate-700 rounded-full h-2 sm:h-2.5 relative z-10">
-        <div
-          className={`h-full rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1500 ease-out`}
-          style={{ 
-            width: isVisible ? `${count}%` : '0%',
-            transitionDelay: `${index * 200 + 300}ms`
-          }}
-        />
       </div>
     </div>
   );
