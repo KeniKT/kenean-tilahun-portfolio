@@ -63,51 +63,51 @@ const About = () => {
   const skillsAnimation = useScrollAnimation(0.2);
   const statsAnimation = useScrollAnimation(0.3);
 
-  // Updated skills data with individual percentages for each skill
+  // Updated skills data with individual percentages for each skill (85-90% range)
   const skills = [
     {
-      logo: <Code className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400" />,
+      logo: <Code className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />,
       name: "Frontend Development",
       detailedSkills: [
-        { name: "React", percentage: 95 },
-        { name: "Vue.js", percentage: 95 },
-        { name: "JavaScript", percentage: 95 },
-        { name: "HTML5", percentage: 95 },
-        { name: "CSS3", percentage: 95 },
-        { name: "Modern Frameworks", percentage: 95 }
+        { name: "React", percentage: 89 },
+        { name: "Vue.js", percentage: 87 },
+        { name: "JavaScript", percentage: 90 },
+        { name: "HTML5", percentage: 88 },
+        { name: "CSS3", percentage: 86 },
+        { name: "Modern Frameworks", percentage: 85 }
       ],
-      color: "from-blue-500 to-cyan-500"
+      color: "from-gray-600 to-gray-500"
     },
     {
-      logo: <Database className="w-6 h-6 sm:w-8 sm:h-8 text-green-400" />,
+      logo: <Database className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />,
       name: "Backend Development",
       detailedSkills: [
-        { name: "Node.js", percentage: 90 },
-        { name: "Python", percentage: 90 },
-        { name: "PHP", percentage: 90 },
-        { name: "Database Management Systems", percentage: 90 }
+        { name: "Node.js", percentage: 87 },
+        { name: "Python", percentage: 85 },
+        { name: "PHP", percentage: 89 },
+        { name: "Database Management Systems", percentage: 86 }
       ],
-      color: "from-green-500 to-emerald-500"
+      color: "from-gray-600 to-gray-500"
     },
     {
-      logo: <Globe className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400" />,
+      logo: <Globe className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />,
       name: "Web Technologies",
       detailedSkills: [
-        { name: "Full-stack Development", percentage: 89 },
-        { name: "Responsive Solutions", percentage: 89 },
-        { name: "Scalable Solutions", percentage: 89 }
+        { name: "Full-stack Development", percentage: 88 },
+        { name: "Responsive Solutions", percentage: 90 },
+        { name: "Scalable Solutions", percentage: 85 }
       ],
-      color: "from-purple-500 to-pink-500"
+      color: "from-gray-600 to-gray-500"
     },
     {
-      logo: <Smartphone className="w-6 h-6 sm:w-8 sm:h-8 text-orange-400" />,
+      logo: <Smartphone className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />,
       name: "Mobile Development",
       detailedSkills: [
-        { name: "Cross-platform Mobile Apps", percentage: 89 },
-        { name: "React Native", percentage: 89 },
-        { name: "Flutter", percentage: 89 }
+        { name: "Cross-platform Mobile Apps", percentage: 86 },
+        { name: "React Native", percentage: 88 },
+        { name: "Flutter", percentage: 85 }
       ],
-      color: "from-orange-500 to-red-500"
+      color: "from-gray-600 to-gray-500"
     }
   ];
 
@@ -156,20 +156,20 @@ const About = () => {
               My Story
             </h2>
             <div className="space-y-4 sm:space-y-6 text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
-              <p className="relative pl-4 sm:pl-6 border-l-2 sm:border-l-4 border-red-500">
-                <span className="absolute -left-1 sm:-left-2 top-0 w-2 h-2 sm:w-4 sm:h-4 bg-red-500 rounded-full"></span>
+              <p className="relative pl-4 sm:pl-6 border-l-2 sm:border-l-4 border-gray-700">
+                <span className="absolute -left-1 sm:-left-2 top-0 w-2 h-2 sm:w-4 sm:h-4 bg-gray-700 rounded-full"></span>
                 Hello! I'm Kenean Tilahun, a passionate full-stack developer with a love for creating 
                 innovative digital solutions. My journey into programming began during my university years, 
                 where I discovered the power of code to solve real-world problems.
               </p>
-              <p className="relative pl-4 sm:pl-6 border-l-2 sm:border-l-4 border-blue-500">
-                <span className="absolute -left-1 sm:-left-2 top-0 w-2 h-2 sm:w-4 sm:h-4 bg-blue-500 rounded-full"></span>
+              <p className="relative pl-4 sm:pl-6 border-l-2 sm:border-l-4 border-gray-500">
+                <span className="absolute -left-1 sm:-left-2 top-0 w-2 h-2 sm:w-4 sm:h-4 bg-gray-500 rounded-full"></span>
                 With over 3 years of experience in web development, I've worked on diverse projects 
                 ranging from e-commerce platforms to enterprise applications. I believe in writing 
                 clean, maintainable code and staying up-to-date with the latest technologies.
               </p>
-              <p className="relative pl-4 sm:pl-6 border-l-2 sm:border-l-4 border-green-500">
-                <span className="absolute -left-1 sm:-left-2 top-0 w-2 h-2 sm:w-4 sm:h-4 bg-green-500 rounded-full"></span>
+              <p className="relative pl-4 sm:pl-6 border-l-2 sm:border-l-4 border-gray-400">
+                <span className="absolute -left-1 sm:-left-2 top-0 w-2 h-2 sm:w-4 sm:h-4 bg-gray-400 rounded-full"></span>
                 When I'm not coding, you can find me exploring new technologies, contributing to 
                 open-source projects, or sharing knowledge with the developer community. I'm always 
                 eager to take on new challenges and collaborate on exciting projects.
@@ -211,7 +211,7 @@ const About = () => {
   );
 };
 
-// Updated SkillCard component with individual skill percentages
+// Updated SkillCard component with gray color scheme
 const SkillCard = ({ skill, index, isVisible }) => {
   const [animatedSkills, setAnimatedSkills] = useState({});
 
@@ -272,7 +272,7 @@ const SkillCard = ({ skill, index, isVisible }) => {
                     className={`h-full rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out`}
                     style={{ 
                       width: `${animatedPercentage}%`,
-                      boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)'
+                      boxShadow: '0 0 10px rgba(107, 114, 128, 0.5)'
                     }}
                   />
                 </div>
@@ -285,7 +285,7 @@ const SkillCard = ({ skill, index, isVisible }) => {
   );
 };
 
-// StatCard component
+// StatCard component with gray color scheme
 const StatCard = ({ stat, index, isVisible }) => {
   const [hasAnimated, setHasAnimated] = useState(false);
   const { count, startCounting } = useCountUp(stat.number, 2000);
@@ -308,13 +308,13 @@ const StatCard = ({ stat, index, isVisible }) => {
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 to-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl sm:rounded-2xl" />
+      {/* Animated background with gray colors */}
+      <div className="absolute inset-0 bg-gradient-to-r from-gray-700/20 to-gray-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl sm:rounded-2xl" />
       
-      <div className="text-red-400 mb-3 sm:mb-4 relative z-10 group-hover:rotate-12 transition-transform duration-300">
+      <div className="text-gray-400 mb-3 sm:mb-4 relative z-10 group-hover:rotate-12 transition-transform duration-300">
         {stat.icon}
       </div>
-      <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-red-400 mb-1 sm:mb-2 relative z-10">
+      <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-400 mb-1 sm:mb-2 relative z-10">
         {displayCount}
       </div>
       <p className="text-gray-300 group-hover:text-white transition-colors duration-300 relative z-10 text-sm sm:text-base">
