@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Download, Play } from 'lucide-react';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import keneanImg from '/src/assets/kenean.png';
+import keneanResumePdf from '/src/assets/kenean_tilahun.pdf'; // Add this import
 import About from './About';
 import Projects from './Projects';
 import Contact from './Contact';
@@ -84,6 +85,16 @@ const Home = () => {
   const projectsAnimation = useScrollAnimation(0.2);
   const contactAnimation = useScrollAnimation(0.2);
 
+  // Function to handle CV download
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = keneanResumePdf;
+    link.download = 'Kenean_Tilahun_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="min-h-screen bg-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
@@ -145,6 +156,7 @@ const Home = () => {
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleDownloadCV}
                 className="bg-gradient-to-r from-red-900 to-red-800 text-white px-6 sm:px-8 py-3 rounded-lg font-medium hover:from-red-800 hover:to-red-700 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <Download className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -180,7 +192,7 @@ const Home = () => {
               {/* Profile image container */}
               <motion.div 
                 className="w-64 h-64 xs:w-72 xs:h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-2xl sm:rounded-3xl overflow-hidden relative z-10 shadow-lg"
-                whileHover={{ scale: 1.5 }}
+                whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
                 <img
