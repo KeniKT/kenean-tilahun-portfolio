@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github, Filter } from 'lucide-react';
+import { ExternalLink, Github, Filter, Code, Eye, Star } from 'lucide-react';
 import sampleimage from "../assets/sample.png";
 
 // Custom hook for scroll animations (same as About page)
@@ -45,7 +45,8 @@ const Projects = () => {
   technologies: ["React", "TypeScript", "Vite", "ESLint", "Vercel"],
   image: sampleimage,
   github: "https://github.com/KeniKT/BookShare",
-  demo: "https://book-share-hazel.vercel.app/"
+  demo: "https://book-share-hazel.vercel.app/",
+  featured: true
 },
 
     {
@@ -56,7 +57,8 @@ const Projects = () => {
       technologies: ["Node.js", "Express.js", "SQLite", "EJS", "JavaScript"],
       image: sampleimage,
       github: "https://github.com/KeniKT/machinery_management_system",
-      demo: "https://demo-taskapp.com"
+      demo: "https://demo-taskapp.com",
+      featured: false
     },
     {
       id: 3,
@@ -66,7 +68,8 @@ const Projects = () => {
       technologies: ["Flutter", "Firebase", "BLoC", "Dart"],
       image: sampleimage,
       github: "https://github.com/username/weatherapp",
-      demo: "https://play.google.com/store/apps/details?id=com.weatherapp"
+      demo: "https://play.google.com/store/apps/details?id=com.weatherapp",
+      featured: true
     },
     
   ];
@@ -84,10 +87,11 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white py-12 sm:py-16 md:py-20 relative overflow-hidden">
-      {/* Animated Background Elements - Responsive */}
+      {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-10 sm:top-16 md:top-20 left-4 sm:left-6 md:left-10 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 bg-gradient-to-r from-red-900/20 to-red-600/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-10 sm:bottom-16 md:bottom-20 right-4 sm:right-6 md:right-10 w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-96 lg:h-96 bg-gradient-to-r from-blue-900/20 to-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-900/10 to-pink-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -107,7 +111,7 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Filter Buttons - Fully responsive */}
+        {/* Enhanced Filter Buttons */}
         <div
           ref={filtersAnimation.ref}
           className={`flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-16 sm:mb-20 md:mb-24 lg:mb-32 transition-all duration-1000 ${
@@ -118,10 +122,10 @@ const Projects = () => {
             <button
               key={category.key}
               onClick={() => setActiveFilter(category.key)}
-              className={`px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-lg font-medium text-xs sm:text-sm md:text-base lg:text-lg transition-all duration-300 flex items-center gap-1 sm:gap-2 md:gap-3 transform hover:scale-105 hover:shadow-lg ${
+              className={`px-3 py-2 sm:px-4 sm:py-2 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-xl font-medium text-xs sm:text-sm md:text-base lg:text-lg transition-all duration-300 flex items-center gap-1 sm:gap-2 md:gap-3 transform hover:scale-105 hover:shadow-lg backdrop-blur-sm ${
                 activeFilter === category.key
-                  ? 'bg-gradient-to-r from-red-900 to-red-800 text-white shadow-lg shadow-red-900/25'
-                  : 'bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 text-gray-300 hover:bg-slate-700/50'
+                  ? 'bg-gradient-to-r from-red-900 to-red-800 text-white shadow-lg shadow-red-900/25 border border-red-700/50'
+                  : 'bg-slate-800/50 border border-slate-700/50 text-gray-300 hover:bg-slate-700/50 hover:border-slate-600/50'
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
@@ -132,10 +136,10 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Projects Grid - Full width single column */}
+        {/* Projects Grid - Enhanced styling */}
         <div
           ref={projectsAnimation.ref}
-          className={`grid grid-cols-1 gap-8 sm:gap-10 md:gap-12 lg:gap-16 mb-16 sm:mb-20 md:mb-24 lg:mb-32 transition-all duration-1000 ${
+          className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-8 lg:gap-10 xl:gap-12 mb-16 sm:mb-20 md:mb-24 lg:mb-32 transition-all duration-1000 ${
             projectsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
@@ -144,23 +148,26 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Call to Action - Fully responsive */}
+        {/* Enhanced Call to Action */}
         <div
           ref={ctaAnimation.ref}
           className={`text-center transition-all duration-1000 ${
             ctaAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 border border-slate-700/50 shadow-2xl">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-5 lg:mb-6 bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
-              Like What You See?
-            </h2>
-            <p className="text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto px-4">
-              Let's work together to bring your ideas to life and create something amazing
-            </p>
-            <button className="bg-gradient-to-r from-red-900 to-red-800 text-white px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-lg font-medium text-sm sm:text-base md:text-lg hover:from-red-800 hover:to-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-900/25">
-              Get In Touch
-            </button>
+          <div className="bg-gradient-to-r from-slate-800/60 to-slate-700/60 backdrop-blur-sm rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 border border-slate-700/50 shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-red-900/10 to-red-600/10 opacity-50" />
+            <div className="relative z-10">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-5 lg:mb-6 bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
+                Like What You See?
+              </h2>
+              <p className="text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 md:mb-10 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto px-4">
+                Let's work together to bring your ideas to life and create something amazing
+              </p>
+              <button className="bg-gradient-to-r from-red-900 to-red-800 text-white px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded-xl font-medium text-sm sm:text-base md:text-lg hover:from-red-800 hover:to-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-900/25 border border-red-700/50">
+                Get In Touch
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -168,75 +175,123 @@ const Projects = () => {
   );
 };
 
-// ProjectCard component - Made significantly bigger
+// Enhanced ProjectCard component with fixed image fitting and stylish design
 const ProjectCard = ({ project, index, isVisible }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   return (
     <div
-      className={`bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-700/50 shadow-2xl relative group transition-all duration-800 hover:scale-105 hover:shadow-2xl hover:shadow-red-900/20 ${
+      className={`bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm rounded-3xl overflow-hidden border border-slate-700/50 shadow-2xl relative group transition-all duration-800 hover:scale-[1.02] hover:shadow-2xl hover:shadow-red-900/20 hover:border-red-700/30 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}
     >
-      {/* Background gradient on hover */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 to-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl sm:rounded-3xl" />
-
-      {/* Project Image - Back to original height but wider layout */}
-      <div className="relative overflow-hidden">
-        <div className="aspect-[16/9] h-48 sm:h-56 md:h-64 lg:h-72">
-          <img 
-            src={project.image} 
-            alt={project.title} 
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-          />
+      {/* Featured Badge */}
+      {project.featured && (
+        <div className="absolute top-4 right-4 z-20 bg-gradient-to-r from-red-900 to-red-800 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 shadow-lg">
+          <Star className="w-3 h-3 fill-current" />
+          Featured
         </div>
-        <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-all duration-500"></div>
+      )}
+
+      {/* Enhanced background gradient on hover */}
+      <div className="absolute inset-0 bg-gradient-to-r from-red-900/10 to-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+
+      {/* Fixed Project Image with better aspect ratio and fitting */}
+      <div className="relative overflow-hidden">
+        <div className="aspect-[16/10] bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center">
+          {!imageError ? (
+            <img 
+              src={project.image} 
+              alt={project.title}
+              className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              onLoad={() => setImageLoaded(true)}
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-400">
+              <Code className="w-12 h-12" />
+            </div>
+          )}
+          
+          {/* Loading skeleton */}
+          {!imageLoaded && !imageError && (
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-700 via-slate-600 to-slate-700 animate-pulse" />
+          )}
+          
+          {/* Image overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+          
+          {/* Hover overlay with quick actions */}
+          <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-black/80 backdrop-blur-sm text-white p-3 rounded-full hover:bg-red-900/80 transition-all duration-300 transform hover:scale-110"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-black/80 backdrop-blur-sm text-white p-3 rounded-full hover:bg-red-900/80 transition-all duration-300 transform hover:scale-110"
+            >
+              <Eye className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
       </div>
 
-      {/* Project Content - Adjusted padding for wider layout */}
-      <div className="p-6 sm:p-8 md:p-10 lg:p-12 relative z-10">
-        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 md:mb-5 text-white group-hover:text-red-400 transition-all duration-300">
+      {/* Enhanced Project Content */}
+      <div className="p-6 sm:p-8 md:p-6 lg:p-8 xl:p-10 relative z-10">
+        <h3 className="text-xl sm:text-2xl md:text-xl lg:text-2xl xl:text-3xl font-bold mb-3 sm:mb-4 md:mb-3 lg:mb-4 text-white group-hover:text-red-400 transition-all duration-300">
           {project.title}
         </h3>
-        <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-4 sm:mb-5 md:mb-6 line-clamp-3 sm:line-clamp-4 group-hover:text-gray-200 transition-all duration-300 leading-relaxed">
+        <p className="text-gray-300 text-base sm:text-lg md:text-base lg:text-lg xl:text-xl mb-4 sm:mb-5 md:mb-4 lg:mb-5 line-clamp-3 group-hover:text-gray-200 transition-all duration-300 leading-relaxed">
           {project.description}
         </p>
 
-        {/* Technologies - Adjusted for wider layout */}
-        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-5 md:mb-6">
-          {project.technologies.slice(0, 5).map((tech, techIndex) => (
+        {/* Enhanced Technologies with better styling */}
+        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-2 lg:gap-3 xl:gap-3 mb-4 sm:mb-5 md:mb-4 lg:mb-5">
+          {project.technologies.slice(0, 4).map((tech, techIndex) => (
             <span 
               key={techIndex} 
-              className="bg-slate-700/70 text-red-400 px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-3 rounded-full text-sm sm:text-base md:text-lg font-medium transition-all duration-300 hover:bg-red-900/30 hover:scale-105 border border-slate-600/50"
+              className="bg-gradient-to-r from-slate-700/80 to-slate-600/80 backdrop-blur-sm text-red-400 px-3 py-1.5 sm:px-4 sm:py-2 md:px-3 md:py-1.5 lg:px-4 lg:py-2 xl:px-4 xl:py-2 rounded-full text-sm sm:text-base md:text-sm lg:text-base xl:text-base font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-red-900/40 hover:to-red-800/40 hover:scale-105 border border-slate-600/50 hover:border-red-500/50"
             >
               {tech}
             </span>
           ))}
-          {project.technologies.length > 5 && (
-            <span className="bg-slate-700/70 text-red-400 px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-3 rounded-full text-sm sm:text-base md:text-lg font-medium border border-slate-600/50">
-              +{project.technologies.length - 5}
+          {project.technologies.length > 4 && (
+            <span className="bg-gradient-to-r from-slate-700/80 to-slate-600/80 backdrop-blur-sm text-red-400 px-3 py-1.5 sm:px-4 sm:py-2 md:px-3 md:py-1.5 lg:px-4 lg:py-2 xl:px-4 xl:py-2 rounded-full text-sm sm:text-base md:text-sm lg:text-base xl:text-base font-medium border border-slate-600/50">
+              +{project.technologies.length - 4}
             </span>
           )}
         </div>
 
-        {/* Action Buttons - Adjusted for wider layout */}
-        <div className="flex gap-4 sm:gap-6 md:gap-8 pt-3 sm:pt-4 md:pt-5">
+        {/* Enhanced Action Buttons */}
+        <div className="flex gap-4 sm:gap-5 md:gap-4 lg:gap-5 xl:gap-6 pt-3 sm:pt-4 md:pt-3 lg:pt-4 border-t border-slate-600/30">
           <a
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 sm:gap-3 md:gap-4 text-gray-300 hover:text-red-400 transition-all duration-300 hover:scale-105 group/btn"
+            className="flex items-center gap-2 sm:gap-3 md:gap-2 lg:gap-3 xl:gap-3 text-gray-300 hover:text-red-400 transition-all duration-300 hover:scale-105 group/btn bg-slate-700/50 px-4 py-2 rounded-lg hover:bg-red-900/20 border border-slate-600/50 hover:border-red-500/50"
           >
-            <Github className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover/btn:rotate-12" />
-            <span className="text-sm sm:text-base md:text-lg lg:text-xl font-medium">Code</span>
+            <Github className="w-5 h-5 sm:w-6 sm:h-6 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-6 xl:h-6 transition-transform duration-300 group-hover/btn:rotate-12" />
+            <span className="text-sm sm:text-base md:text-sm lg:text-base xl:text-lg font-medium">Code</span>
           </a>
           <a
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 sm:gap-3 md:gap-4 text-gray-300 hover:text-red-400 transition-all duration-300 hover:scale-105 group/btn"
+            className="flex items-center gap-2 sm:gap-3 md:gap-2 lg:gap-3 xl:gap-3 text-gray-300 hover:text-red-400 transition-all duration-300 hover:scale-105 group/btn bg-slate-700/50 px-4 py-2 rounded-lg hover:bg-red-900/20 border border-slate-600/50 hover:border-red-500/50"
           >
-            <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 transition-transform duration-300 group-hover/btn:rotate-12" />
-            <span className="text-sm sm:text-base md:text-lg lg:text-xl font-medium">Demo</span>
+            <ExternalLink className="w-5 h-5 sm:w-6 sm:h-6 md:w-5 md:h-5 lg:w-6 lg:h-6 xl:w-6 xl:h-6 transition-transform duration-300 group-hover/btn:rotate-12" />
+            <span className="text-sm sm:text-base md:text-sm lg:text-base xl:text-lg font-medium">Demo</span>
           </a>
         </div>
       </div>
