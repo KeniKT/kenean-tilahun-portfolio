@@ -110,24 +110,34 @@ const Home = () => {
           <motion.div variants={fadeInLeft} className="w-full lg:w-1/2 text-center lg:text-left">
             <motion.h1 
               variants={staggerItem}
-              className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6 leading-tight"
+              className="font-bold mb-4 sm:mb-6 leading-tight"
             >
+              {/* HI, I'M - Made smaller */}
               <motion.span
                 variants={staggerItem}
-                className="inline-block"
+                className="inline-block text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl"
               >
-                HI, I'M KENEAN!
+                HI, I'M{' '}
               </motion.span>
               <br />
+              {/* KENEAN - Made bigger */}
               <motion.span 
                 variants={staggerItem}
-                className="text-white inline-block"
+                className="text-white inline-block text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl"
+              >
+                KENEAN!
+              </motion.span>
+              <br />
+              {/* CREATIVE DEVELOPER - Made smaller */}
+              <motion.span 
+                variants={staggerItem}
+                className="text-white inline-block text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl"
               >
                 CREATIVE{' '}
               </motion.span>
               <motion.span 
                 variants={staggerItem}
-                className="bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent inline-block"
+                className="bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent inline-block text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl"
               >
                 DEVELOPER
               </motion.span>
