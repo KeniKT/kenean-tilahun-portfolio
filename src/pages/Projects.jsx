@@ -63,6 +63,17 @@ const Projects = () => {
       demo: "https://demo-taskapp.com",
       featured: false
     },
+    {
+      id: 3,
+      title: "SIRA",
+      description: "A mobile freelancing platform that connects employers with skilled professionals. Built using Flutter and Firebase, the app features intuitive Talent and Employer profiles, seamless file uploads, and robust BLoC state management. Emphasizing scalability, performance, and security, SIRA ensures smooth collaboration and reliable data handling, making it a comprehensive solution for mobile-based freelancing.",
+      category: "mobile",
+      technologies: ["Flutter", "Firebase", "BLoC", "Dart"],
+      image: SIRA,
+      github: "https://github.com/username/weatherapp",
+      demo: "https://play.google.com/store/apps/details?id=com.weatherapp",
+      featured: true
+    },
     
   ];
 
