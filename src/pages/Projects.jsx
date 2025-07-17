@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ExternalLink, Github, Filter, Code, Eye, Star } from 'lucide-react';
 import sampleimage from "../assets/sample.png";
-
+import Book from "../assets/Book.png";
+import Management from "../assets/Managemat.png";
 // Custom hook for scroll animations (same as About page)
 const useScrollAnimation = (threshold = 0.1) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -43,7 +44,7 @@ const Projects = () => {
   description: "A full-stack book sharing platform built with React, TypeScript, and Vite. It features a clean UI, fast navigation, and efficient deployment on Vercel. Designed to promote collaborative reading and book exchange.",
   category: "web",
   technologies: ["React", "TypeScript", "Vite", "ESLint", "Vercel"],
-  image: sampleimage,
+  image: Book,
   github: "https://github.com/KeniKT/BookShare",
   demo: "https://book-share-hazel.vercel.app/",
   featured: true
@@ -55,7 +56,7 @@ const Projects = () => {
       description: "A full-stack web application designed to streamline machinery inventory and maintenance tracking. Features role-based access control, allowing Admins to manage machinery data and assign maintenance tasks, while Technicians track and update their task progress in a structured workflow.",
       category: "web",
       technologies: ["Node.js", "Express.js", "SQLite", "EJS", "JavaScript"],
-      image: sampleimage,
+      image: Management,
       github: "https://github.com/KeniKT/machinery_management_system",
       demo: "https://demo-taskapp.com",
       featured: false
