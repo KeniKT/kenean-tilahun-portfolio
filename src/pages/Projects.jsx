@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ExternalLink, Github, Filter, Code, Eye, Star } from 'lucide-react';
-import sampleimage from "../assets/sample.png";
+
 import Book from "../assets/Book.png";
 import Management from "../assets/Managemat.png";
-import SIRA from "../assets/SIRA.png";
+import sira from "../assets/sira.png";
+
 
 // Custom hook for scroll animations (same as About page)
 const useScrollAnimation = (threshold = 0.1) => {
@@ -69,7 +70,7 @@ const Projects = () => {
       description: "A mobile freelancing platform that connects employers with skilled professionals. Built using Flutter and Firebase, the app features intuitive Talent and Employer profiles, seamless file uploads, and robust BLoC state management. Emphasizing scalability, performance, and security, SIRA ensures smooth collaboration and reliable data handling, making it a comprehensive solution for mobile-based freelancing.",
       category: "mobile",
       technologies: ["Flutter", "Firebase", "BLoC", "Dart"],
-      image: SIRA,
+      image: sira,
       github: "https://github.com/username/weatherapp",
       demo: "https://play.google.com/store/apps/details?id=com.weatherapp",
       featured: true
