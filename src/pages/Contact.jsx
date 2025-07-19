@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Mail, User, MessageSquare, Send, Github, Linkedin, Code, MapPin, Phone } from "lucide-react";
+import { Mail, User, MessageSquare, Send, Github, Linkedin, Code, MapPin, Phone, Clock, CheckCircle } from "lucide-react";
 import emailjs from "@emailjs/browser";
+import { motion } from 'framer-motion';
 
 // Custom hook for scroll animations with improved performance
 const useScrollAnimation = (threshold = 0.1) => {
@@ -282,26 +283,28 @@ const Contact = () => {
                   />
                 </div>
                 <div className="flex justify-center pt-2">
-                  <button
+                  {/* UPDATED SEND MESSAGE BUTTON - Applied Download CV styling */}
+                  <motion.button
                     type="submit"
                     disabled={isLoading}
-                    className="group relative bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold py-3 px-6 xs:px-8 rounded-lg hover:from-red-600 hover:to-pink-600 focus:from-red-600 focus:to-pink-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-w-[140px] xs:min-w-[160px] overflow-hidden focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800 min-h-[44px]"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-gradient-to-r from-red-900 to-red-800 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-lg font-medium hover:from-red-800 hover:to-red-700 transition-all duration-300 flex items-center justify-center gap-2 text-sm xs:text-base min-h-[44px] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ fontFamily: 'Livvic, sans-serif' }}
+                    aria-label="Send Message"
                   >
-                    <span className="absolute inset-0 bg-gradient-to-r from-red-600 to-pink-600 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300" />
-                    <span className="relative flex items-center justify-center space-x-2">
-                      {isLoading ? (
-                        <>
-                          <div className="w-3 h-3 xs:w-4 xs:h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <span className="text-sm xs:text-base">Sending...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-3 h-3 xs:w-4 xs:h-4 group-hover:translate-x-1 group-focus:translate-x-1 transition-transform duration-300" />
-                          <span className="text-sm xs:text-base">Send Message</span>
-                        </>
-                      )}
-                    </span>
-                  </button>
+                    {isLoading ? (
+                      <>
+                        <div className="w-4 h-4 xs:w-5 xs:h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 xs:w-5 xs:h-5" />
+                        <span>Send Message</span>
+                      </>
+                    )}
+                  </motion.button>
                 </div>
               </form>
             </div>
@@ -393,20 +396,25 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Enhanced 24 Hour Reply Message */}
+        {/* UPDATED 24 Hour Reply Message - Removed download arrow, added appropriate icon */}
         <div
           ref={replyAnimation.ref}
-          className={`text-center mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-20 transition-all duration-1000 ${
+          className={`flex justify-center transition-all duration-1000 ${
             replyAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="relative p-3 xs:p-4 bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-500/50 rounded-lg inline-block overflow-hidden shadow-lg animate-pulse-slow max-w-sm xs:max-w-md mx-auto">
-            <p className="text-red-400 text-sm xs:text-base font-medium flex items-center justify-center space-x-2 relative z-10">
-              <span className="text-base xs:text-lg animate-bounce-fast">⏰</span>
-              <span>I will reply within 24 hours</span>
-            </p>
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-pink-500 opacity-20 blur-xl animate-spin-slow" />
-          </div>
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-red-900 to-red-800 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-lg font-medium hover:from-red-800 hover:to-red-700 transition-all duration-300 flex items-center justify-center gap-2 text-sm xs:text-base min-h-[44px] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-900 cursor-default"
+            style={{ fontFamily: 'Livvic, sans-serif' }}
+            tabIndex={0}
+            role="status"
+            aria-label="Response time commitment"
+          >
+            <CheckCircle className="w-4 h-4 xs:w-5 xs:h-5 animate-pulse" />
+            <span>I will reply within 24 hours</span>
+          </motion.div>
         </div>
       </div>
     </div>
@@ -414,6 +422,4 @@ const Contact = () => {
 };
 
 export default Contact;
-
-
 
