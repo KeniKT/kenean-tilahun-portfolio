@@ -111,7 +111,7 @@ const Home = () => {
           className="flex flex-col lg:flex-row items-center justify-between gap-6 xs:gap-8 lg:gap-12"
         >
           {/* Enhanced Left Content with better mobile typography */}
-          <motion.div variants={fadeInLeft} className="w-full lg:w-1/2 text-center lg:text-left">
+          <motion.div variants={fadeInLeft} className="w-full lg:w-1/2 text-left">
             <motion.h1 
               variants={staggerItem}
               className="font-bold mb-3 xs:mb-4 sm:mb-6 leading-tight"
@@ -158,15 +158,15 @@ const Home = () => {
                 lineHeight: '1.75',
               }}
             >
-              I’m a passionate and versatile Software Engineer with hands-on experience in building full-stack web and mobile applications. With a strong foundation in backend development
+              I'm a passionate and versatile Software Engineer with hands-on experience in building full-stack web and mobile applications. With a strong foundation in backend development
               and a solid grasp of frontend technologies, I specialize in creating scalable, user-centered digital solutions. From intuitive interfaces to robust system architectures,
-              I’m driven to craft software that is not only functional but also meaningful and impactful. My work spans frameworks like React, Flutter, and Node.js, and I thrive on
+              I'm driven to craft software that is not only functional but also meaningful and impactful. My work spans frameworks like React, Flutter, and Node.js, and I thrive on
               turning ideas into real-world products that improve lives.
             </motion.p>
 
             <motion.div 
               variants={staggerItem}
-              className="flex flex-col xs:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
+              className="flex flex-col xs:flex-row gap-3 sm:gap-4 justify-start"
             >
               <motion.button 
                 whileHover={{ scale: 1.05 }}
@@ -227,7 +227,7 @@ const Home = () => {
         </motion.div>
 
         {/* Enhanced Sections with scroll animations - Better mobile spacing */}
-        <div className="mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-20 space-y-8 xs:space-y-10 sm:space-y-12 md:space-y-14 lg:space-y-18">
+        <div className="mt-16 xs:mt-20 sm:mt-24 md:mt-28 lg:mt-32 space-y-16 xs:space-y-20 sm:space-y-24 md:space-y-28 lg:space-y-32">
           {/* About Section */}
           <motion.div
             ref={aboutAnimation.ref}
