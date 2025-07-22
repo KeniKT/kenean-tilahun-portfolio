@@ -226,6 +226,11 @@ const Projects = () => {
 const ProjectCard = ({ project, index, isVisible }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  const toggleDescription = () => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
 
   return (
     <article
@@ -308,8 +313,8 @@ const ProjectCard = ({ project, index, isVisible }) => {
         >
           {project.title}
         </h3>
-        {/* MAIN CHANGE: Added text-left class and removed line-clamp for better left alignment */}
-        <p className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-sm lg:text-base xl:text-lg mb-3 xs:mb-3.5 sm:mb-4 md:mb-3.5 lg:mb-4 group-hover:text-gray-200 group-focus-within:text-gray-200 transition-all duration-300 leading-relaxed text-left" style={{ fontFamily: 'Livvic, sans-serif' }}>
+        {/* MAIN CHANGE: Added hover:line-clamp-none to reveal full text on hover */}
+        <p className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-sm lg:text-base xl:text-lg mb-3 xs:mb-3.5 sm:mb-4 md:mb-3.5 lg:mb-4 group-hover:text-gray-200 group-focus-within:text-gray-200 transition-all duration-300 leading-relaxed text-left line-clamp-4 hover:line-clamp-none" style={{ fontFamily: 'Livvic, sans-serif' }}>
           {project.description}
         </p>
 
