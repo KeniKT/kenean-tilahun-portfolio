@@ -149,7 +149,7 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white py-8 xs:py-10 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden" style={{ fontFamily: 'Livvic, sans-serif' }}>
+    <div className="min-h-screen bg-slate-900 text-white py-8 xs:py-10 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden" style={{ fontFamily: "'Roboto', sans-serif" }}>
       {/* Optimized Background Elements - Reduced for mobile performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-8 xs:top-10 sm:top-20 left-3 xs:left-5 sm:left-10 w-32 h-32 xs:w-48 xs:h-48 sm:w-72 sm:h-72 bg-gradient-to-r from-red-900/20 to-red-600/20 rounded-full blur-3xl animate-pulse" />
@@ -164,11 +164,11 @@ const Contact = () => {
             headerAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 bg-gradient-to-r from-white via-red-200 to-red-400 bg-clip-text text-transparent leading-tight" style={{ fontFamily: 'Literata, serif' }}>
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 bg-gradient-to-r from-white via-red-200 to-red-400 bg-clip-text text-transparent leading-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
             Contact <span className="bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent">Me</span>
           </h1>
           <div className="w-12 xs:w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-red-900 to-red-600 mx-auto mb-3 xs:mb-4 sm:mb-6 rounded-full" />
-          <p className="text-gray-300 text-sm xs:text-base sm:text-lg lg:text-xl max-w-xs xs:max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2 xs:px-4" style={{ fontFamily: 'Livvic, sans-serif' }}>
+          <p className="text-gray-300 text-sm xs:text-base sm:text-lg lg:text-xl max-w-xs xs:max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2 xs:px-4" style={{ fontFamily: "'Roboto', sans-serif" }}>
             Ready to start your next project? Let's collaborate and bring your ideas to life
           </p>
         </div>
@@ -184,7 +184,7 @@ const Contact = () => {
             }`}
           >
             <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-xl xs:rounded-2xl sm:rounded-3xl p-4 xs:p-6 sm:p-8 lg:p-10 border border-slate-700/50 shadow-2xl">
-              <h2 className="text-xl xs:text-2xl sm:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 text-center bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent" style={{ fontFamily: 'Literata, serif' }}>
+              <h2 className="text-xl xs:text-2xl sm:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 text-center bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent" style={{ fontFamily: "'Poppins', sans-serif" }}>
                 Send Message
               </h2>
 
@@ -290,7 +290,7 @@ const Contact = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="bg-gradient-to-r from-red-900 to-red-800 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-lg font-medium hover:from-red-800 hover:to-red-700 transition-all duration-300 flex items-center justify-center gap-2 text-sm xs:text-base min-h-[44px] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed"
-                    style={{ fontFamily: 'Livvic, sans-serif' }}
+                    style={{ fontFamily: "'Roboto', sans-serif" }}
                     aria-label="Send Message"
                   >
                     {isLoading ? (
@@ -318,7 +318,7 @@ const Contact = () => {
             }`}
           >
             <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-xl xs:rounded-2xl sm:rounded-3xl p-4 xs:p-6 sm:p-8 lg:p-10 border border-slate-700/50 shadow-2xl h-full">
-              <h2 className="text-xl xs:text-2xl sm:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 text-center bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent" style={{ fontFamily: 'Literata, serif' }}>
+              <h2 className="text-xl xs:text-2xl sm:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 text-center bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent" style={{ fontFamily: "'Poppins', sans-serif" }}>
                 Connect With Me
               </h2>
 
@@ -407,7 +407,7 @@ const Contact = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-gradient-to-r from-red-900 to-red-800 text-white px-6 xs:px-8 py-3 xs:py-4 rounded-lg font-medium hover:from-red-800 hover:to-red-700 transition-all duration-300 flex items-center justify-center gap-2 text-sm xs:text-base min-h-[44px] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-900 cursor-default"
-            style={{ fontFamily: 'Livvic, sans-serif' }}
+            style={{ fontFamily: "'Roboto', sans-serif" }}
             tabIndex={0}
             role="status"
             aria-label="Response time commitment"
