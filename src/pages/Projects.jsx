@@ -17,7 +17,7 @@ const useScrollAnimation = (threshold = 0.1) => {
           setIsVisible(true);
         }
       },
-      { 
+      {
         threshold,
         rootMargin: '50px' // Trigger animation earlier for better UX
       }
@@ -35,7 +35,7 @@ const useScrollAnimation = (threshold = 0.1) => {
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
-  
+
   // Scroll animation refs
   const headerAnimation = useScrollAnimation(0.3);
   const filtersAnimation = useScrollAnimation(0.2);
@@ -77,7 +77,7 @@ const Projects = () => {
       demo: "https://play.google.com/store/apps/details?id=com.weatherapp",
       featured: true
     },
-    
+
   ];
 
   const categories = [
@@ -87,9 +87,9 @@ const Projects = () => {
     { key: 'ui', label: 'UI/UX Design', shortLabel: 'UI/UX' }
   ];
 
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+  const filteredProjects = activeFilter === 'all'
+    ? projects
+    : projects.filter(project => project.category === activeFilter );
 
   // Function to handle navigation to contact page
   const handleContactNavigation = () => {
@@ -110,7 +110,7 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white py-4 xs:py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 relative overflow-hidden" style={{ fontFamily: 'Livvic, sans-serif' }}>
+    <div className="min-h-screen bg-slate-900 text-white py-4 xs:py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 relative overflow-hidden" style={{ fontFamily: "'Roboto', sans-serif" }}>
       {/* Optimized Background Elements - Reduced for mobile performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-4 xs:top-6 sm:top-8 md:top-12 lg:top-16 left-2 xs:left-4 sm:left-6 md:left-8 lg:left-10 w-16 h-16 xs:w-20 xs:h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 xl:w-72 xl:h-72 bg-gradient-to-r from-red-900/20 to-red-600/20 rounded-full blur-3xl animate-pulse" />
@@ -126,11 +126,11 @@ const Projects = () => {
             headerAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 xs:mb-3 sm:mb-4 md:mb-5 lg:mb-6 bg-gradient-to-r from-white via-red-200 to-red-400 bg-clip-text text-transparent leading-tight" style={{ fontFamily: 'Literata, serif' }}>
+          <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 xs:mb-3 sm:mb-4 md:mb-5 lg:mb-6 bg-gradient-to-r from-white via-red-200 to-red-400 bg-clip-text text-transparent leading-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
             My <span className="bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent">Projects</span>
           </h1>
           <div className="w-8 xs:w-12 sm:w-16 md:w-20 lg:w-24 xl:w-32 h-1 bg-gradient-to-r from-red-900 to-red-600 mx-auto mb-2 xs:mb-3 sm:mb-4 md:mb-6 lg:mb-8 rounded-full" />
-          <p className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl max-w-xs xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto leading-relaxed px-2 xs:px-4" style={{ fontFamily: 'Livvic, sans-serif' }}>
+          <p className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl max-w-xs xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl mx-auto leading-relaxed px-2 xs:px-4">
             Explore my latest work and creative projects that showcase my skills and passion for development
           </p>
         </div>
@@ -152,7 +152,7 @@ const Projects = () => {
                   ? 'bg-gradient-to-r from-red-900 to-red-800 text-white shadow-lg shadow-red-900/25 border border-red-700/50'
                   : 'bg-slate-800/50 border border-slate-700/50 text-gray-300 hover:bg-slate-700/50 hover:border-slate-600/50 focus:bg-slate-700/50 focus:border-slate-600/50'
               }`}
-              style={{ transitionDelay: `${index * 100}ms`, fontFamily: 'Livvic, sans-serif' }}
+              style={{ transitionDelay: `${index * 100}ms` }}
               aria-label={`Filter projects by ${category.label}`}
               role="tab"
               aria-selected={activeFilter === category.key}
@@ -164,10 +164,10 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Enhanced Projects Grid with better mobile layout */}
+        {/* Enhanced Projects Grid with 3-column layout */}
         <div
           ref={projectsAnimation.ref}
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-6 sm:gap-8 md:gap-6 lg:gap-8 xl:gap-10 mb-8 xs:mb-10 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24 transition-all duration-1000 ${
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 xs:mb-10 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24 transition-all duration-1000 ${
             projectsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
           role="region"
@@ -185,8 +185,8 @@ const Projects = () => {
             ctaAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div 
-            className="bg-gradient-to-r from-slate-800/70 to-slate-700/70 backdrop-blur-sm rounded-xl px-3 py-3 xs:px-4 xs:py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 border border-slate-700/50 shadow-xl relative overflow-hidden max-w-4xl w-full group hover:scale-105 focus-within:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-red-900/20 focus-within:shadow-2xl focus-within:shadow-red-900/20 cursor-pointer" 
+          <div
+            className="bg-gradient-to-r from-slate-800/70 to-slate-700/70 backdrop-blur-sm rounded-xl px-3 py-3 xs:px-4 xs:py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 border border-slate-700/50 shadow-xl relative overflow-hidden max-w-4xl w-full group hover:scale-105 focus-within:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-red-900/20 focus-within:shadow-2xl focus-within:shadow-red-900/20 cursor-pointer"
             onClick={handleContactNavigation}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -202,16 +202,13 @@ const Projects = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-red-900/10 to-red-600/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-500 rounded-xl" />
             <div className="absolute top-1 right-1 w-6 h-6 xs:w-8 xs:h-8 sm:w-12 sm:h-12 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-full blur-xl animate-pulse opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-500" />
             <div className="absolute bottom-1 left-1 w-4 h-4 xs:w-6 xs:h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-xl animate-pulse opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-500" style={{ animationDelay: '0.5s' }} />
-            
+
             <div className="relative z-10 flex flex-col xs:flex-row items-center justify-center gap-2 xs:gap-3 sm:gap-4 text-center xs:text-left">
-              <h2 className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent group-hover:from-red-300 group-hover:to-red-500 group-focus-within:from-red-300 group-focus-within:to-red-500 transition-all duration-300" style={{ fontFamily: 'Literata, serif' }}>
+              <h2 className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-bold bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent group-hover:from-red-300 group-hover:to-red-500 group-focus-within:from-red-300 group-focus-within:to-red-500 transition-all duration-300" style={{ fontFamily: "'Poppins', sans-serif" }}>
                 Like What You See?
               </h2>
               <span className="hidden xs:inline text-gray-400 text-xs xs:text-sm sm:text-base">•</span>
-              <p 
-                className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-lg group-hover:text-red-300 group-focus-within:text-red-300 transition-all duration-300 flex-1" 
-                style={{ fontFamily: 'Livvic, sans-serif' }}
-              >
+              <p className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-lg group-hover:text-red-300 group-focus-within:text-red-300 transition-all duration-300 flex-1">
                 Let's work together to bring your ideas to life.
               </p>
             </div>
@@ -222,7 +219,7 @@ const Projects = () => {
   );
 };
 
-// Enhanced ProjectCard component with improved accessibility and mobile optimization
+// Perfectly Symmetric ProjectCard component
 const ProjectCard = ({ project, index, isVisible }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -234,30 +231,30 @@ const ProjectCard = ({ project, index, isVisible }) => {
 
   return (
     <article
-      className={`bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm rounded-xl xs:rounded-2xl lg:rounded-3xl overflow-hidden border border-slate-700/50 shadow-2xl relative group transition-all duration-800 hover:scale-[1.02] focus-within:scale-[1.02] hover:shadow-2xl hover:shadow-red-900/20 focus-within:shadow-2xl focus-within:shadow-red-900/20 hover:border-red-700/30 focus-within:border-red-700/30 ${
+      className={`bg-gradient-to-br from-slate-800/60 to-slate-700/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 shadow-2xl relative group transition-all duration-800 hover:scale-[1.02] focus-within:scale-[1.02] hover:shadow-2xl hover:shadow-red-900/20 focus-within:shadow-2xl focus-within:shadow-red-900/20 hover:border-red-700/30 focus-within:border-red-700/30 w-full h-full flex flex-col ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
-      style={{ transitionDelay: `${index * 150}ms`, fontFamily: 'Livvic, sans-serif' }}
+      style={{ transitionDelay: `${index * 150}ms` }}
       role="article"
       aria-labelledby={`project-title-${project.id}`}
     >
       {/* Featured Badge */}
       {project.featured && (
-        <div className="absolute top-2 xs:top-3 lg:top-4 right-2 xs:right-3 lg:right-4 z-20 bg-gradient-to-r from-red-900 to-red-800 text-white px-2 py-0.5 xs:px-2 xs:py-1 lg:px-3 lg:py-1 rounded-full text-xs font-medium flex items-center gap-1 shadow-lg" style={{ fontFamily: 'Livvic, sans-serif' }}>
-          <Star className="w-2.5 h-2.5 xs:w-3 xs:h-3 fill-current" />
-          <span className="hidden xs:inline">Featured</span>
+        <div className="absolute top-4 right-4 z-20 bg-gradient-to-r from-red-900 to-red-800 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 shadow-lg">
+          <Star className="w-3 h-3 fill-current" />
+          <span>Featured</span>
         </div>
       )}
 
       {/* Enhanced background gradient on hover */}
-      <div className="absolute inset-0 bg-gradient-to-r from-red-900/10 to-red-600/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-500 rounded-xl xs:rounded-2xl lg:rounded-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-r from-red-900/10 to-red-600/10 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-500 rounded-2xl" />
 
-      {/* Optimized Project Image with lazy loading */}
-      <div className="relative overflow-hidden">
+      {/* Project Image Section - Fixed Height */}
+      <div className="relative overflow-hidden flex-shrink-0">
         <div className="aspect-[16/10] bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center">
           {!imageError ? (
-            <img 
-              src={project.image} 
+            <img
+              src={project.image}
               alt={`Screenshot of ${project.title} project`}
               className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-focus-within:scale-110 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
@@ -268,104 +265,114 @@ const ProjectCard = ({ project, index, isVisible }) => {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400" role="img" aria-label="Project image placeholder">
-              <Code className="w-6 h-6 xs:w-8 xs:h-8 lg:w-12 lg:h-12" />
+              <Code className="w-12 h-12" />
             </div>
           )}
-          
+
           {/* Loading skeleton */}
           {!imageLoaded && !imageError && (
             <div className="absolute inset-0 bg-gradient-to-r from-slate-700 via-slate-600 to-slate-700 animate-pulse" />
           )}
-          
+
           {/* Image overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-all duration-500" />
-          
-          {/* Enhanced hover overlay with better touch targets */}
-          <div className="absolute inset-0 flex items-center justify-center gap-2 xs:gap-3 lg:gap-4 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-all duration-500">
+
+          {/* Hover overlay with action buttons */}
+          <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-all duration-500 z-10">
             <a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-black/80 backdrop-blur-sm text-white p-2.5 xs:p-3 lg:p-4 rounded-full hover:bg-red-900/80 focus:bg-red-900/80 transition-all duration-300 transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-black/80 min-w-[40px] min-h-[40px] xs:min-w-[44px] xs:min-h-[44px] flex items-center justify-center"
+              className="bg-slate-900/80 backdrop-blur-sm text-white p-3 rounded-full hover:bg-red-900/80 focus:bg-red-900/80 transition-all duration-300 transform hover:scale-110 focus:scale-110 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-transparent"
               aria-label={`View ${project.title} source code on GitHub`}
             >
-              <Github className="w-3.5 h-3.5 xs:w-4 xs:h-4 lg:w-5 lg:h-5" />
+              <Github className="w-5 h-5" />
             </a>
             <a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-black/80 backdrop-blur-sm text-white p-2.5 xs:p-3 lg:p-4 rounded-full hover:bg-red-900/80 focus:bg-red-900/80 transition-all duration-300 transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-black/80 min-w-[40px] min-h-[40px] xs:min-w-[44px] xs:min-h-[44px] flex items-center justify-center"
+              className="bg-slate-900/80 backdrop-blur-sm text-white p-3 rounded-full hover:bg-red-900/80 focus:bg-red-900/80 transition-all duration-300 transform hover:scale-110 focus:scale-110 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-transparent"
               aria-label={`View ${project.title} live demo`}
             >
-              <Eye className="w-3.5 h-3.5 xs:w-4 xs:h-4 lg:w-5 lg:h-5" />
+              <ExternalLink className="w-5 h-5" />
             </a>
           </div>
         </div>
       </div>
 
-      {/* Enhanced Project Content with better mobile typography and LEFT-ALIGNED descriptions */}
-      <div className="p-3 xs:p-4 sm:p-5 md:p-4 lg:p-6 xl:p-8 relative z-10">
-        <h3 
-          id={`project-title-${project.id}`}
-          className="text-base xs:text-lg sm:text-xl md:text-lg lg:text-xl xl:text-2xl font-bold mb-2 xs:mb-2.5 sm:mb-3 md:mb-2.5 lg:mb-3 text-white group-hover:text-red-400 group-focus-within:text-red-400 transition-all duration-300 leading-tight text-left" 
-          style={{ fontFamily: 'Literata, serif' }}
-        >
-          {project.title}
-        </h3>
-        {/* MAIN CHANGE: Added hover:line-clamp-none to reveal full text on hover */}
-        <p className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-sm lg:text-base xl:text-lg mb-3 xs:mb-3.5 sm:mb-4 md:mb-3.5 lg:mb-4 group-hover:text-gray-200 group-focus-within:text-gray-200 transition-all duration-300 leading-relaxed text-left line-clamp-4 hover:line-clamp-none" style={{ fontFamily: 'Livvic, sans-serif' }}>
-          {project.description}
-        </p>
+      {/* Project Content Section - Flexible Height with Consistent Padding */}
+      <div className="p-6 flex flex-col flex-grow space-y-4">
+        {/* Project Title */}
+        <div>
+          <h3
+            id={`project-title-${project.id}`}
+            className="text-xl font-bold text-white group-hover:text-red-300 group-focus-within:text-red-300 transition-all duration-300 leading-tight"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            {project.title}
+          </h3>
+        </div>
 
-        {/* Enhanced Technologies with better mobile layout */}
-        <div className="flex flex-wrap gap-1 xs:gap-1.5 sm:gap-2 md:gap-1.5 lg:gap-2 xl:gap-3 mb-3 xs:mb-3.5 sm:mb-4 md:mb-3.5 lg:mb-4">
-          {project.technologies.slice(0, 4).map((tech, techIndex) => (
-            <span 
-              key={techIndex} 
-              className="bg-gradient-to-r from-slate-700/80 to-slate-600/80 backdrop-blur-sm text-red-400 px-1.5 py-0.5 xs:px-2 xs:py-1 sm:px-3 sm:py-1.5 md:px-2.5 md:py-1 lg:px-3 lg:py-1.5 xl:px-4 xl:py-2 rounded-full text-xs xs:text-xs sm:text-sm md:text-xs lg:text-sm xl:text-base font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-red-900/40 hover:to-red-800/40 hover:scale-105 focus:bg-gradient-to-r focus:from-red-900/40 focus:to-red-800/40 focus:scale-105 border border-slate-600/50 hover:border-red-500/50 focus:border-red-500/50" 
-              style={{ fontFamily: 'Livvic, sans-serif' }}
-              tabIndex={0}
-              role="button"
-              aria-label={`Technology: ${tech}`}
+        {/* Project Description - Consistent Height */}
+        <div className="flex-grow">
+          <div className="relative">
+            <p className="text-gray-400 text-sm leading-relaxed transition-all duration-300 overflow-hidden"
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: isDescriptionExpanded ? 'none' : '3',
+                WebkitBoxOrient: 'vertical',
+                textOverflow: 'ellipsis'
+              }}
+            >
+              {project.description}
+            </p>
+            {project.description.length > 150 && (
+              <button
+                onClick={toggleDescription}
+                className="text-red-400 hover:text-red-300 focus:text-red-300 text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800 rounded px-1 mt-2"
+                aria-label={isDescriptionExpanded ? 'Show less description' : 'Show more description'}
+              >
+                {isDescriptionExpanded ? 'Show Less' : 'Read More'}
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Technology Tags - Consistent Spacing */}
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech, techIndex) => (
+            <span
+              key={techIndex}
+              className="bg-slate-700/50 text-gray-300 px-3 py-1 rounded-lg text-sm font-medium border border-slate-600/30 hover:bg-red-900/30 hover:border-red-700/50 hover:text-red-300 transition-all duration-300 backdrop-blur-sm"
+              style={{ transitionDelay: `${techIndex * 50}ms` }}
             >
               {tech}
             </span>
           ))}
-          {project.technologies.length > 4 && (
-            <span 
-              className="bg-gradient-to-r from-slate-700/80 to-slate-600/80 backdrop-blur-sm text-red-400 px-1.5 py-0.5 xs:px-2 xs:py-1 sm:px-3 sm:py-1.5 md:px-2.5 md:py-1 lg:px-3 lg:py-1.5 xl:px-4 xl:py-2 rounded-full text-xs xs:text-xs sm:text-sm md:text-xs lg:text-sm xl:text-base font-medium border border-slate-600/50" 
-              style={{ fontFamily: 'Livvic, sans-serif' }}
-              aria-label={`${project.technologies.length - 4} more technologies`}
-            >
-              +{project.technologies.length - 4}
-            </span>
-          )}
         </div>
 
-        {/* Enhanced Action Buttons with better touch targets */}
-        <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-3 lg:gap-4 xl:gap-5 pt-2 xs:pt-2.5 sm:pt-3 md:pt-2.5 lg:pt-3 border-t border-slate-600/30">
+        {/* Action Buttons - Fixed at Bottom */}
+        <div className="flex gap-3 pt-2">
           <a
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 xs:gap-1.5 sm:gap-2 md:gap-1.5 lg:gap-2 xl:gap-3 text-gray-300 hover:text-red-400 focus:text-red-400 transition-all duration-300 hover:scale-105 focus:scale-105 group/btn bg-slate-700/50 px-2 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-2.5 md:px-3 md:py-2 lg:px-4 lg:py-2.5 rounded-lg hover:bg-red-900/20 focus:bg-red-900/20 border border-slate-600/50 hover:border-red-500/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800 min-h-[36px] xs:min-h-[40px] lg:min-h-[44px] flex-1 justify-center" 
-            style={{ fontFamily: 'Livvic, sans-serif' }}
-            aria-label={`View ${project.title} source code`}
+            className="flex-1 bg-slate-700/50 hover:bg-red-900/50 focus:bg-red-900/50 text-gray-300 hover:text-white focus:text-white px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 border border-slate-600/30 hover:border-red-700/50 focus:border-red-700/50 backdrop-blur-sm transform hover:scale-[1.02] focus:scale-[1.02] hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800"
+            aria-label={`View ${project.title} source code on GitHub`}
           >
-            <Github className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 md:w-4 md:h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6 transition-transform duration-300 group-hover/btn:rotate-12 group-focus/btn:rotate-12" />
-            <span className="text-xs xs:text-xs sm:text-sm md:text-xs lg:text-sm xl:text-base font-medium">Code</span>
+            <Github className="w-4 h-4" />
+            <span>Code</span>
           </a>
           <a
             href={project.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 xs:gap-1.5 sm:gap-2 md:gap-1.5 lg:gap-2 xl:gap-3 text-gray-300 hover:text-red-400 focus:text-red-400 transition-all duration-300 hover:scale-105 focus:scale-105 group/btn bg-slate-700/50 px-2 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-2.5 md:px-3 md:py-2 lg:px-4 lg:py-2.5 rounded-lg hover:bg-red-900/20 focus:bg-red-900/20 border border-slate-600/50 hover:border-red-500/50 focus:border-red-500/50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800 min-h-[36px] xs:min-h-[40px] lg:min-h-[44px] flex-1 justify-center" 
-            style={{ fontFamily: 'Livvic, sans-serif' }}
+            className="flex-1 bg-gradient-to-r from-red-900/80 to-red-800/80 hover:from-red-800 hover:to-red-700 focus:from-red-800 focus:to-red-700 text-white px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 border border-red-700/50 hover:border-red-600/50 focus:border-red-600/50 backdrop-blur-sm transform hover:scale-[1.02] focus:scale-[1.02] hover:shadow-lg focus:shadow-lg shadow-red-900/25 hover:shadow-red-900/40 focus:shadow-red-900/40 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800"
             aria-label={`View ${project.title} live demo`}
           >
-            <ExternalLink className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 md:w-4 md:h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6 transition-transform duration-300 group-hover/btn:rotate-12 group-focus/btn:rotate-12" />
-            <span className="text-xs xs:text-xs sm:text-sm md:text-xs lg:text-sm xl:text-base font-medium">Demo</span>
+            <Eye className="w-4 h-4" />
+            <span>Demo</span>
           </a>
         </div>
       </div>
