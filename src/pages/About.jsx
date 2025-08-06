@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Code, Database, Globe, Smartphone, Award, Users, Coffee, Star, Lightbulb } from 'lucide-react';
+import { Award, Users, Coffee, Star, Lightbulb, Code } from 'lucide-react';
 
 // Custom hook for scroll animations with improved performance
 const useScrollAnimation = (threshold = 0.1) => {
@@ -63,64 +63,6 @@ const useCountUp = (end, duration = 2000) => {
 const About = () => {
   const headerAnimation = useScrollAnimation(0.3);
   const storyAnimation = useScrollAnimation(0.2);
-  const skillsAnimation = useScrollAnimation(0.2);
-  const statsAnimation = useScrollAnimation(0.3);
-
-  // Updated skills data with individual percentages for each skill (85-90% range)
-  const skills = [
-    {
-      logo: <Code className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-gray-400" />,
-      name: "Frontend Development",
-      detailedSkills: [
-        { name: "React", percentage: 89 },
-        { name: "Vue.js", percentage: 87 },
-        { name: "JavaScript", percentage: 90 },
-        { name: "HTML5", percentage: 88 },
-        { name: "CSS3", percentage: 86 },
-        { name: "Modern Frameworks", percentage: 85 }
-      ],
-      color: "from-gray-600 to-gray-500"
-    },
-    {
-      logo: <Database className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-gray-400" />,
-      name: "Backend Development",
-      detailedSkills: [
-        { name: "Node.js", percentage: 87 },
-        { name: "Python", percentage: 85 },
-        { name: "PHP", percentage: 89 },
-        { name: "Database Management Systems", percentage: 86 }
-      ],
-      color: "from-gray-600 to-gray-500"
-    },
-    {
-      logo: <Globe className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-gray-400" />,
-      name: "Web Technologies",
-      detailedSkills: [
-        { name: "Full-stack Development", percentage: 88 },
-        { name: "Responsive Solutions", percentage: 90 },
-        { name: "Scalable Solutions", percentage: 85 }
-      ],
-      color: "from-gray-600 to-gray-500"
-    },
-    {
-      logo: <Smartphone className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-gray-400" />,
-      name: "Mobile Development",
-      detailedSkills: [
-        { name: "Cross-platform Mobile Apps", percentage: 86 },
-        { name: "React Native", percentage: 88 },
-        { name: "Flutter", percentage: 85 }
-      ],
-      color: "from-gray-600 to-gray-500"
-    }
-  ];
-
-  // Stats data
-  const stats = [
-    { number: 3, label: "Years Experience", icon: <Award className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6" /> },
-    { number: 10, label: "Projects Completed", icon: <Star className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6" /> },
-    { number: 5, label: "Happy Clients", icon: <Users className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6" /> },
-    { number: 18, label: "Cups of Coffee", icon: <Coffee className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6" /> }
-  ];
 
   return (
     <div className="min-h-screen bg-slate-900 text-white py-8 xs:py-10 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden" style={{ fontFamily: "'Roboto', sans-serif" }}>
@@ -143,7 +85,7 @@ const About = () => {
           </h1>
           <div className="w-12 xs:w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-red-900 to-red-600 mx-auto mb-3 xs:mb-4 sm:mb-6 rounded-full" />
           <p className="text-gray-300 text-sm xs:text-base sm:text-lg lg:text-xl max-w-xs xs:max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-2 xs:px-4" style={{ fontFamily: "'Roboto', sans-serif" }}>
-            Learn more about my journey, skills, and passion for creating exceptional digital experiences
+            Learn more about my journey and passion for creating exceptional digital experiences
           </p>
         </div>
 
@@ -226,157 +168,13 @@ I'm always exploring new technologies, contributing to open-source, and looking 
             </div>
           </div>
         </div>
-
-        {/* Enhanced Skills Section with left-aligned text */}
-        <div
-          ref={skillsAnimation.ref}
-          className={`mb-12 xs:mb-14 sm:mb-16 md:mb-20 lg:mb-24 transition-all duration-1000 ${
-            skillsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          <h2 className="text-xl xs:text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 xs:mb-10 sm:mb-12 lg:mb-16" style={{ fontFamily: "'Poppins', sans-serif" }}>
-            My <span className="bg-gradient-to-r from-red-900 to-red-600 bg-clip-text text-transparent">Skills</span>
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-6 sm:gap-8 max-w-6xl mx-auto">
-            {skills.map((skill, index) => (
-              <SkillCard key={index} skill={skill} index={index} isVisible={skillsAnimation.isVisible} />
-            ))}
-          </div>
-        </div>
-
-        {/* Enhanced Stats Section with better mobile layout */}
-        <div
-          ref={statsAnimation.ref}
-          className={`grid grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-4 sm:gap-6 lg:gap-8 transition-all duration-1000 ${
-            statsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          {stats.map((stat, index) => (
-            <StatCard key={index} stat={stat} index={index} isVisible={statsAnimation.isVisible} />
-          ))}
-        </div>
       </div>
     </div>
   );
 };
 
-// Enhanced SkillCard component with left-aligned text
-const SkillCard = ({ skill, index, isVisible }) => {
-  const [animatedSkills, setAnimatedSkills] = useState({});
 
-  useEffect(() => {
-    if (isVisible) {
-      const timer = setTimeout(() => {
-        const animated = {};
-        skill.detailedSkills.forEach((individualSkill, skillIndex) => {
-          const key = `${skill.name}-${skillIndex}`;
-          setTimeout(() => {
-            animated[key] = individualSkill.percentage;
-            setAnimatedSkills(prev => ({ ...prev, [key]: individualSkill.percentage }));
-          }, skillIndex * 150);
-        });
-      }, index * 200);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isVisible, skill, index]);
-
-  return (
-    <div
-      className={`bg-slate-800/50 backdrop-blur-sm rounded-xl xs:rounded-2xl p-4 xs:p-6 sm:p-8 border border-slate-700/50 shadow-xl relative overflow-hidden group transition-all duration-800 h-full flex flex-col hover:scale-105 focus-within:scale-105 cursor-pointer min-h-[44px] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800 ${
-        isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-      }`}
-      style={{ transitionDelay: `${index * 150}ms`, fontFamily: "'Roboto', sans-serif" }}
-      tabIndex={0}
-      role="button"
-      aria-label={`View ${skill.name} skills`}
-    >
-      {/* Background gradient on hover */}
-      <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-10 group-focus:opacity-10 transition-opacity duration-300 rounded-xl xs:rounded-2xl`} />
-
-      <div className="relative z-10 flex-1">
-        <div className="flex items-center space-x-2 xs:space-x-3 sm:space-x-4 mb-4 xs:mb-6">
-          <div className="flex-shrink-0 text-white group-hover:scale-110 group-focus:scale-110 transition-transform duration-300">
-            {skill.logo}
-          </div>
-          <h3 className="text-lg xs:text-xl sm:text-2xl font-bold text-red-400 leading-tight text-left" style={{ fontFamily: "'Poppins', sans-serif" }}>
-            {skill.name}
-          </h3>
-        </div>
-
-        <div className="space-y-3 xs:space-y-4">
-          {skill.detailedSkills.map((individualSkill, skillIndex) => {
-            const skillKey = `${skill.name}-${skillIndex}`;
-            const animatedPercentage = animatedSkills[skillKey] || 0;
-
-            return (
-              <div key={skillIndex} className="space-y-1.5 xs:space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-slate-300 text-xs xs:text-sm sm:text-base font-medium truncate pr-2 text-left" style={{ fontFamily: "'Roboto', sans-serif" }}>
-                    {individualSkill.name}
-                  </span>
-                  <span className="text-red-400 text-xs xs:text-sm sm:text-base font-bold flex-shrink-0" style={{ fontFamily: "'Roboto', sans-serif" }}>
-                    {individualSkill.percentage}%
-                  </span>
-                </div>
-                <div className="w-full bg-slate-700 rounded-full h-1.5 xs:h-2 sm:h-2.5">
-                  <div
-                    className={`h-full rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out`}
-                    style={{
-                      width: `${animatedPercentage}%`,
-                      boxShadow: '0 0 10px rgba(107, 114, 128, 0.5)'
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Enhanced StatCard component with better mobile optimization
-const StatCard = ({ stat, index, isVisible }) => {
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const { count, startCounting } = useCountUp(stat.number, 2000);
-
-  useEffect(() => {
-    if (isVisible && !hasAnimated) {
-      setTimeout(() => {
-        startCounting();
-        setHasAnimated(true);
-      }, index * 150);
-    }
-  }, [isVisible, hasAnimated, startCounting, index]);
-
-  const displayCount = stat.label === "Cups of Coffee" ? `${count}+` : count;
-
-  return (
-    <div
-      className={`bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm p-3 xs:p-4 sm:p-6 lg:p-8 rounded-lg xs:rounded-xl sm:rounded-2xl text-center border border-slate-700/50 shadow-xl relative overflow-hidden group transition-all duration-800 hover:scale-105 focus:scale-105 cursor-pointer min-h-[44px] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-800 ${
-        isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-      }`}
-      style={{ transitionDelay: `${index * 100}ms`, fontFamily: "'Roboto', sans-serif" }}
-      tabIndex={0}
-      role="button"
-      aria-label={`${displayCount} ${stat.label}`}
-    >
-      {/* Animated background with gray colors */}
-      <div className="absolute inset-0 bg-gradient-to-r from-gray-700/20 to-gray-500/20 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 rounded-lg xs:rounded-xl sm:rounded-2xl" />
-
-      <div className="text-gray-400 mb-2 xs:mb-3 sm:mb-4 relative z-10 group-hover:rotate-12 group-focus:rotate-12 transition-transform duration-300 flex justify-center">
-        {stat.icon}
-      </div>
-      <div className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-400 mb-1 xs:mb-2 relative z-10" style={{ fontFamily: "'Poppins', sans-serif" }}>
-        {displayCount}
-      </div>
-      <p className="text-gray-300 group-hover:text-white group-focus:text-white transition-colors duration-300 relative z-10 text-xs xs:text-sm sm:text-base leading-tight" style={{ fontFamily: "'Roboto', sans-serif" }}>
-        {stat.label}
-      </p>
-    </div>
-  );
-};
 
 export default About;
+
+
