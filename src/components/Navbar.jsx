@@ -9,6 +9,8 @@ const Navbar = () => {
   const navItems = [
     { name: 'HOME', path: '/' },
     { name: 'ABOUT', path: '/about' },
+    { name: 'SKILLS', path: '/skills' },
+    { name: 'EXPERIENCE', path: '/experience' },
     { name: 'PROJECTS', path: '/projects' },
     { name: 'CONTACT', path: '/contact' },
   ];
@@ -18,23 +20,23 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-slate-900 text-white py-4 px-6 relative">
+    <nav className="bg-slate-900 text-white py-4 px-6 relative z-50 flex-shrink-0" style={{ minHeight: 'auto' }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-r from-red-900 to-red-800 flex items-center justify-center rounded-lg">
+        <div className="flex items-center space-x-3 flex-shrink-0">
+          <div className="w-12 h-12 bg-gradient-to-r from-red-900 to-red-800 flex items-center justify-center rounded-lg flex-shrink-0">
             <span className="text-white font-bold text-xl">KT</span>
           </div>
-          <span className="text-xl font-bold">KENEAN TILAHUN</span>
+          <span className="text-xl font-bold whitespace-nowrap">KENEAN TILAHUN</span>
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-8 flex-shrink-0">
           {navItems.map((item) => (
             <Link
               key={item.name}
               to={item.path}
-              className={`text-sm font-medium transition-colors ${
+              className={`text-sm font-medium transition-colors whitespace-nowrap ${
                 location.pathname === item.path
                   ? 'text-red-400'
                   : 'text-white hover:text-red-400'
@@ -48,7 +50,7 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="md:hidden w-12 h-12 bg-gradient-to-r from-red-900 to-red-800 flex items-center justify-center rounded-lg"
+          className="md:hidden w-12 h-12 bg-gradient-to-r from-red-900 to-red-800 flex items-center justify-center rounded-lg flex-shrink-0"
         >
           {isMenuOpen ? (
             <X className="w-6 h-6 text-white" />
@@ -84,3 +86,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
