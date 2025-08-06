@@ -152,8 +152,8 @@ const Contact = () => {
     <div className="min-h-screen bg-slate-900 text-white py-8 xs:py-10 sm:py-12 md:py-16 lg:py-20 relative overflow-hidden" style={{ fontFamily: "'Roboto', sans-serif" }}>
       {/* Optimized Background Elements - Reduced for mobile performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-8 xs:top-10 sm:top-20 left-3 xs:left-5 sm:left-10 w-32 h-32 xs:w-48 xs:h-48 sm:w-72 sm:h-72 bg-gradient-to-r from-red-900/20 to-red-600/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-8 xs:bottom-10 sm:bottom-20 right-3 xs:right-5 sm:right-10 w-40 h-40 xs:w-64 xs:h-64 sm:w-96 sm:h-96 bg-gradient-to-r from-blue-900/20 to-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-6 xs:top-8 sm:top-10 md:top-20 left-3 xs:left-4 sm:left-5 md:left-10 w-32 h-32 xs:w-40 xs:h-40 sm:w-48 sm:h-48 md:w-72 md:h-72 bg-gradient-to-r from-red-900/20 to-red-600/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-6 xs:bottom-8 sm:bottom-10 md:bottom-20 right-3 xs:right-4 sm:right-5 md:right-10 w-40 h-40 xs:w-48 xs:h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-gradient-to-r from-blue-900/20 to-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 relative z-10">
@@ -173,8 +173,9 @@ const Contact = () => {
           </p>
         </div>
 
-        {/* Enhanced Two Main Boxes with better mobile layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-8 lg:gap-12 mb-8 xs:mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+        {/* Enhanced Two Main Boxes with better mobile layout and wider spacing */}
+        <div className="relative -mx-3 xs:-mx-4 sm:-mx-6 lg:-mx-8 px-3 xs:px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xs:gap-10 sm:gap-12 lg:gap-16 xl:gap-20 mb-8 xs:mb-10 sm:mb-12 md:mb-16 lg:mb-20 max-w-none">
           
           {/* Box 1: Enhanced Contact Form */}
           <div
@@ -394,6 +395,7 @@ const Contact = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         {/* UPDATED 24 Hour Reply Message - Removed download arrow, added appropriate icon */}
