@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { Download, Play } from 'lucide-react';
 import { motion, useInView, useAnimation } from 'framer-motion';
-import keneanImg from '/src/assets/kenean.png';
-import keneanResumePdf from '/src/assets/kenean_tilahun.pdf'; // Add this import
+import keneanImg from '../assets/kenean.png';
+import keneanResumePdf from '../assets/kenean_tilahun.pdf';
 import About from './About';
+import Skills from './Skills'; // Import Skills component
+import Experience from './Experience'; // Import Experience component
 import Projects from './Projects';
 import Contact from './Contact';
 
@@ -86,6 +88,8 @@ const scaleIn = {
 const Home = () => {
   const heroAnimation = useScrollAnimation(0.3);
   const aboutAnimation = useScrollAnimation(0.2);
+  const skillsAnimation = useScrollAnimation(0.2); // Add skills animation hook
+  const experienceAnimation = useScrollAnimation(0.2); // Add experience animation hook
   const projectsAnimation = useScrollAnimation(0.2);
   const contactAnimation = useScrollAnimation(0.2);
 
@@ -101,38 +105,50 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white" style={{ fontFamily: "'Roboto', sans-serif" }}>
-      <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 py-8 xs:py-10 sm:py-12 md:py-16 lg:py-20">
-        {/* Enhanced Hero Section with better mobile layout */}
+      {/* Full-screen Hero Section with row layout */}
+      <div className="app-container">
         <motion.div
           ref={heroAnimation.ref}
           initial="hidden"
           animate={heroAnimation.controls}
           variants={staggerContainer}
-          className="flex flex-col lg:flex-row items-center justify-between gap-6 xs:gap-8 lg:gap-12"
+          className="w-full h-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12"
         >
-          {/* Enhanced Left Content with better mobile typography */}
-          <motion.div variants={fadeInLeft} className="w-full lg:w-1/2 text-left">
+          {/* Text Section - Center aligned */}
+          <motion.div variants={fadeInLeft} className="w-full lg:w-1/2 text-center">
             <motion.h1
               variants={staggerItem}
-              className="font-bold mb-3 xs:mb-4 sm:mb-6 leading-tight"
+              className="font-bold mb-4 leading-tight"
               style={{ fontFamily: "'Poppins', sans-serif" }}
             >
-              {/* Welcome - Changed to #900C0D color */}
-              <motion.span
+              {/* Name in one line with bold styling and color variation - Reduced font sizes */}
+              <motion.div
                 variants={staggerItem}
-                className="inline-block text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-light tracking-wide"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-wide mb-4"
                 style={{ 
-                  color: '#900C0D', // Changed to requested color
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                  display: 'block',
+                  whiteSpace: 'nowrap',
+                  overflow: 'visible'
                 }}
               >
-                Welcome.
+                <span style={{ color: '#ffffff' }}>Kenean </span>
+                <span style={{ color: '#900C0D' }}>Tilahun</span>
+              </motion.div>
+              <motion.span
+                variants={staggerItem}
+                className="block text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-bold tracking-wide text-gray-300 mb-4"
+                style={{ 
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                }}
+              >
+                SOFTWARE ENGINEER
               </motion.span>
             </motion.h1>
 
             <motion.p
               variants={staggerItem}
-              className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl mb-4 xs:mb-6 sm:mb-8 max-w-full leading-relaxed tracking-wide px-2 xs:px-4 sm:px-6 lg:px-0"
+              className="text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl mb-8 leading-relaxed tracking-wide max-w-2xl mx-auto"
               style={{
                 fontFamily: "'Roboto', sans-serif",
                 fontFeatureSettings: '"liga", "kern"',
@@ -140,60 +156,44 @@ const Home = () => {
                 lineHeight: '1.75',
               }}
             >
-              My name Kenean. I'm a passionate and versatile Software Engineer with hands-on experience in building full-stack web and mobile applications. With a strong foundation in backend development
-              and a solid grasp of frontend technologies, I specialize in creating scalable, user-centered digital solutions. From intuitive interfaces to robust system architectures,
-              I'm driven to craft software that is not only functional but also meaningful and impactful. My work spans frameworks like React, Flutter, and Node.js, and I thrive on
-              turning ideas into real-world products that improve lives.
-            </motion.p>
-
-            <motion.p
-              variants={staggerItem}
-              className="text-gray-300 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl mb-4 xs:mb-6 sm:mb-8 max-w-full leading-relaxed tracking-wide px-2 xs:px-4 sm:px-6 lg:px-0"
-              style={{
-                fontFamily: "'Roboto', sans-serif",
-                fontFeatureSettings: '"liga", "kern"',
-                letterSpacing: '0.03em',
-                lineHeight: '1.75',
-              }}
-            >
-              I'm passionate about cutting-edge, pixel-perfect, beautiful interfaces and intuitively implemented UX.
+              Full-Stack Developer with experience building scalable web and mobile apps. I craft clean, efficient systems with a focus on performance and user experience.
             </motion.p>
 
             <motion.div
               variants={staggerItem}
-              className="flex flex-col xs:flex-row gap-3 sm:gap-4 justify-start"
+              className="flex justify-center"
             >
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleDownloadCV}
-                className="text-white px-6 xs:px-8 py-3 xs:py-4 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm xs:text-base min-h-[44px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 border-2"
+                className="text-white px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 text-base min-h-[44px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 border-2"
                 style={{ 
-                  backgroundColor: '#900C0D', // Changed to requested color
+                  backgroundColor: '#900C0D',
                   borderColor: '#900C0D',
                   fontFamily: "'Roboto', sans-serif"
                 }}
                 aria-label="Download CV"
               >
-                <Download className="w-4 h-4 xs:w-5 xs:h-5" />
+                <Download className="w-5 h-5" />
                 Download CV
               </motion.button>
             </motion.div>
           </motion.div>
 
-          {/* Enhanced Right Content - Profile Image with bigger size and better mobile optimization */}
+          {/* Profile Image Section - Right side on desktop */}
           <motion.div
             variants={fadeInRight}
-            className="w-full lg:w-1/2 flex justify-center mt-6 xs:mt-8 lg:mt-0"
+            className="w-full lg:w-1/2 flex justify-center"
           >
             <motion.div
               variants={scaleIn}
               className="relative"
             >
-              {/* Enhanced decorative frame with #900C0D color and bigger size */}
+              {/* Enhanced decorative frame with #900C0D color */}
               <motion.div
-                className="w-64 h-64 xs:w-72 xs:h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-88 lg:h-88 xl:w-96 xl:h-96 2xl:w-112 2xl:h-112 rounded-xl xs:rounded-2xl sm:rounded-3xl transform rotate-6 absolute -top-1 -left-1 xs:-top-2 xs:-left-2 sm:-top-4 sm:-left-4"
-                style={{ backgroundColor: '#900C0D' }} // Changed to requested color
+                className="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-3xl transform rotate-6 absolute -top-4 -left-4"
+                style={{ backgroundColor: '#900C0D' }}
                 animate={{
                   rotate: [6, 8, 6],
                   scale: [1, 1.02, 1]
@@ -205,9 +205,9 @@ const Home = () => {
                 }}
               />
 
-              {/* Enhanced profile image container with bigger size for better alignment */}
+              {/* Enhanced profile image container */}
               <motion.div
-                className="w-64 h-64 xs:w-72 xs:h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-88 lg:h-88 xl:w-96 xl:h-96 2xl:w-112 2xl:h-112 rounded-xl xs:rounded-2xl sm:rounded-3xl overflow-hidden relative z-10 shadow-lg"
+                className="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-3xl overflow-hidden relative z-10 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
                 tabIndex={0}
@@ -228,16 +228,18 @@ const Home = () => {
                 <img
                   src={keneanImg}
                   alt="Kenean Tilahun - Software Engineer"
-                  className="w-full h-full object-cover rounded-xl xs:rounded-2xl sm:rounded-3xl"
+                  className="w-full h-full object-cover rounded-3xl"
                   loading="lazy"
                 />
               </motion.div>
             </motion.div>
           </motion.div>
         </motion.div>
+      </div>
 
-        {/* Enhanced Sections with scroll animations - Reduced spacing for a more connected feel */}
-        <div className="mt-8 xs:mt-10 sm:mt-12 md:mt-14 lg:mt-16 space-y-8 xs:space-y-10 sm:space-y-12 md:space-y-14 lg:space-y-16">
+      {/* Other Sections - Outside the full-screen hero */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="space-y-3">
           {/* About Section */}
           <motion.div
             ref={aboutAnimation.ref}
@@ -247,6 +249,28 @@ const Home = () => {
             style={{ fontFamily: "'Roboto', sans-serif" }}
           >
             <About />
+          </motion.div>
+
+          {/* Skills Section */}
+          <motion.div
+            ref={skillsAnimation.ref}
+            initial="hidden"
+            animate={skillsAnimation.controls}
+            variants={fadeInUp}
+            style={{ fontFamily: "'Roboto', sans-serif" }}
+          >
+            <Skills />
+          </motion.div>
+
+          {/* Experience Section */}
+          <motion.div
+            ref={experienceAnimation.ref}
+            initial="hidden"
+            animate={experienceAnimation.controls}
+            variants={fadeInUp}
+            style={{ fontFamily: "'Roboto', sans-serif" }}
+          >
+            <Experience />
           </motion.div>
 
           {/* Projects Section */}
