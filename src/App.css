@@ -1,8 +1,41 @@
+/* Global reset for full screen layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main content container for maximized spacing */
+.app-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .logo {
@@ -35,8 +68,40 @@
 
 .card {
   padding: 2em;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem 0;
 }
 
 .read-the-docs {
   color: #888;
 }
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+  
+  .logo {
+    height: 4em;
+    padding: 1em;
+  }
+  
+  .card {
+    padding: 1.5em;
+    margin: 1rem 0;
+  }
+}
+
+/* Additional spacing utilities for maximized space usage */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+}
+
