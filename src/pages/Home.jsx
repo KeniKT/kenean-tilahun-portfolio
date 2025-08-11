@@ -1,99 +1,61 @@
 import React, { useEffect, useRef } from 'react';
-import { Download, Play } from 'lucide-react';
+import { Download, Mouse, Github, Linkedin, Code } from 'lucide-react';
 import { motion, useInView, useAnimation } from 'framer-motion';
-import keneanImg from '../assets/kenean.png';
 import keneanResumePdf from '../assets/kenean_tilahun.pdf';
 import About from './About';
-import Skills from './Skills'; // Import Skills component
-import Experience from './Experience'; // Import Experience component
+import Skills from './Skills';
+import Experience from './Experience';
 import Projects from './Projects';
 import Contact from './Contact';
 
-// Custom hook for scroll animations with improved performance
+// Scroll animation hook
 const useScrollAnimation = (threshold = 0.1) => {
   const controls = useAnimation();
   const ref = useRef(null);
-  const inView = useInView(ref, {
-    threshold,
-    once: true,
-    rootMargin: '50px' // Trigger animation earlier for better UX
-  });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
-  }, [controls, inView]);
-
-  return { ref, controls };
+  const inView = useInView(ref, { threshold, once: true, rootMargin: '50px' });
+  useEffect(() => { if (inView) controls.start('visible'); }, [controls, inView]);
+  return { ref, controls, isVisible: inView };
 };
 
-// Enhanced animation variants with better mobile performance
+// Animation variants
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 }, // Reduced movement for mobile
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut' } // Faster for mobile
-  }
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
 };
-
-const fadeInLeft = {
-  hidden: { opacity: 0, x: -40 }, // Reduced movement for mobile
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, ease: 'easeOut' }
-  }
-};
-
-const fadeInRight = {
-  hidden: { opacity: 0, x: 40 }, // Reduced movement for mobile
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, ease: 'easeOut' }
-  }
-};
-
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15, // Faster stagger for mobile
-      delayChildren: 0.1
-    }
+  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
+};
+const mouseScrollAnimation = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, delay: 1.5, ease: 'easeOut' } 
+  }
+};
+const mouseIconBounce = {
+  animate: {
+    y: [0, 8, 0],
+    transition: { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
   }
 };
 
-const staggerItem = {
-  hidden: { opacity: 0, y: 20 }, // Reduced movement
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' }
-  }
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 }, // Less dramatic scale
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.6, ease: 'easeOut' }
-  }
-};
+// Social links array
+const socialLinks = [
+  { name: "GitHub", icon: <Github className="w-5 h-5" />, url: "https://github.com/KeniKT" },
+  { name: "LinkedIn", icon: <Linkedin className="w-5 h-5" />, url: "https://www.linkedin.com/in/kenean/" },
+  { name: "LeetCode", icon: <Code className="w-5 h-5" />, url: "https://leetcode.com/u/keniKT/" }
+];
 
 const Home = () => {
   const heroAnimation = useScrollAnimation(0.3);
   const aboutAnimation = useScrollAnimation(0.2);
-  const skillsAnimation = useScrollAnimation(0.2); // Add skills animation hook
-  const experienceAnimation = useScrollAnimation(0.2); // Add experience animation hook
+  const skillsAnimation = useScrollAnimation(0.2);
+  const experienceAnimation = useScrollAnimation(0.2);
   const projectsAnimation = useScrollAnimation(0.2);
   const contactAnimation = useScrollAnimation(0.2);
 
-  // Function to handle CV download
   const handleDownloadCV = () => {
     const link = document.createElement('a');
     link.href = keneanResumePdf;
@@ -103,202 +65,126 @@ const Home = () => {
     document.body.removeChild(link);
   };
 
+  const scrollToContent = () => {
+    const aboutSection = document.querySelector('#about-section');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-900 text-white" style={{ fontFamily: "'Roboto', sans-serif" }}>
-      {/* Full-screen Hero Section with row layout */}
-      <div className="app-container">
-        <motion.div
-          ref={heroAnimation.ref}
-          initial="hidden"
-          animate={heroAnimation.controls}
-          variants={staggerContainer}
-          className="w-full h-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12"
+      {/* Hero Section */}
+      <motion.div
+        ref={heroAnimation.ref}
+        initial="hidden"
+        animate={heroAnimation.controls}
+        variants={staggerContainer}
+        className="flex flex-col items-center justify-center text-center px-4 py-16 sm:py-20 md:py-24"
+        style={{ minHeight: '85vh' }}
+      >
+        <motion.h1
+          variants={fadeInUp}
+          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight"
+          style={{ fontFamily: "'Poppins', sans-serif" }}
         >
-          {/* Text Section - Center aligned */}
-          <motion.div variants={fadeInLeft} className="w-full lg:w-1/2 text-center">
-            <motion.h1
-              variants={staggerItem}
-              className="font-bold mb-4 leading-tight"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-            >
-              {/* Name in one line with bold styling and color variation - Reduced font sizes */}
-              <motion.div
-                variants={staggerItem}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-wide mb-4"
-                style={{ 
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                  display: 'block',
-                  whiteSpace: 'nowrap',
-                  overflow: 'visible'
-                }}
-              >
-                <span style={{ color: '#ffffff' }}>Kenean </span>
-                <span style={{ color: '#900C0D' }}>Tilahun</span>
-              </motion.div>
-              <motion.span
-                variants={staggerItem}
-                className="block text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-bold tracking-wide text-gray-300 mb-4"
-                style={{ 
-                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
-                }}
-              >
-                SOFTWARE ENGINEER
-              </motion.span>
-            </motion.h1>
+          <span className="font-black">HEY, I'M </span>
+          {/* Consider defining 'primaryRed' in tailwind.config.js and using 'text-primaryRed' */}
+          <span style={{ color: '#900C0D' }} className="font-black">KENEAN TILAHUN</span>
+        </motion.h1>
 
-            <motion.p
-              variants={staggerItem}
-              className="text-gray-300 text-sm sm:text-base md:text-lg lg:text-xl mb-8 leading-relaxed tracking-wide max-w-2xl mx-auto"
-              style={{
-                fontFamily: "'Roboto', sans-serif",
-                fontFeatureSettings: '"liga", "kern"',
-                letterSpacing: '0.03em',
-                lineHeight: '1.75',
-              }}
-            >
-              Full-Stack Developer with experience building scalable web and mobile apps. I craft clean, efficient systems with a focus on performance and user experience.
-            </motion.p>
+        <motion.p
+          variants={fadeInUp}
+          className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mb-10"
+        >
+          Full-Stack Developer with experience building scalable web and mobile apps. 
+          I craft clean, efficient systems with a focus on performance and user experience.
+        </motion.p>
 
-            <motion.div
-              variants={staggerItem}
-              className="flex justify-center"
-            >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleDownloadCV}
-                className="text-white px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 text-base min-h-[44px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 border-2"
-                style={{ 
-                  backgroundColor: '#900C0D',
-                  borderColor: '#900C0D',
-                  fontFamily: "'Roboto', sans-serif"
-                }}
-                aria-label="Download CV"
-              >
-                <Download className="w-5 h-5" />
-                Download CV
-              </motion.button>
-            </motion.div>
-          </motion.div>
-
-          {/* Profile Image Section - Right side on desktop */}
-          <motion.div
-            variants={fadeInRight}
-            className="w-full lg:w-1/2 flex justify-center"
+        <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 mb-12">
+          <button
+            onClick={handleDownloadCV}
+            className="px-8 py-3 rounded-md font-semibold text-white transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700"
+            // Consider defining 'primaryRed' in tailwind.config.js and using 'bg-primaryRed hover:bg-red-700'
+            style={{ backgroundColor: '#900C0D' }}
           >
-            <motion.div
-              variants={scaleIn}
-              className="relative"
-            >
-              {/* Enhanced decorative frame with #900C0D color */}
-              <motion.div
-                className="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-3xl transform rotate-6 absolute -top-4 -left-4"
-                style={{ backgroundColor: '#900C0D' }}
-                animate={{
-                  rotate: [6, 8, 6],
-                  scale: [1, 1.02, 1]
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
+            <Download className="inline-block mr-2 w-5 h-5" />
+            Download CV
+          </button>
 
-              {/* Enhanced profile image container */}
-              <motion.div
-                className="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-3xl overflow-hidden relative z-10 shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                tabIndex={0}
-                role="img"
-                aria-label="Kenean Tilahun profile image"
-                style={{
-                  cursor: 'pointer',
-                  outline: 'none'
-                }}
-                onFocus={(e) => {
-                  e.target.style.outline = '2px solid #900C0D';
-                  e.target.style.outlineOffset = '2px';
-                }}
-                onBlur={(e) => {
-                  e.target.style.outline = 'none';
-                }}
-              >
-                <img
-                  src={keneanImg}
-                  alt="Kenean Tilahun - Software Engineer"
-                  className="w-full h-full object-cover rounded-3xl"
-                  loading="lazy"
-                />
-              </motion.div>
-            </motion.div>
+          <a
+            href="#projects"
+            className="px-8 py-3 rounded-md font-semibold transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+            // Consider defining 'secondaryYellow' in tailwind.config.js and using 'bg-secondaryYellow text-gray-900 hover:bg-yellow-600'
+            style={{ backgroundColor: '#facc15', color: '#000' }}
+          >
+            Projects
+          </a>
+        </motion.div>
+
+        {/* Social media icons */}
+        <motion.div variants={fadeInUp} className="flex justify-center space-x-6 mb-20">
+          {socialLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group relative p-3 rounded-full border border-slate-600/50 hover:border-red-400/50 focus:border-red-400 focus:ring-2 focus:ring-red-400/20 transition-all duration-300 hover:scale-110 focus:scale-110 transform flex items-center justify-center focus:outline-none `}
+              style={{ transitionDelay: `${(index + 3) * 100}ms` }}
+              aria-label={`Visit my ${link.name} profile`}
+            >
+              <div className="text-gray-400 group-hover:text-red-400 group-focus:text-red-400 transition-all duration-300">
+                {link.icon}
+              </div>
+              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <span className="text-xs text-gray-400 whitespace-nowrap bg-slate-800 px-2 py-1 rounded border border-slate-600">{link.name}</span>
+              </div>
+            </a>
+          ))}
+        </motion.div>
+
+        {/* Scroll Mouse Icon */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={mouseScrollAnimation}
+          className="flex flex-col items-center cursor-pointer pt-8"
+          onClick={scrollToContent}
+        >
+          <motion.div
+            variants={mouseIconBounce}
+            animate="animate"
+            className="flex flex-col items-center text-gray-400 hover:text-white transition-colors duration-300"
+          >
+            <Mouse size={32} className="mb-2" />
+            <span className="text-sm font-medium">Scroll Down</span>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Other Sections - Outside the full-screen hero */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="space-y-3">
-          {/* About Section */}
-          <motion.div
-            ref={aboutAnimation.ref}
-            initial="hidden"
-            animate={aboutAnimation.controls}
-            variants={fadeInUp}
-            style={{ fontFamily: "'Roboto', sans-serif" }}
-          >
-            <About />
-          </motion.div>
-
-          {/* Skills Section */}
-          <motion.div
-            ref={skillsAnimation.ref}
-            initial="hidden"
-            animate={skillsAnimation.controls}
-            variants={fadeInUp}
-            style={{ fontFamily: "'Roboto', sans-serif" }}
-          >
-            <Skills />
-          </motion.div>
-
-          {/* Experience Section */}
-          <motion.div
-            ref={experienceAnimation.ref}
-            initial="hidden"
-            animate={experienceAnimation.controls}
-            variants={fadeInUp}
-            style={{ fontFamily: "'Roboto', sans-serif" }}
-          >
-            <Experience />
-          </motion.div>
-
-          {/* Projects Section */}
-          <motion.div
-            ref={projectsAnimation.ref}
-            initial="hidden"
-            animate={projectsAnimation.controls}
-            variants={fadeInUp}
-            style={{ fontFamily: "'Roboto', sans-serif" }}
-          >
-            <Projects />
-          </motion.div>
-
-          {/* Contact Section */}
-          <motion.div
-            ref={contactAnimation.ref}
-            initial="hidden"
-            animate={contactAnimation.controls}
-            variants={fadeInUp}
-            style={{ fontFamily: "'Roboto', sans-serif" }}
-          >
-            <Contact />
-          </motion.div>
-        </div>
+      {/* Other Sections */}
+      <div id="about-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+        <motion.div ref={aboutAnimation.ref} initial="hidden" animate={aboutAnimation.controls} variants={fadeInUp}>
+          <About />
+        </motion.div>
+        <motion.div ref={skillsAnimation.ref} initial="hidden" animate={skillsAnimation.controls} variants={fadeInUp}>
+          <Skills />
+        </motion.div>
+        <motion.div ref={experienceAnimation.ref} initial="hidden" animate={experienceAnimation.controls} variants={fadeInUp}>
+          <Experience />
+        </motion.div>
+        <motion.div id="projects" ref={projectsAnimation.ref} initial="hidden" animate={projectsAnimation.controls} variants={fadeInUp}>
+          <Projects />
+        </motion.div>
+        <motion.div ref={contactAnimation.ref} initial="hidden" animate={contactAnimation.controls} variants={fadeInUp}>
+          <Contact />
+        </motion.div>
       </div>
     </div>
   );
 };
 
 export default Home;
+
 
