@@ -31,6 +31,29 @@ const useScrollAnimation = (threshold = 0.1) => {
 const Home = () => {
   const projectsAnimation = useScrollAnimation(0.2);
   const ctaAnimation = useScrollAnimation(0.2);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollIndicator(false);
+      } else {
+        setShowScrollIndicator(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToProjects = () => {
+    const projectsSection = document.querySelector('[data-scroll-target]');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+    }
+  };
 
   const featuredProjects = [
     {
@@ -123,17 +146,20 @@ const Home = () => {
           </p>
 
           {/* Scroll Indicator */}
-          <div className="mt-16 animate-bounce">
-            <div className="w-6 h-10 border-2 border-red-400/50 rounded-full mx-auto flex items-start justify-center p-2">
+          <div className={`mt-16 animate-bounce transition-opacity duration-500 ${showScrollIndicator ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <button
+              onClick={scrollToProjects}
+              className="w-6 h-10 border-2 border-red-400/50 rounded-full mx-auto flex items-start justify-center p-2 hover:border-red-400 transition-colors duration-300 bg-transparent cursor-pointer"
+              aria-label="Scroll to projects"
+            >
               <div className="w-1.5 h-3 bg-red-400 rounded-full"></div>
-            </div>
-            <p className="text-gray-400 text-sm mt-2">Scroll to explore</p>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Projects Showcase Section */}
-      <div className="relative z-10 w-full px-8 py-20">
+      <div className="relative z-10 w-full px-8 py-12" data-scroll-target>
         <div className="max-w-6xl w-full mx-auto">
           <div
             ref={projectsAnimation.ref}
@@ -144,83 +170,79 @@ const Home = () => {
             }`}
           >
             {/* Section Header */}
-            <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="w-8 h-px bg-red-500/40"></div>
-                <Briefcase className="w-5 h-5 text-red-400" />
-                <div className="w-8 h-px bg-red-500/40"></div>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ letterSpacing: '0.05em' }}>
-                Featured Projects
+            <div className="mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-2" style={{ letterSpacing: '0.02em' }}>
+                Recent Work
               </h2>
-              <p className="text-xl text-gray-300 font-light">
-                Some of my recent work and accomplishments
+              <p className="text-gray-400 text-base">
+                Showcasing some of the projects I'm most proud of
               </p>
             </div>
 
-            {/* Projects Grid */}
-            <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            {/* Projects List */}
+            <div className="space-y-6 mb-12">
               {featuredProjects.map((project, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-red-700/30 rounded-xl overflow-hidden hover:border-red-600/50 transition-all hover:shadow-lg hover:shadow-red-900/20 group"
+                  className="group border-b border-slate-700/50 pb-8 hover:border-red-600/30 transition-all duration-300"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  {/* Project Image/Icon */}
-                  <div className="h-48 bg-gradient-to-br from-red-900/30 to-red-800/20 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-300">
-                    {project.image}
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6 space-y-4">
-                    <div>
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-2xl font-bold text-white">{project.title}</h3>
-                        <span className="text-xs text-red-400 bg-red-950/30 px-3 py-1 rounded-full border border-red-700/30">
-                          {project.year}
-                        </span>
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                    {/* Left Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline gap-3 mb-3">
+                        <h3 className="text-2xl md:text-3xl font-bold text-white">
+                          {project.title}
+                        </h3>
+                        <span className="text-sm text-gray-500">{project.year}</span>
                       </div>
-                      <p className="text-gray-300 text-sm leading-relaxed">
+                      
+                      <p className="text-gray-300 text-base leading-relaxed mb-5 max-w-2xl">
                         {project.description}
                       </p>
+
+                      {/* Technologies as inline tags */}
+                      <div className="flex flex-wrap gap-2 mb-5">
+                        {project.technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="text-xs text-gray-400 border border-gray-600/40 rounded px-2.5 py-1.5"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Links */}
+                      <div className="flex gap-4">
+                        {project.github && project.github !== "#" && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors duration-300 text-sm"
+                          >
+                            <Github className="w-4 h-4" />
+                            Source
+                          </a>
+                        )}
+                        {project.live && project.live !== "#" && (
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors duration-300 text-sm"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            Visit
+                          </a>
+                        )}
+                      </div>
                     </div>
 
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-slate-700/50 text-gray-300 rounded-lg text-xs border border-red-700/30"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Links */}
-                    <div className="flex gap-3 pt-4">
-                      {project.github && project.github !== "#" && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-slate-700/50 border border-red-700/30 rounded-lg text-red-400 hover:bg-red-950/30 hover:border-red-600/50 transition-all duration-300"
-                        >
-                          <Github className="w-4 h-4" />
-                          Code
-                        </a>
-                      )}
-                      {project.live && project.live !== "#" && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-red-950/30 border border-red-600/50 rounded-lg text-red-400 hover:bg-red-900/50 transition-all duration-300"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          Live
-                        </a>
-                      )}
+                    {/* Right Icon */}
+                    <div className="flex-shrink-0 text-6xl md:text-7xl opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                      {project.image}
                     </div>
                   </div>
                 </div>
@@ -228,13 +250,13 @@ const Home = () => {
             </div>
 
             {/* View All Projects Button */}
-            <div className="flex justify-center">
+            <div className="flex justify-center pt-8">
               <Link
                 to="/projects"
-                className="group inline-flex items-center gap-2 px-8 py-4 bg-slate-800/80 border border-red-700/30 rounded-lg text-gray-300 hover:text-white hover:border-red-500 transition-all duration-300 hover:shadow-lg hover:shadow-red-900/20"
+                className="group inline-flex items-center gap-2 px-8 py-3 text-red-400 hover:text-red-300 transition-colors duration-300 border-b-2 border-red-400/30 hover:border-red-400/60"
               >
-                <span className="font-medium">View All Projects</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                <span className="font-medium">Explore All Projects</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </Link>
             </div>
           </div>
