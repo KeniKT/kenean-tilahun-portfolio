@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, CheckCircle } from 'lucide-react';
 import FollowMe from '../components/FollowMe';
 
 // Custom hook for scroll animations
@@ -33,36 +33,71 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "BookShare",
-      description: "A full-stack book-sharing web platform built with React and TypeScript. Users can browse, share, and manage book collections with a modern, responsive interface.",
-      technologies: ["React", "TypeScript", "Firebase", "Tailwind CSS", "Vite"],
-      github: "https://github.com/KeniKT/bookshare",
-      live: "https://bookshare-demo.vercel.app",
-      image: "📚",
-      year: "2022 - 2023"
+      title: "BM Coffee Export Website",
+      description: "Official website for BM Coffee Export company. Responsive design showcasing products, company information, and contact details with optimized performance.",
+      fullDescription: "Designed, developed, and deployed the official BM Coffee Export website, delivering a production-ready platform that strengthens the company's online presence. Managed the full development lifecycle including responsive UI implementation, hosting setup, domain and DNS configuration, and resolution of production-level issues. Ensured cross-device compatibility and reliable performance across modern browsers.",
+      technologies: ["React", "TypeScript", "Tailwind CSS", "Vercel", "DNS Configuration"],
+      keyPoints: [
+        "Designed and developed responsive website UI with modern web technologies",
+        "Managed full development lifecycle including hosting and domain configuration",
+        "Ensured cross-device compatibility and reliable performance across browsers",
+        "Resolved production-level issues and optimized performance metrics"
+      ],
+      github: "#",
+      live: "https://bmcoffeeexport.com",
+      year: "2025"
     },
     {
-      title: "SIRA",
+      title: "ZX Flower Export Website",
+      description: "Professional business website for export-oriented flower company showcasing products and services with optimized performance.",
+      fullDescription: "Built and delivered a professional business website to showcase products and services for an export-oriented company. Implemented responsive layouts and optimized performance to meet production standards. Worked closely with stakeholders to translate business requirements into a functional and visually consistent web solution.",
+      technologies: ["React", "TypeScript", "Tailwind CSS", "Responsive Design"],
+      keyPoints: [
+        "Implemented responsive layouts for mobile and desktop viewing",
+        "Optimized performance to meet production standards",
+        "Translated stakeholder requirements into functional design",
+        "Created visually consistent branding across the platform"
+      ],
+      github: "#",
+      live: "https://zk-flowers.vercel.app/",
+      year: "2025"
+    },
+    {
+      title: "SIRA - Freelancing Platform",
       description: "A mobile freelancing platform connecting employers with skilled professionals. Built with Flutter and Firebase, featuring real-time notifications and secure authentication.",
+      fullDescription: "Developed a mobile freelancing platform using Flutter and Firebase that connects employers with skilled professionals. Implemented authentication, real-time data handling, and a scalable architecture focused on usability. The platform enables seamless job posting, bidding, and communication between employers and freelancers.",
       technologies: ["Flutter", "Firebase", "Dart", "Provider", "Cloud Firestore"],
+      keyPoints: [
+        "Implemented secure user authentication and authorization",
+        "Built real-time job posting and bidding system",
+        "Created real-time notifications for job updates",
+        "Designed scalable architecture with Cloud Firestore",
+        "Developed in-app messaging for user communication"
+      ],
       github: "https://github.com/KeniKT/sira",
       live: "#",
-      image: "🚀",
       year: "2024 - 2025"
     },
     {
-      title: "BM Coffee Export Website",
-      description: "Official website for BM Coffee Export company. Responsive design showcasing products, company information, and contact details with optimized performance.",
-      technologies: ["React", "TypeScript", "Tailwind CSS", "Vercel", "DNS Configuration"],
-      github: "#",
-      live: "https://bmcoffeeexport.com",
-      image: "☕",
-      year: "2025"
+      title: "BookShare - Book Sharing Platform",
+      description: "A full-stack book-sharing web platform built with React and TypeScript. Users can browse, share, and manage book collections with a modern, responsive interface.",
+      fullDescription: "Built a full-stack book sharing web application using React, TypeScript, and Vite, and deployed it on Vercel. Designed a responsive and user-friendly interface with modern frontend tooling. Optimized performance and maintainability to support smooth content browsing and management.",
+      technologies: ["React", "TypeScript", "Firebase", "Tailwind CSS", "Vite"],
+      keyPoints: [
+        "Built responsive and user-friendly interface with modern frontend tooling",
+        "Implemented user authentication and profile management",
+        "Created book discovery and collection management features",
+        "Optimized performance and maintainability with Vite",
+        "Deployed on Vercel with continuous integration"
+      ],
+      github: "https://github.com/KeniKT/bookshare",
+      live: "https://bookshare-demo.vercel.app",
+      year: "2022 - 2023"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white overflow-hidden" style={{ fontFamily: '"Courier Prime", "Courier New", monospace', height: '100vh', width: '100vw' }}>
+    <div className="min-h-screen bg-slate-900 text-white overflow-y-auto" style={{ fontFamily: '"Courier Prime", "Courier New", monospace', minHeight: '100vh', width: '100vw' }}>
       {/* Background Elements - matching home page with ox blood colors */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-red-950/40 via-red-900/30 to-slate-900"></div>
@@ -74,7 +109,7 @@ const Projects = () => {
       <FollowMe />
 
       {/* Main Content */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-start px-8 py-20 overflow-y-auto">
+      <div className="relative z-10 w-full flex flex-col items-center justify-start px-8 py-20">
 
         <div className="max-w-6xl w-full">
           {/* Header */}
@@ -103,42 +138,66 @@ const Projects = () => {
                 : 'opacity-0 translate-y-10'
             }`}
           >
-            <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="space-y-12">
               {projects.map((project, index) => (
                 <div
                   key={index}
                   className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-red-700/30 rounded-xl overflow-hidden hover:border-red-600/50 transition-all hover:shadow-lg hover:shadow-red-900/20 group"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  {/* Project Image/Icon */}
-                  <div className="h-48 bg-gradient-to-br from-red-900/30 to-red-800/20 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-300">
-                    {project.image}
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6 space-y-4">
-                    <div>
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="text-2xl font-bold text-white">{project.title}</h3>
+                  {/* Project Content */}
+                  <div className="p-8 space-y-6">
+                    
+                    {/* Title and Year */}
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h2 className="text-3xl font-bold text-white mb-2">{project.title}</h2>
                         <span className="text-xs text-red-400 bg-red-950/30 px-3 py-1 rounded-full border border-red-700/30">
                           {project.year}
                         </span>
                       </div>
+
+                    </div>
+
+                    {/* Short Description */}
+                    <p className="text-gray-300 text-base leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Full Description */}
+                    <div className="bg-slate-700/20 border border-red-700/20 rounded-lg p-6">
+                      <h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Overview</h3>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        {project.description}
+                        {project.fullDescription}
                       </p>
                     </div>
 
+                    {/* Key Points */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-400 mb-4 uppercase tracking-wider">Key Highlights</h3>
+                      <div className="space-y-2">
+                        {project.keyPoints.map((point, idx) => (
+                          <div key={idx} className="flex items-start gap-3">
+                            <CheckCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-1" />
+                            <span className="text-gray-300 text-sm">{point}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                     {/* Technologies */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-slate-700/50 text-gray-300 rounded-lg text-xs border border-red-700/30"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">Technologies Used</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1 bg-red-950/30 text-red-300 rounded-lg text-xs border border-red-700/30"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
                     {/* Links */}
@@ -151,7 +210,7 @@ const Projects = () => {
                           className="flex items-center gap-2 px-4 py-2 bg-slate-700/50 border border-red-700/30 rounded-lg text-red-400 hover:bg-red-950/30 hover:border-red-600/50 transition-all duration-300"
                         >
                           <Github className="w-4 h-4" />
-                          Code
+                          Source Code
                         </a>
                       )}
                       {project.live !== "#" && (
@@ -159,10 +218,10 @@ const Projects = () => {
                           href={project.live}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-red-950/30 border border-red-600/50 rounded-lg text-red-400 hover:bg-red-900/50 transition-all duration-300"
+                          className="flex items-center gap-2 px-4 py-2 bg-red-950/30 border border-red-600/50 rounded-lg text-red-400 hover:bg-red-900/50 hover:border-red-500/70 transition-all duration-300"
                         >
                           <ExternalLink className="w-4 h-4" />
-                          Live
+                          Live Demo
                         </a>
                       )}
                     </div>
@@ -172,6 +231,9 @@ const Projects = () => {
             </div>
           </div>
         </div>
+
+        {/* Footer spacing */}
+        <div className="h-20"></div>
       </div>
     </div>
   );
