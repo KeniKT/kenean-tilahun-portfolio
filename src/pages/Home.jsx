@@ -47,10 +47,11 @@ const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // ✅ Fixed: now targets the Featured Projects section
   const scrollToIntro = () => {
-    const introSection = document.querySelector('[data-intro-target]');
-    if (introSection) {
-      introSection.scrollIntoView({ behavior: 'smooth' });
+    const featuredSection = document.querySelector('[data-featured-target]');
+    if (featuredSection) {
+      featuredSection.scrollIntoView({ behavior: 'smooth' });
     } else {
       window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
     }
@@ -103,7 +104,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white overflow-y-auto" style={{ fontFamily: '"Courier Prime", "Courier New", monospace', minHeight: '100vh', width: '100vw' }}>
+    <div className="min-h-screen bg-slate-900 text-white " style={{ fontFamily: '"Courier Prime", "Courier New", monospace', minHeight: '100vh', width: '100vw' }}>
       {/* Background Elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-red-950/40 via-red-900/30 to-slate-900"></div>
@@ -174,8 +175,9 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Projects Showcase Section - Redesigned */}
-      <div className="relative z-10 w-full px-8 py-20">
+      {/* ✅ Added data-featured-target here so the scroll button lands on this section */}
+      {/* Projects Showcase Section */}
+      <div className="relative z-10 w-full px-8 py-20" data-featured-target>
         <div className="max-w-6xl w-full mx-auto">
           <div
             ref={projectsAnimation.ref}
@@ -206,7 +208,7 @@ const Home = () => {
               </p>
             </div>
 
-            {/* Projects Grid with Card Design */}
+            {/* Projects Grid */}
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               {featuredProjects.map((project, index) => (
                 <div
@@ -243,7 +245,7 @@ const Home = () => {
                         {project.description}
                       </p>
 
-                      {/* Technologies as modern pills */}
+                      {/* Technologies */}
                       <div className="mb-8">
                         <p className="text-xs uppercase text-gray-500 font-semibold mb-3 tracking-wider">Tech Stack</p>
                         <div className="flex flex-wrap gap-2">
@@ -292,7 +294,7 @@ const Home = () => {
                     <div className="absolute inset-0 bg-gradient-to-tr from-red-600/0 via-transparent to-red-500/0 group-hover:from-red-600/5 group-hover:to-red-500/5 transition-all duration-300 pointer-events-none rounded-2xl"></div>
                   </div>
 
-                  {/* Floating accent circle - shows on hover */}
+                  {/* Floating accent circle */}
                   <div className="absolute -top-8 -right-8 w-32 h-32 bg-red-600/0 group-hover:bg-red-600/10 rounded-full blur-3xl transition-all duration-500 pointer-events-none"></div>
                 </div>
               ))}
