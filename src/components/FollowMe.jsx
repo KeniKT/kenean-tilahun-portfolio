@@ -30,12 +30,14 @@ const FollowMe = () => {
         </a>
 
         <a
-          href="mailto:keni232127@gmail.com"
-          className="text-gray-500 hover:text-red-400 transition-all duration-300 hover:scale-110"
-          aria-label="Send me an email"
-        >
-          <Code className="w-5 h-5" />
-        </a>
+  href="https://leetcode.com/u/keniKT/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-gray-500 hover:text-red-400 transition-all duration-300 hover:scale-110"
+  aria-label="Visit my LeetCode profile"
+>
+  <Code className="w-5 h-5" />
+</a>
       </div>
 
       {/* Vertical line bottom */}
