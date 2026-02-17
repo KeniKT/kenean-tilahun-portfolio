@@ -118,7 +118,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white overflow-y-auto" style={{ fontFamily: '"Courier Prime", "Courier New", monospace', minHeight: '100vh', width: '100vw' }}>
+    <div className="min-h-screen bg-slate-900 text-white " style={{ fontFamily: '"Courier Prime", "Courier New", monospace', minHeight: '100vh', width: '100vw' }}>
       {/* Background Elements - matching home page with ox blood colors */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-red-950/40 via-red-900/30 to-slate-900"></div>
