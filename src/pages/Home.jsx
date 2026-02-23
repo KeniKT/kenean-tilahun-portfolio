@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Github, ArrowRight, Code2, Briefcase, User, Mail } from 'lucide-react';
 import FollowMe from '../components/FollowMe';
+import BMImage from '../assets/BM.png';
+import ZKImage from '../assets/ZK.png';
+import BookShareImage from '../assets/BookShare.png';
 
 // Custom hook for scroll animations
 const useScrollAnimation = (threshold = 0.1) => {
@@ -47,7 +50,6 @@ const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // ✅ Fixed: now targets the Featured Projects section
   const scrollToIntro = () => {
     const featuredSection = document.querySelector('[data-featured-target]');
     if (featuredSection) {
@@ -86,20 +88,25 @@ const Home = () => {
 
   const featuredProjects = [
     {
-      title: "BM Coffee Export Website",
-      description: "Official website for BM Coffee Export company. Responsive design showcasing products, company information, and contact details with optimized performance.",
-      technologies: ["React", "TypeScript", "Tailwind CSS"],
+      title: "BM Coffee Export",
+      image: BMImage,
       github: "#",
       live: "https://bmcoffeeexport.com",
       year: "2025"
     },
     {
-      title: "ZX Flower Export Website",
-      description: "Professional business website for export-oriented flower company showcasing products and services with optimized performance.",
-      technologies: ["React", "TypeScript", "Tailwind CSS"],
+      title: "ZX Flower Export",
+      image: ZKImage,
       github: "#",
       live: "https://zk-flowers.vercel.app/",
       year: "2025"
+    },
+    {
+      title: "BookShare",
+      image: BookShareImage,
+      github: "https://github.com/KeniKT/bookshare",
+      live: "https://bookshare-demo.vercel.app",
+      year: "2022 - 2023"
     }
   ];
 
@@ -175,7 +182,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ✅ Added data-featured-target here so the scroll button lands on this section */}
       {/* Projects Showcase Section */}
       <div className="relative z-10 w-full px-8 py-20" data-featured-target>
         <div className="max-w-6xl w-full mx-auto">
@@ -188,8 +194,8 @@ const Home = () => {
             }`}
           >
             {/* Section Header */}
-            <div className="mb-16">
-              <div className="flex items-center gap-4 mb-6">
+            <div className="mb-16 text-center">
+              <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="flex items-center gap-2">
                   <span className="text-red-400 text-xl font-bold">&lt;</span>
                   <span className="text-gray-500 text-sm uppercase tracking-wider">Featured</span>
@@ -202,69 +208,55 @@ const Home = () => {
                 Recent Work
               </h2>
               
-              <p className="text-gray-400 text-lg max-w-2xl leading-relaxed">
+              <p className="text-gray-400 text-lg max-w-2xl leading-relaxed text-center mx-auto">
                 A selection of projects that showcase my approach to problem-solving 
                 and technical execution
               </p>
             </div>
 
-            {/* Projects Grid */}
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Projects Grid — 3 columns */}
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
               {featuredProjects.map((project, index) => (
                 <div
                   key={index}
                   className="group relative"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  {/* Card Container */}
                   <div className="h-full bg-gradient-to-br from-slate-800/60 to-slate-900/60 border border-red-700/30 rounded-2xl overflow-hidden hover:border-red-600/50 transition-all duration-300 hover:shadow-2xl hover:shadow-red-900/30 flex flex-col">
-                    
+
                     {/* Top Accent Bar */}
                     <div className="h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600 group-hover:from-red-500 group-hover:via-red-400 group-hover:to-red-500 transition-all duration-300"></div>
 
+                    {/* Project Image */}
+                    <div className="w-full overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={`${project.title} showcase`}
+                        className="w-full h-48 object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      />
+                    </div>
+
                     {/* Content Area */}
-                    <div className="p-8 flex flex-col flex-grow">
-                      
-                      {/* Header */}
-                      <div className="mb-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex-1">
-                            <h3 className="text-3xl font-bold text-white mb-2 group-hover:text-red-300 transition-colors duration-300">
-                              {project.title}
-                            </h3>
-                            <div className="w-12 h-1 bg-gradient-to-r from-red-500 to-transparent rounded-full"></div>
-                          </div>
-                          <span className="ml-4 px-4 py-2 bg-red-950/40 text-red-300 text-sm font-semibold rounded-lg border border-red-700/30 whitespace-nowrap">
-                            {project.year}
-                          </span>
-                        </div>
-                      </div>
+                    <div className="p-6 flex flex-col flex-grow">
 
-                      {/* Description */}
-                      <p className="text-gray-300 text-base leading-relaxed mb-8 flex-grow">
-                        {project.description}
-                      </p>
-
-                      {/* Technologies */}
-                      <div className="mb-8">
-                        <p className="text-xs uppercase text-gray-500 font-semibold mb-3 tracking-wider">Tech Stack</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech, idx) => (
-                            <span
-                              key={idx}
-                              className="text-xs font-medium text-red-300 bg-red-950/30 border border-red-700/40 rounded-full px-3 py-1.5 group-hover:bg-red-950/50 group-hover:border-red-600/60 transition-all duration-300"
-                            >
-                              {tech}
-                            </span>
-                          ))}
+                      {/* Title + Year */}
+                      <div className="flex items-start justify-between mb-6">
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold text-white group-hover:text-red-300 transition-colors duration-300">
+                            {project.title}
+                          </h3>
+                          <div className="w-10 h-0.5 bg-gradient-to-r from-red-500 to-transparent rounded-full mt-2"></div>
                         </div>
+                        <span className="ml-3 px-3 py-1 bg-red-950/40 text-red-300 text-xs font-semibold rounded-lg border border-red-700/30 whitespace-nowrap">
+                          {project.year}
+                        </span>
                       </div>
 
                       {/* Divider */}
-                      <div className="h-px bg-gradient-to-r from-red-700/20 via-red-600/20 to-transparent mb-6"></div>
+                      <div className="h-px bg-gradient-to-r from-red-700/20 via-red-600/20 to-transparent mb-5"></div>
 
                       {/* Links */}
-                      <div className="flex gap-3">
+                      <div className="flex gap-3 mt-auto">
                         {project.github && project.github !== "#" && (
                           <a
                             href={project.github}
@@ -290,7 +282,7 @@ const Home = () => {
                       </div>
                     </div>
 
-                    {/* Hover Glow Effect */}
+                    {/* Hover Glow */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-red-600/0 via-transparent to-red-500/0 group-hover:from-red-600/5 group-hover:to-red-500/5 transition-all duration-300 pointer-events-none rounded-2xl"></div>
                   </div>
 
@@ -306,13 +298,8 @@ const Home = () => {
                 to="/projects"
                 className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden"
               >
-                {/* Animated background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-red-700/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                
-                {/* Border with glow effect */}
                 <div className="absolute inset-0 border border-red-500/40 group-hover:border-red-400/80 transition-all duration-300 rounded-lg shadow-lg shadow-red-900/0 group-hover:shadow-lg group-hover:shadow-red-900/30"></div>
-                
-                {/* Content */}
                 <span className="relative text-red-400 group-hover:text-red-300 font-semibold transition-colors duration-300">
                   Explore All Projects
                 </span>
