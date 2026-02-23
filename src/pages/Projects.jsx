@@ -3,6 +3,7 @@ import { ExternalLink, Github, CheckCircle } from 'lucide-react';
 import FollowMe from '../components/FollowMe';
 import BMImage from '../assets/BM.png';
 import ZKImage from '../assets/ZK.png';
+import BookShareImage from '../assets/BookShare.png';
 
 // Custom hook for scroll animations
 const useScrollAnimation = (threshold = 0.1) => {
@@ -208,6 +209,23 @@ const Projects = () => {
       year: "2025"
     },
     {
+      title: "BookShare - Book Sharing Platform",
+      image: BookShareImage,
+      description: "A full-stack book-sharing web platform built with React and TypeScript. Users can browse, share, and manage book collections with a modern, responsive interface.",
+      fullDescription: "Built a full-stack book sharing web application using React, TypeScript, and Vite, and deployed it on Vercel. Designed a responsive and user-friendly interface with modern frontend tooling. Optimized performance and maintainability to support smooth content browsing and management.",
+      technologies: ["React", "TypeScript", "Firebase", "Tailwind CSS", "Vite"],
+      keyPoints: [
+        "Built responsive and user-friendly interface with modern frontend tooling",
+        "Implemented user authentication and profile management",
+        "Created book discovery and collection management features",
+        "Optimized performance and maintainability with Vite",
+        "Deployed on Vercel with continuous integration"
+      ],
+      github: "https://github.com/KeniKT/bookshare",
+      live: "https://book-share-hazel.vercel.app",
+      year: "2022 - 2023"
+    },
+    {
       title: "SIRA - Freelancing Platform",
       description: "A mobile freelancing platform connecting employers with skilled professionals. Built with Flutter and Firebase, featuring real-time notifications and secure authentication.",
       fullDescription: "Developed a mobile freelancing platform using Flutter and Firebase that connects employers with skilled professionals. Implemented authentication, real-time data handling, and a scalable architecture focused on usability. The platform enables seamless job posting, bidding, and communication between employers and freelancers.",
@@ -222,22 +240,6 @@ const Projects = () => {
       github: "https://github.com/KeniKT/sira",
       live: "#",
       year: "2024 - 2025"
-    },
-    {
-      title: "BookShare - Book Sharing Platform",
-      description: "A full-stack book-sharing web platform built with React and TypeScript. Users can browse, share, and manage book collections with a modern, responsive interface.",
-      fullDescription: "Built a full-stack book sharing web application using React, TypeScript, and Vite, and deployed it on Vercel. Designed a responsive and user-friendly interface with modern frontend tooling. Optimized performance and maintainability to support smooth content browsing and management.",
-      technologies: ["React", "TypeScript", "Firebase", "Tailwind CSS", "Vite"],
-      keyPoints: [
-        "Built responsive and user-friendly interface with modern frontend tooling",
-        "Implemented user authentication and profile management",
-        "Created book discovery and collection management features",
-        "Optimized performance and maintainability with Vite",
-        "Deployed on Vercel with continuous integration"
-      ],
-      github: "https://github.com/KeniKT/bookshare",
-      live: "https://bookshare-demo.vercel.app",
-      year: "2022 - 2023"
     }
   ];
 
