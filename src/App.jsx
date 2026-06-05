@@ -1,32 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import Contact from './pages/Contact';
-import ScrollToTop from './components/ScrollToTop';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import Hero from './components/sections/Hero';
+import Work from './components/sections/Work';
+import About from './components/sections/About';
+import Experience from './components/sections/Experience';
+import Contact from './components/sections/Contact';
 import './App.css';
 
-function App() {
-  return (
-    <Router>
-      <ScrollToTop />
-      <div className="bg-slate-900 flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
+export default function App() {
+  return <><a className="skip-link" href="#main">Skip to content</a><Navbar /><main id="main"><Hero /><Work /><About /><Experience /><Contact /></main><Footer /></>;
 }
-
-export default App;
