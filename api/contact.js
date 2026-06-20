@@ -13,7 +13,6 @@ export default async function handler(request, response) {
   const name = clean(body.name, 100);
   const email = clean(body.email, 200);
   const company = clean(body.company, 120);
-  const reason = clean(body.reason, 80);
   const message = clean(body.message, 3000);
 
   if (name.length < 2 || !EMAIL_PATTERN.test(email) || message.length < 20) {
@@ -31,8 +30,8 @@ export default async function handler(request, response) {
         from: process.env.CONTACT_FROM_EMAIL,
         to: [process.env.CONTACT_TO_EMAIL || 'keni232127@gmail.com'],
         reply_to: email,
-        subject: `[Portfolio] ${reason || 'New message'} from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'Not provided'}\nReason: ${reason || 'Not provided'}\n\n${message}`,
+        subject: `[Portfolio] New message from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'Not provided'}\n\n${message}`,
       }),
     });
     if (!result.ok) throw new Error('Email provider rejected the request.');
