@@ -1,9 +1,9 @@
-import { ArrowUpRight, CheckCircle2, Loader2, Mail, MapPin, Send } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { profile, socials } from '../../data/portfolio';
 import Reveal from '../ui/Reveal';
 
-const initialForm = { name: '', email: '', company: '', reason: 'Job opportunity', message: '', website: '' };
+const initialForm = { name: '', email: '', company: '', message: '', website: '' };
 
 function validate(form) {
   const errors = {};
@@ -40,12 +40,12 @@ export default function Contact() {
   return (
     <section className="contact-section" id="contact" aria-labelledby="contact-title">
       <div className="shell contact-grid">
-        <Reveal className="contact-intro"><p className="section-kicker"><span>07</span>Contact</p><h2 id="contact-title">Let’s build something that matters.</h2><p>Open to software engineering roles where product thinking, full-stack delivery, and production ownership matter. Share the role, team, or challenge—and I’ll get back to you.</p><div className="contact-direct"><a href={`mailto:${profile.email}`}><Mail /> <span><small>Direct email</small>{profile.email}</span></a><p><MapPin /> <span><small>Based in</small>{profile.location}</span></p></div><div className="contact-socials">{socials.slice(0, 2).map((social) => <a key={social.label} href={social.href} target="_blank" rel="noreferrer">{social.label}<ArrowUpRight size={14} /></a>)}</div></Reveal>
+        <Reveal className="contact-intro"><p className="contact-index">04 / Contact</p><h2 id="contact-title">Get in touch</h2><p>Have a software engineering role or project in mind? I’d be glad to hear about it.</p><a className="contact-email" href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight /></a><div className="contact-socials">{socials.slice(0, 2).map((social) => <a key={social.label} href={social.href} target="_blank" rel="noreferrer">{social.label}<ArrowUpRight size={14} /></a>)}</div></Reveal>
         <Reveal delay={100} className="contact-form-wrap">
           <form className="contact-form" onSubmit={submit} noValidate aria-describedby="form-status">
-            <div className="form-heading"><div><p className="eyebrow">Start a conversation</p><h3>Tell me what you’re working on.</h3></div><Send aria-hidden="true" /></div>
+            <div className="form-heading"><p>Send a message</p></div>
             <div className="form-row"><div className="field"><label htmlFor="contact-name">Name <span aria-hidden="true">*</span></label><input id="contact-name" name="name" value={form.name} onChange={update} autoComplete="name" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? 'name-error' : undefined} disabled={status === 'submitting'} />{errors.name && <p className="field-error" id="name-error">{errors.name}</p>}</div><div className="field"><label htmlFor="contact-email">Email <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" value={form.email} onChange={update} autoComplete="email" inputMode="email" aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'email-error' : undefined} disabled={status === 'submitting'} />{errors.email && <p className="field-error" id="email-error">{errors.email}</p>}</div></div>
-            <div className="form-row"><div className="field"><label htmlFor="contact-company">Company <span>(optional)</span></label><input id="contact-company" name="company" value={form.company} onChange={update} autoComplete="organization" disabled={status === 'submitting'} /></div><div className="field"><label htmlFor="contact-reason">Reason for contact</label><select id="contact-reason" name="reason" value={form.reason} onChange={update} disabled={status === 'submitting'}><option>Job opportunity</option><option>Project collaboration</option><option>Technical conversation</option><option>Other</option></select></div></div>
+            <div className="field"><label htmlFor="contact-company">Company <span>(optional)</span></label><input id="contact-company" name="company" value={form.company} onChange={update} autoComplete="organization" disabled={status === 'submitting'} /></div>
             <div className="field"><label htmlFor="contact-message">Message <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="6" value={form.message} onChange={update} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'message-error' : 'message-help'} disabled={status === 'submitting'} /><div className="field-meta"><p id={errors.message ? 'message-error' : 'message-help'} className={errors.message ? 'field-error' : ''}>{errors.message || 'A role summary or a few lines of context is perfect.'}</p><span>{form.message.length}/3000</span></div></div>
             <div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" value={form.website} onChange={update} tabIndex="-1" autoComplete="off" /></div>
             <button className="button form-submit" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? <><Loader2 className="spinner" /> Sending…</> : status === 'success' ? <><CheckCircle2 /> Sent successfully</> : <>Send message <ArrowUpRight /></>}</button>
