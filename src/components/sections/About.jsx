@@ -1,16 +1,23 @@
-import { capabilities, stack } from '../../data/portfolio';
+import { createElement } from 'react';
+import { BrainCircuit, Layers, Landmark, Smartphone } from 'lucide-react';
 import Reveal from '../ui/Reveal';
 import SectionHeading from '../ui/SectionHeading';
+
+const domains = [
+  { icon: Landmark, title: 'Fintech systems', text: 'Payments, POS, wallets, gateways, vouchers, and services operating at meaningful transaction scale.' },
+  { icon: BrainCircuit, title: 'AI quality', text: 'Code and API evaluation plus computer-vision data work across detection, segmentation, and classification.' },
+  { icon: Layers, title: 'Full-stack products', text: 'Typed interfaces, API contracts, authentication, data models, role boundaries, and deployment.' },
+  { icon: Smartphone, title: 'Mobile delivery', text: 'Cross-platform Flutter products with deliberate state management and real-time Firebase workflows.' },
+];
 
 export default function About() {
   return (
     <section className="section shell" id="about" aria-labelledby="about-title">
-      <Reveal><SectionHeading id="about-title" index="02" eyebrow="How I work" title="Design sensitivity. Engineering discipline." /></Reveal>
+      <Reveal><SectionHeading id="about-title" index="01" eyebrow="About" title="Product judgment backed by production experience." /></Reveal>
       <div className="about-grid">
-        <Reveal className="about-copy"><p>I’m a full-stack engineer who likes owning the whole journey: understanding the actual problem, shaping a clear interaction, building the system, and staying with it through deployment.</p><p>My background spans client work, product development, technical teaching, and developer communities. That mix made me comfortable moving between user needs, implementation details, and clear collaboration.</p></Reveal>
-        <div className="capability-grid">{capabilities.map((item, index) => <Reveal key={item.number} delay={index * 60}><article className="capability"><span>{item.number}</span><h3>{item.title}</h3><p>{item.text}</p></article></Reveal>)}</div>
+        <Reveal className="about-copy"><p>I’m a software engineer who enjoys the point where product clarity meets systems thinking. I’ve contributed to high-volume payments, delivery operations, AI training workflows, production websites, and mobile applications.</p><p>I work best when I can understand the operating problem, shape a maintainable boundary, and stay accountable through deployment. My direction is straightforward: build scalable, user-focused software with teams that care about engineering quality.</p></Reveal>
+        <div className="domain-grid">{domains.map(({ icon, title, text }, index) => <Reveal key={title} delay={index * 60}><article className="domain-card">{createElement(icon)}<h3>{title}</h3><p>{text}</p></article></Reveal>)}</div>
       </div>
-      <Reveal><div className="stack-panel"><p className="eyebrow">Tools I use to ship</p><div>{stack.map((category) => <section key={category.group}><h3>{category.group}</h3><p>{category.items.join(' · ')}</p></section>)}</div></div></Reveal>
     </section>
   );
 }

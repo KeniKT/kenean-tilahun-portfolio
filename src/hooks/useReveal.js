@@ -14,7 +14,7 @@ export function useReveal() {
         setVisible(true);
         observer.disconnect();
       }
-    }, { rootMargin: '0px 0px -8%', threshold: 0.12 });
+    }, { rootMargin: '0px 0px 12%', threshold: 0.08 });
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);

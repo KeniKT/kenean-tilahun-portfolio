@@ -1,22 +1,58 @@
-import { ArrowUpRight, Copy, Mail, MapPin } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Loader2, Mail, MapPin, Send } from 'lucide-react';
 import { useState } from 'react';
-import { contact, socials } from '../../data/portfolio';
+import { profile, socials } from '../../data/portfolio';
 import Reveal from '../ui/Reveal';
 
+const initialForm = { name: '', email: '', company: '', reason: 'Job opportunity', message: '', website: '' };
+
+function validate(form) {
+  const errors = {};
+  if (form.name.trim().length < 2) errors.name = 'Please enter your name.';
+  if (!/^\S+@\S+\.\S+$/.test(form.email)) errors.email = 'Enter a valid email address.';
+  if (form.message.trim().length < 20) errors.message = 'Please add at least 20 characters so I have enough context.';
+  if (form.message.length > 3000) errors.message = 'Please keep your message under 3,000 characters.';
+  return errors;
+}
+
 export default function Contact() {
-  const [copied, setCopied] = useState(false);
-  const copyEmail = async () => {
-    try { await navigator.clipboard.writeText(contact.email); setCopied(true); window.setTimeout(() => setCopied(false), 1800); } catch { window.location.href = `mailto:${contact.email}`; }
+  const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState('idle');
+  const [feedback, setFeedback] = useState('');
+
+  const update = ({ target }) => { setForm((current) => ({ ...current, [target.name]: target.value })); if (errors[target.name]) setErrors((current) => ({ ...current, [target.name]: '' })); };
+  const submit = async (event) => {
+    event.preventDefault();
+    const nextErrors = validate(form);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length) { setStatus('error'); setFeedback('Please review the highlighted fields.'); return; }
+    setStatus('submitting'); setFeedback('Sending your message…');
+    try {
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.message || 'The message could not be delivered.');
+      setStatus('success'); setFeedback('Message sent. Thank you—I’ll reply as soon as possible.'); setForm(initialForm);
+    } catch (error) {
+      setStatus('error'); setFeedback(`${error.message} You can email me directly instead.`);
+    }
   };
+
   return (
     <section className="contact-section" id="contact" aria-labelledby="contact-title">
-      <Reveal className="shell contact-inner">
-        <p className="section-kicker"><span>04</span>Contact</p>
-        <h2 id="contact-title">Have a role, a problem, or an ambitious idea?</h2>
-        <p className="contact-lede">I’m currently open to software engineering opportunities and thoughtful collaborations. Let’s make the first conversation easy.</p>
-        <div className="contact-actions"><a className="button button-light" href={`mailto:${contact.email}`}>Email me <ArrowUpRight /></a><button className="button button-outline" type="button" onClick={copyEmail}><Copy size={18} />{copied ? 'Email copied' : 'Copy email'}</button></div>
-        <div className="contact-meta"><p><MapPin />{contact.location}</p><p><Mail />{contact.email}</p><div>{socials.map((social) => <a key={social.label} href={social.href} target="_blank" rel="noreferrer">{social.label} <ArrowUpRight size={13} /></a>)}</div></div>
-      </Reveal>
+      <div className="shell contact-grid">
+        <Reveal className="contact-intro"><p className="section-kicker"><span>07</span>Contact</p><h2 id="contact-title">Let’s build something that matters.</h2><p>Open to software engineering roles where product thinking, full-stack delivery, and production ownership matter. Share the role, team, or challenge—and I’ll get back to you.</p><div className="contact-direct"><a href={`mailto:${profile.email}`}><Mail /> <span><small>Direct email</small>{profile.email}</span></a><p><MapPin /> <span><small>Based in</small>{profile.location}</span></p></div><div className="contact-socials">{socials.slice(0, 2).map((social) => <a key={social.label} href={social.href} target="_blank" rel="noreferrer">{social.label}<ArrowUpRight size={14} /></a>)}</div></Reveal>
+        <Reveal delay={100} className="contact-form-wrap">
+          <form className="contact-form" onSubmit={submit} noValidate aria-describedby="form-status">
+            <div className="form-heading"><div><p className="eyebrow">Start a conversation</p><h3>Tell me what you’re working on.</h3></div><Send aria-hidden="true" /></div>
+            <div className="form-row"><div className="field"><label htmlFor="contact-name">Name <span aria-hidden="true">*</span></label><input id="contact-name" name="name" value={form.name} onChange={update} autoComplete="name" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? 'name-error' : undefined} disabled={status === 'submitting'} />{errors.name && <p className="field-error" id="name-error">{errors.name}</p>}</div><div className="field"><label htmlFor="contact-email">Email <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" value={form.email} onChange={update} autoComplete="email" inputMode="email" aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'email-error' : undefined} disabled={status === 'submitting'} />{errors.email && <p className="field-error" id="email-error">{errors.email}</p>}</div></div>
+            <div className="form-row"><div className="field"><label htmlFor="contact-company">Company <span>(optional)</span></label><input id="contact-company" name="company" value={form.company} onChange={update} autoComplete="organization" disabled={status === 'submitting'} /></div><div className="field"><label htmlFor="contact-reason">Reason for contact</label><select id="contact-reason" name="reason" value={form.reason} onChange={update} disabled={status === 'submitting'}><option>Job opportunity</option><option>Project collaboration</option><option>Technical conversation</option><option>Other</option></select></div></div>
+            <div className="field"><label htmlFor="contact-message">Message <span aria-hidden="true">*</span></label><textarea id="contact-message" name="message" rows="6" value={form.message} onChange={update} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'message-error' : 'message-help'} disabled={status === 'submitting'} /><div className="field-meta"><p id={errors.message ? 'message-error' : 'message-help'} className={errors.message ? 'field-error' : ''}>{errors.message || 'A role summary or a few lines of context is perfect.'}</p><span>{form.message.length}/3000</span></div></div>
+            <div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" value={form.website} onChange={update} tabIndex="-1" autoComplete="off" /></div>
+            <button className="button form-submit" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? <><Loader2 className="spinner" /> Sending…</> : status === 'success' ? <><CheckCircle2 /> Sent successfully</> : <>Send message <ArrowUpRight /></>}</button>
+            <p id="form-status" className={`form-status ${status}`} role="status" aria-live="polite">{feedback}</p>
+          </form>
+        </Reveal>
+      </div>
     </section>
   );
 }
