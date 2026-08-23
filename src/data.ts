@@ -66,6 +66,7 @@ export const projects = [
     stack: ["React 19", "Vite", "Tailwind CSS 4", "Framer Motion", "Lucide"],
     live: "https://tsion-beauty-salon.vercel.app",
     repo: "https://github.com/KeniKT/tsion-beauty-salon",
+    image: "/images/projects/tsion-beauty-salon.jpg",
     featured: true,
   },
   {
@@ -82,6 +83,7 @@ export const projects = [
     ],
     live: "https://lydda-market-bakery.vercel.app",
     repo: "https://github.com/KeniKT/lydda-market-bakery",
+    image: "/images/projects/lydda-market-bakery.jpg",
     featured: true,
   },
   {
@@ -97,6 +99,7 @@ export const projects = [
     ],
     live: "https://book-share-hazel.vercel.app",
     repo: "https://github.com/KeniKT/BookShare",
+    image: "/images/projects/bookshare.jpg",
     featured: true,
   },
   {
@@ -106,15 +109,7 @@ export const projects = [
     stack: ["React 19", "Vite", "Tailwind CSS 4", "Framer Motion", "Lucide"],
     live: "https://nunu-traditional-clothing.vercel.app",
     repo: "https://github.com/KeniKT/nunu-traditional-clothing",
-    featured: false,
-  },
-  {
-    name: "Roda Auto Repair",
-    description:
-      "Concierge-first multi-page auto repair shop site with transparent service pricing and accessible, validated contact forms.",
-    stack: ["React", "Vite", "Tailwind CSS", "Framer Motion", "React Router"],
-    live: "https://roda-auto-repair.vercel.app",
-    repo: "https://github.com/KeniKT/Auto-Repair-Center-of-Oxon-Hill",
+    image: "/images/projects/nunu-traditional-clothing.jpg",
     featured: false,
   },
   {
@@ -124,6 +119,33 @@ export const projects = [
     stack: ["Next.js", "Tailwind CSS", "Jest"],
     live: "https://admin-kinderbeam.vercel.app",
     repo: "https://github.com/KeniKT/admin.kinderbeam",
+    image: "/images/projects/kinderbeam-admin.jpg",
+    featured: false,
+  },
+  {
+    name: "ZK Flowers",
+    description:
+      "Multi-page site for a premium flower export company — product catalog, production process, sustainability practices, and global export regions across seven routed pages.",
+    stack: [
+      "React 18",
+      "React Router 7",
+      "Vite",
+      "Tailwind CSS",
+      "Lucide React",
+    ],
+    live: "https://zkflowers.com",
+    repo: "https://github.com/KeniKT/zk-flowers",
+    image: "/images/projects/zk-flowers.jpg",
+    featured: false,
+  },
+  {
+    name: "BM Coffee Export",
+    description:
+      "Production-ready business website for BM Coffee Export, built to present the company clearly and reliably across modern devices.",
+    stack: ["React", "Vite", "Tailwind CSS"],
+    live: "https://bm-motors.vercel.app",
+    repo: null,
+    image: "/images/projects/bm-coffee-export.jpg",
     featured: false,
   },
 ] as const;
