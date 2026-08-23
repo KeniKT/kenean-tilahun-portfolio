@@ -1,9 +1,11 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { Resend } from 'resend'
+
+type ContactRequest = { method?: string; body?: Record<string, unknown> }
+type ContactResponse = { status: (code: number) => { json: (body: { message: string }) => unknown } }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-export default async function handler(request: VercelRequest, response: VercelResponse) {
+export default async function handler(request: ContactRequest, response: ContactResponse) {
   if (request.method !== 'POST') return response.status(405).json({ message: 'Method not allowed.' })
   const { name, email, message, company } = request.body ?? {}
   if (company) return response.status(200).json({ message: 'Message received.' })

@@ -70,7 +70,7 @@ function Header() {
           <a
             href="#top"
             className="focus-ring rounded-full px-2 font-display text-lg font-semibold tracking-tight"
-            aria-label="Kenean Tilahun, back to top"
+            aria-label="KT — Kenean Tilahun, back to top"
           >
             KT<span className="text-[var(--accent)]">.</span>
           </a>
@@ -487,7 +487,7 @@ export default function App() {
               <GlassPanel className="rounded-[var(--radius-xl)] p-7 sm:p-10">
                 <ContactForm />
               </GlassPanel>
-              <div className="flex flex-col justify-between rounded-[var(--radius-xl)] bg-[var(--accent)] p-7 text-white sm:p-10">
+              <div className="flex flex-col justify-between rounded-[var(--radius-xl)] bg-[var(--accent-button)] p-7 text-white sm:p-10">
                 <div>
                   <Mail aria-hidden="true" />
                   <h3 className="mt-8 font-display text-3xl">Prefer email?</h3>
