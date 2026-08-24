@@ -1,5 +1,12 @@
-import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -153,6 +160,164 @@ function ProjectImage({ src, name }: { src: string; name: string }) {
   );
 }
 
+function WorkCard({
+  project,
+  index,
+  progress,
+  animated,
+}: {
+  project: (typeof projects)[number];
+  index: number;
+  progress: MotionValue<number>;
+  animated: boolean;
+}) {
+  const reduce = useReducedMotion();
+  const center = projects.length > 1 ? index / (projects.length - 1) : 0;
+  const scaleRange =
+    center - 0.22 < 0
+      ? [center, center + 0.22]
+      : center + 0.22 > 1
+        ? [center - 0.22, center]
+        : [center - 0.22, center, center + 0.22];
+  const opacityRange =
+    center - 0.3 < 0
+      ? [center, center + 0.3]
+      : center + 0.3 > 1
+        ? [center - 0.3, center]
+        : [center - 0.3, center, center + 0.3];
+  const scale = useTransform(
+    progress,
+    scaleRange,
+    center - 0.22 < 0
+      ? [1, 0.96]
+      : center + 0.22 > 1
+        ? [0.96, 1]
+        : [0.96, 1, 0.96],
+  );
+  const opacity = useTransform(
+    progress,
+    opacityRange,
+    center - 0.3 < 0
+      ? [1, 0.72]
+      : center + 0.3 > 1
+        ? [0.72, 1]
+        : [0.72, 1, 0.72],
+  );
+
+  return (
+    <motion.article
+      className="work-card"
+      style={!animated || reduce ? undefined : { scale, opacity }}
+    >
+      <ProjectImage src={project.image} name={project.name} />
+      <div className="work-card-copy">
+        <div className="work-card-meta">
+          <span>{project.category}</span>
+          <time>{project.year}</time>
+        </div>
+        <div className="work-card-title-row">
+          <div>
+            <span className="work-card-number" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3>{project.name}</h3>
+          </div>
+          <p>{project.description}</p>
+        </div>
+        <div className="work-card-links">
+          <Link href={project.live} target="_blank" rel="noreferrer">
+            Live project <ArrowUpRight className="inline" size={15} />
+          </Link>
+          {project.repo && (
+            <Link href={project.repo} target="_blank" rel="noreferrer" subtle>
+              GitHub <ArrowUpRight className="inline" size={15} />
+            </Link>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function WorkSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [scrollDistance, setScrollDistance] = useState(0);
+  const [desktop, setDesktop] = useState(false);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  const rawX = useTransform(scrollYProgress, [0, 1], [0, -scrollDistance]);
+  const smoothX = useSpring(rawX, {
+    stiffness: 120,
+    damping: 28,
+    mass: 0.45,
+  });
+
+  useEffect(() => {
+    const measure = () => {
+      const isDesktop = matchMedia("(min-width: 768px)").matches;
+      setDesktop(isDesktop);
+      if (!isDesktop || !trackRef.current) {
+        setScrollDistance(0);
+        return;
+      }
+      setScrollDistance(
+        Math.max(0, trackRef.current.scrollWidth - window.innerWidth),
+      );
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="work"
+      aria-labelledby="work-title"
+      className="work-story"
+      style={desktop ? { height: `calc(100svh + ${scrollDistance}px)` } : undefined}
+    >
+      <div className="work-sticky">
+        <Container>
+          <motion.div
+            className="work-heading"
+            initial={reduce ? false : { opacity: 0, y: 24 }}
+            whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p>Selected Work</p>
+            <h2 id="work-title">Digital products shaped around real people.</h2>
+            <span>
+              Shipped and evolving work across commerce, client services, and
+              full-stack platforms.
+            </span>
+          </motion.div>
+        </Container>
+        <motion.div
+          ref={trackRef}
+          className="work-track"
+          style={desktop && !reduce ? { x: smoothX } : undefined}
+        >
+          {projects.map((project, index) => (
+            <WorkCard
+              key={project.name}
+              project={project}
+              index={index}
+              progress={scrollYProgress}
+              animated={desktop}
+            />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   return (
     <>
@@ -227,27 +392,18 @@ export default function App() {
               <SectionHeading eyebrow="About" intro="The craft behind the code">
                 A product-minded engineer who cares about the whole system.
               </SectionHeading>
-              <div className="max-w-4xl">
-                <p className="text-[length:var(--text-xl)] leading-[1.7] text-[var(--text-primary)]">
+              <div className="about-statement">
+                <p className="about-statement-lead">
                   Software Engineer and full-stack developer with four years of
                   experience delivering production-grade web and mobile
-                  applications across fintech, AI, and enterprise platforms.
+                  applications across fintech, AI, and enterprise platforms.{" "}
+                </p>
+                <p className="about-statement-body">
                   Proficient in Python, JavaScript, and TypeScript with strong
                   expertise in React, Node.js, Next.js, Django, and Flutter.
                   Passionate about clean architecture, scalable system design,
                   and building user-focused solutions that drive real impact.
                 </p>
-                <div className="mt-10 border-l-2 border-[var(--gold)] pl-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-                    Education
-                  </p>
-                  <h3 className="mt-3 font-display text-2xl">
-                    BSc Software Engineering
-                  </h3>
-                  <p className="mt-2 text-[var(--text-secondary)]">
-                    BITS College — GPA 3.5/4.0
-                  </p>
-                </div>
               </div>
             </Reveal>
           </Container>
@@ -298,75 +454,7 @@ export default function App() {
         </section>
 
         <Divider />
-        <section id="work" aria-labelledby="work-title" className="section">
-          <Container>
-            <SectionHeading
-              eyebrow="Selected work"
-              intro="Seven shipped and evolving products across client services, commerce, education, and full-stack platforms."
-            >
-              Work built to be used, not just viewed.
-            </SectionHeading>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-12">
-              {projects.map((project, index) => (
-                <Reveal
-                  key={project.name}
-                  className={
-                    project.featured ? "lg:col-span-4" : "lg:col-span-3"
-                  }
-                >
-                  <Card
-                    className={`flex h-full min-h-[22rem] flex-col ${index < 3 ? "border-[var(--border-strong)]" : ""}`}
-                  >
-                    {/* TODO: Replace each /images/projects/*.jpg path with a real screenshot of its corresponding live site. */}
-                    <ProjectImage src={project.image} name={project.name} />
-                    <div className="mb-auto">
-                      <div className="flex items-start justify-between gap-4">
-                        <span className="text-sm tabular-nums text-[var(--gold-strong)]">
-                          0{index + 1}
-                        </span>
-                        {project.featured && (
-                          <Badge className="text-[var(--accent)]">
-                            Featured
-                          </Badge>
-                        )}
-                      </div>
-                      <h3 className="mt-8 font-display text-[length:var(--text-2xl)] leading-tight">
-                        {project.name}
-                      </h3>
-                      <p className="project-description mt-4 leading-7 text-[var(--text-secondary)]">
-                        {project.description}
-                      </p>
-                      <div className="mt-6 flex flex-wrap gap-2">
-                        {project.stack.map((tech) => (
-                          <Badge key={tech}>{tech}</Badge>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="mt-8 flex gap-5 border-t border-[var(--border)] pt-5">
-                      <Link
-                        href={project.live}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Live demo <ArrowUpRight className="inline" size={14} />
-                      </Link>
-                      {project.repo && (
-                        <Link
-                          href={project.repo}
-                          target="_blank"
-                          rel="noreferrer"
-                          subtle
-                        >
-                          GitHub <ArrowUpRight className="inline" size={14} />
-                        </Link>
-                      )}
-                    </div>
-                  </Card>
-                </Reveal>
-              ))}
-            </div>
-          </Container>
-        </section>
+        <WorkSection />
 
         <Divider />
         <section id="skills" aria-labelledby="skills-title" className="section">

@@ -61,6 +61,8 @@ export const experience = [
 export const projects = [
   {
     name: "Tsion Beauty Salon",
+    category: "Client services",
+    year: "2026",
     description:
       "Premium single-page site for a Falls Church, VA beauty salon.",
     stack: ["React 19", "Vite", "Tailwind CSS 4", "Framer Motion", "Lucide"],
@@ -71,6 +73,8 @@ export const projects = [
   },
   {
     name: "Lydda Market & Bakery",
+    category: "Commerce",
+    year: "2026",
     description:
       "Bilingual, bento-layout site for a Falls Church, VA bakery with a lightweight procedural 3D hero and validated catering-inquiry form.",
     stack: [
@@ -88,6 +92,8 @@ export const projects = [
   },
   {
     name: "BookShare",
+    category: "Full-stack platform",
+    year: "2026",
     description:
       "Full-stack book lending/rental platform with authentication, listings, and a rental request workflow.",
     stack: [
@@ -104,6 +110,8 @@ export const projects = [
   },
   {
     name: "NUNU Traditional Clothing (ኑኑ የባህል አልባሳት)",
+    category: "Fashion & commerce",
+    year: "2026",
     description:
       "Bilingual (Amharic/English) concept site for an Ethiopian fashion brand, with a bespoke-order journey and culturally grounded editorial art direction.",
     stack: ["React 19", "Vite", "Tailwind CSS 4", "Framer Motion", "Lucide"],
@@ -113,17 +121,9 @@ export const projects = [
     featured: false,
   },
   {
-    name: "Kinderbeam Admin",
-    description:
-      "Admin dashboard for managing students and accounts, with automated test coverage.",
-    stack: ["Next.js", "Tailwind CSS", "Jest"],
-    live: "https://admin-kinderbeam.vercel.app",
-    repo: "https://github.com/KeniKT/admin.kinderbeam",
-    image: "/images/projects/kinderbeam-admin.jpg",
-    featured: false,
-  },
-  {
     name: "ZK Flowers",
+    category: "Export & commerce",
+    year: "2026",
     description:
       "Multi-page site for a premium flower export company — product catalog, production process, sustainability practices, and global export regions across seven routed pages.",
     stack: [
@@ -140,6 +140,8 @@ export const projects = [
   },
   {
     name: "BM Coffee Export",
+    category: "Export & commerce",
+    year: "2026",
     description:
       "Production-ready business website for BM Coffee Export, built to present the company clearly and reliably across modern devices.",
     stack: ["React", "Vite", "Tailwind CSS"],
