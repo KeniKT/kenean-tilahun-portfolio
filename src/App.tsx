@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
-  useScroll,
+  useMotionValue,
   useSpring,
   useTransform,
   type MotionValue,
@@ -245,10 +245,7 @@ function WorkSection() {
   const [scrollDistance, setScrollDistance] = useState(0);
   const [desktop, setDesktop] = useState(false);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
+  const scrollYProgress = useMotionValue(0);
   const rawX = useTransform(scrollYProgress, [0, 1], [0, -scrollDistance]);
   const smoothX = useSpring(rawX, {
     stiffness: 120,
@@ -257,21 +254,49 @@ function WorkSection() {
   });
 
   useEffect(() => {
+    let frame = 0;
+    let distance = 0;
+
+    const updateProgress = () => {
+      frame = 0;
+      if (!sectionRef.current || distance <= 0) {
+        scrollYProgress.set(0);
+        return;
+      }
+      const sectionTop =
+        sectionRef.current.getBoundingClientRect().top + window.scrollY;
+      scrollYProgress.set(
+        Math.min(1, Math.max(0, (window.scrollY - sectionTop) / distance)),
+      );
+    };
+    const requestProgressUpdate = () => {
+      if (!frame) frame = requestAnimationFrame(updateProgress);
+    };
     const measure = () => {
       const isDesktop = matchMedia("(min-width: 768px)").matches;
       setDesktop(isDesktop);
       if (!isDesktop || !trackRef.current) {
+        distance = 0;
         setScrollDistance(0);
+        scrollYProgress.set(0);
         return;
       }
-      setScrollDistance(
-        Math.max(0, trackRef.current.scrollWidth - window.innerWidth),
+      distance = Math.max(
+        0,
+        trackRef.current.scrollWidth - window.innerWidth,
       );
+      setScrollDistance(distance);
+      updateProgress();
     };
     measure();
+    window.addEventListener("scroll", requestProgressUpdate, { passive: true });
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", requestProgressUpdate);
+      window.removeEventListener("resize", measure);
+    };
+  }, [scrollYProgress]);
 
   return (
     <section
@@ -369,16 +394,15 @@ export default function App() {
               </Reveal>
               <Reveal className="hero-visual-wrap">
                 <figure className="hero-visual glass-panel">
-                  {/* Uses the existing original abstract artwork. TODO: replace with /images/hero-portrait.jpg if a professional portrait is supplied. */}
                   <img
-                    src="/og-image.png"
-                    alt="Abstract oxblood, ivory, and gold architectural forms"
-                    width="1200"
-                    height="630"
+                    src="/images/projects/KT.jpg"
+                    alt="Kenean Tilahun, Software Engineer and Full-Stack Developer"
+                    width="1600"
+                    height="2000"
                     loading="eager"
                     fetchPriority="high"
                     decoding="async"
-                    className="h-full w-full object-cover"
+                    className="hero-portrait h-full w-full object-cover"
                   />
                 </figure>
               </Reveal>
@@ -389,22 +413,84 @@ export default function App() {
         <section id="about" aria-labelledby="about-title" className="section">
           <Container>
             <Reveal>
-              <SectionHeading eyebrow="About" intro="The craft behind the code">
-                A product-minded engineer who cares about the whole system.
-              </SectionHeading>
-              <div className="about-statement">
-                <p className="about-statement-lead">
-                  Software Engineer and full-stack developer with four years of
-                  experience delivering production-grade web and mobile
-                  applications across fintech, AI, and enterprise platforms.{" "}
-                </p>
-                <p className="about-statement-body">
-                  Proficient in Python, JavaScript, and TypeScript with strong
-                  expertise in React, Node.js, Next.js, Django, and Flutter.
-                  Passionate about clean architecture, scalable system design,
-                  and building user-focused solutions that drive real impact.
+              <div className="about-hero-statement">
+                <p className="about-eyebrow">About</p>
+                <h2 id="about-title">
+                  I build production-grade software that turns complex systems
+                  into seamless experiences.
+                </h2>
+                <p>
+                  I&apos;m Kenean — a Software Engineer and full-stack developer
+                  working across fintech, AI, and enterprise platforms. Whether
+                  it&apos;s designing a clean API, architecting a resilient
+                  backend, or building an interface people actually enjoy using,
+                  I focus on shipping code that&apos;s maintainable and actually
+                  moves the product forward.
                 </p>
               </div>
+
+              <div className="about-philosophy" aria-label="Engineering philosophy">
+                <article className="about-philosophy-card">
+                  <span aria-hidden="true">01</span>
+                  <h3>Clean Architecture</h3>
+                  <p>
+                    Modularity, strong typing, and code that can scale without
+                    turning into spaghetti. I&apos;d rather write it right the
+                    first time than untangle it later.
+                  </p>
+                </article>
+                <article className="about-philosophy-card">
+                  <span aria-hidden="true">02</span>
+                  <h3>Performance First</h3>
+                  <p>
+                    Runtime efficiency, sane state management, and page speed
+                    aren&apos;t an afterthought — they&apos;re part of the initial
+                    design, not a cleanup pass at the end.
+                  </p>
+                </article>
+                <article className="about-philosophy-card">
+                  <span aria-hidden="true">03</span>
+                  <h3>Built for the Real Problem</h3>
+                  <p>
+                    Good code that solves the wrong problem is still a failure. I
+                    care about understanding what a project actually needs before
+                    I start writing it.
+                  </p>
+                </article>
+              </div>
+
+              <dl className="about-stats" aria-label="Quick stats">
+                <div>
+                  <dt>Years of experience</dt>
+                  <dd>4</dd>
+                </div>
+                <div>
+                  <dt>Shipped projects</dt>
+                  <dd>8+</dd>
+                </div>
+                <div>
+                  <dt>Industries — fintech, AI, enterprise</dt>
+                  <dd>3</dd>
+                </div>
+                <div>
+                  <dt>
+                    Core technologies — Python, TypeScript, React, Node.js,
+                    Next.js, Django, Flutter
+                  </dt>
+                  <dd>6+</dd>
+                </div>
+              </dl>
+
+              {/* TODO: Add a personal-touch line here when a non-work interest is supplied. */}
+              <p className="about-cta">
+                <Link
+                  href="https://github.com/KeniKT"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Explore my work on GitHub →
+                </Link>
+              </p>
             </Reveal>
           </Container>
         </section>
