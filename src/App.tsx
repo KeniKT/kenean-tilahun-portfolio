@@ -1,20 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useReducedMotion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowDown,
-  ArrowUpRight,
-  Braces,
+  ArrowLeft,
+  ArrowRight,
   Download,
-  BriefcaseBusiness,
+  ExternalLink,
   Code2,
-  Mail,
   Menu,
   X,
 } from "lucide-react";
@@ -163,151 +155,59 @@ function ProjectImage({ src, name }: { src: string; name: string }) {
 function WorkCard({
   project,
   index,
-  progress,
-  animated,
+  active,
 }: {
   project: (typeof projects)[number];
   index: number;
-  progress: MotionValue<number>;
-  animated: boolean;
+  active: boolean;
 }) {
-  const reduce = useReducedMotion();
-  const center = projects.length > 1 ? index / (projects.length - 1) : 0;
-  const scaleRange =
-    center - 0.22 < 0
-      ? [center, center + 0.22]
-      : center + 0.22 > 1
-        ? [center - 0.22, center]
-        : [center - 0.22, center, center + 0.22];
-  const opacityRange =
-    center - 0.3 < 0
-      ? [center, center + 0.3]
-      : center + 0.3 > 1
-        ? [center - 0.3, center]
-        : [center - 0.3, center, center + 0.3];
-  const scale = useTransform(
-    progress,
-    scaleRange,
-    center - 0.22 < 0
-      ? [1, 0.96]
-      : center + 0.22 > 1
-        ? [0.96, 1]
-        : [0.96, 1, 0.96],
-  );
-  const opacity = useTransform(
-    progress,
-    opacityRange,
-    center - 0.3 < 0
-      ? [1, 0.72]
-      : center + 0.3 > 1
-        ? [0.72, 1]
-        : [0.72, 1, 0.72],
-  );
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   return (
-    <motion.article
-      className="work-card"
-      style={!animated || reduce ? undefined : { scale, opacity }}
-    >
+    <article className={`work-card${detailsOpen ? " is-detailed" : ""}`} aria-hidden={!active}>
       <ProjectImage src={project.image} name={project.name} />
-      <div className="work-card-copy">
-        <div className="work-card-meta">
-          <span>{project.category}</span>
-          <time>{project.year}</time>
-        </div>
-        <div className="work-card-title-row">
-          <div>
-            <span className="work-card-number" aria-hidden="true">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <h3>{project.name}</h3>
-          </div>
-          <p>{project.description}</p>
+      <div className="work-card-caption">
+        <div>
+          <p className="work-card-kicker">
+            {String(index + 1).padStart(2, "0")} / {project.category} / {project.year}
+          </p>
+          <h3>{project.name}</h3>
+          <p className="work-card-tagline">{project.description}</p>
         </div>
         <div className="work-card-links">
-          <Link href={project.live} target="_blank" rel="noreferrer">
-            Live project <ArrowUpRight className="inline" size={15} />
-          </Link>
+          <a className="icon-link focus-ring" href={project.live} target="_blank" rel="noreferrer" tabIndex={active ? 0 : -1} aria-label={`Open ${project.name} live project`}>
+            <ExternalLink aria-hidden="true" size={18} />
+          </a>
           {project.repo && (
-            <Link href={project.repo} target="_blank" rel="noreferrer" subtle>
-              GitHub <ArrowUpRight className="inline" size={15} />
-            </Link>
+            <a className="icon-link focus-ring" href={project.repo} target="_blank" rel="noreferrer" tabIndex={active ? 0 : -1} aria-label={`Open ${project.name} GitHub repository`}>
+              <Code2 aria-hidden="true" size={18} />
+            </a>
           )}
+          <button className="details-toggle focus-ring" type="button" tabIndex={active ? 0 : -1} aria-expanded={detailsOpen} onClick={() => setDetailsOpen((open) => !open)}>
+            {detailsOpen ? "Close" : "Details"}
+          </button>
         </div>
       </div>
-    </motion.article>
+      <div className="work-card-details" aria-hidden={!detailsOpen}>
+        <p>{project.description}</p>
+        <ul aria-label="Technology stack">
+          {project.stack.map((technology) => <li key={technology}>{technology}</li>)}
+        </ul>
+      </div>
+    </article>
   );
 }
 
 function WorkSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [scrollDistance, setScrollDistance] = useState(0);
-  const [desktop, setDesktop] = useState(false);
   const reduce = useReducedMotion();
-  const scrollYProgress = useMotionValue(0);
-  const rawX = useTransform(scrollYProgress, [0, 1], [0, -scrollDistance]);
-  const smoothX = useSpring(rawX, {
-    stiffness: 120,
-    damping: 28,
-    mass: 0.45,
-  });
-
-  useEffect(() => {
-    let frame = 0;
-    let distance = 0;
-
-    const updateProgress = () => {
-      frame = 0;
-      if (!sectionRef.current || distance <= 0) {
-        scrollYProgress.set(0);
-        return;
-      }
-      const sectionTop =
-        sectionRef.current.getBoundingClientRect().top + window.scrollY;
-      scrollYProgress.set(
-        Math.min(1, Math.max(0, (window.scrollY - sectionTop) / distance)),
-      );
-    };
-    const requestProgressUpdate = () => {
-      if (!frame) frame = requestAnimationFrame(updateProgress);
-    };
-    const measure = () => {
-      const isDesktop = matchMedia("(min-width: 768px)").matches;
-      setDesktop(isDesktop);
-      if (!isDesktop || !trackRef.current) {
-        distance = 0;
-        setScrollDistance(0);
-        scrollYProgress.set(0);
-        return;
-      }
-      distance = Math.max(
-        0,
-        trackRef.current.scrollWidth - window.innerWidth,
-      );
-      setScrollDistance(distance);
-      updateProgress();
-    };
-    measure();
-    window.addEventListener("scroll", requestProgressUpdate, { passive: true });
-    window.addEventListener("resize", measure);
-    return () => {
-      if (frame) cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", requestProgressUpdate);
-      window.removeEventListener("resize", measure);
-    };
-  }, [scrollYProgress]);
+  const [active, setActive] = useState(0);
+  const touchStart = useRef<number | null>(null);
+  const previous = () => setActive((value) => Math.max(0, value - 1));
+  const next = () => setActive((value) => Math.min(projects.length - 1, value + 1));
 
   return (
-    <section
-      ref={sectionRef}
-      id="work"
-      aria-labelledby="work-title"
-      className="work-story"
-      style={desktop ? { height: `calc(100svh + ${scrollDistance}px)` } : undefined}
-    >
-      <div className="work-sticky">
-        <Container>
+    <section id="work" aria-labelledby="work-title" className="work-story section">
+      <Container>
           <motion.div
             className="work-heading"
             initial={reduce ? false : { opacity: 0, y: 24 }}
@@ -322,23 +222,20 @@ function WorkSection() {
               full-stack platforms.
             </span>
           </motion.div>
-        </Container>
-        <motion.div
-          ref={trackRef}
-          className="work-track"
-          style={desktop && !reduce ? { x: smoothX } : undefined}
-        >
-          {projects.map((project, index) => (
-            <WorkCard
-              key={project.name}
-              project={project}
-              index={index}
-              progress={scrollYProgress}
-              animated={desktop}
-            />
-          ))}
-        </motion.div>
-      </div>
+          <div className="work-slider" role="region" aria-roledescription="carousel" aria-label="Selected projects" tabIndex={0}
+            onKeyDown={(event) => { if (event.key === "ArrowLeft") previous(); if (event.key === "ArrowRight") next(); }}
+            onTouchStart={(event) => { touchStart.current = event.touches[0].clientX; }}
+            onTouchEnd={(event) => { if (touchStart.current === null) return; const distance = event.changedTouches[0].clientX - touchStart.current; if (distance > 45) previous(); if (distance < -45) next(); touchStart.current = null; }}>
+            <div className="work-viewport">
+              <div className="work-track" style={{ transform: `translate3d(-${active * 100}%, 0, 0)`, transition: reduce ? "none" : undefined }}>
+                {projects.map((project, index) => <WorkCard key={project.name} project={project} index={index} active={index === active} />)}
+              </div>
+            </div>
+            <button type="button" className="slider-arrow slider-arrow-left focus-ring" onClick={previous} disabled={active === 0} aria-label="Previous project"><ArrowLeft aria-hidden="true" /></button>
+            <button type="button" className="slider-arrow slider-arrow-right focus-ring" onClick={next} disabled={active === projects.length - 1} aria-label="Next project"><ArrowRight aria-hidden="true" /></button>
+            <p className="slider-status" aria-live="polite">{active + 1} / {projects.length}</p>
+          </div>
+      </Container>
     </section>
   );
 }
@@ -414,11 +311,13 @@ export default function App() {
           <Container>
             <Reveal>
               <div className="about-hero-statement">
-                <p className="about-eyebrow">About</p>
-                <h2 id="about-title">
+                <div className="section-title-rule">
+                  <h2 id="about-title">About</h2>
+                </div>
+                <p className="about-lead">
                   I build production-grade software that turns complex systems
                   into seamless experiences.
-                </h2>
+                </p>
                 <p>
                   I&apos;m Kenean — a Software Engineer and full-stack developer
                   working across fintech, AI, and enterprise platforms. Whether
@@ -459,28 +358,6 @@ export default function App() {
                 </article>
               </div>
 
-              <dl className="about-stats" aria-label="Quick stats">
-                <div>
-                  <dt>Years of experience</dt>
-                  <dd>4</dd>
-                </div>
-                <div>
-                  <dt>Shipped projects</dt>
-                  <dd>8+</dd>
-                </div>
-                <div>
-                  <dt>Industries — fintech, AI, enterprise</dt>
-                  <dd>3</dd>
-                </div>
-                <div>
-                  <dt>
-                    Core technologies — Python, TypeScript, React, Node.js,
-                    Next.js, Django, Flutter
-                  </dt>
-                  <dd>6+</dd>
-                </div>
-              </dl>
-
               {/* TODO: Add a personal-touch line here when a non-work interest is supplied. */}
               <p className="about-cta">
                 <Link
@@ -488,7 +365,7 @@ export default function App() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Explore my work on GitHub →
+                  ↗ github
                 </Link>
               </p>
             </Reveal>
@@ -578,70 +455,22 @@ export default function App() {
           className="section pb-16"
         >
           <Container>
-            <SectionHeading
-              eyebrow="Contact"
-              intro="Have a role, product, or collaboration in mind? I’m always open to a thoughtful conversation."
-            >
-              Let’s build something useful.
-            </SectionHeading>
-            <div className="contact-links">
-              <a
-                className="contact-link focus-ring"
-                href="mailto:keni232127@gmail.com"
-              >
-                <span className="contact-link-icon">
-                  <Mail aria-hidden="true" />
-                </span>
-                <span>
-                  <strong>Email</strong>
-                  <small>keni232127@gmail.com</small>
-                </span>
-              </a>
-              <a
-                className="contact-link focus-ring"
-                href="https://linkedin.com/in/kenean"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span className="contact-link-icon">
-                  <BriefcaseBusiness aria-hidden="true" />
-                </span>
-                <span>
-                  <strong>LinkedIn</strong>
-                  <small>linkedin.com/in/kenean</small>
-                </span>
-                <ArrowUpRight aria-hidden="true" className="ml-auto" />
-              </a>
-              <a
-                className="contact-link focus-ring"
-                href="https://leetcode.com/u/keniKT"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span className="contact-link-icon">
-                  <Braces aria-hidden="true" />
-                </span>
-                <span>
-                  <strong>LeetCode</strong>
-                  <small>leetcode.com/u/keniKT</small>
-                </span>
-                <ArrowUpRight aria-hidden="true" className="ml-auto" />
-              </a>
-              <a
-                className="contact-link focus-ring"
-                href="https://github.com/KeniKT"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span className="contact-link-icon">
-                  <Code2 aria-hidden="true" />
-                </span>
-                <span>
-                  <strong>GitHub</strong>
-                  <small>github.com/KeniKT</small>
-                </span>
-                <ArrowUpRight aria-hidden="true" className="ml-auto" />
-              </a>
+            <div className="section-title-rule">
+              <h2 id="contact-title">Contact</h2>
+            </div>
+            <div className="contact-directory">
+              <div className="contact-group">
+                <h3>Mail</h3>
+                <a className="arrow-text-link focus-ring" href="mailto:keni232127@gmail.com"><span aria-hidden="true">↗</span> keni232127@gmail.com</a>
+              </div>
+              <div className="contact-group">
+                <h3>Social medias</h3>
+                <div className="contact-socials">
+                  <a className="arrow-text-link focus-ring" href="https://linkedin.com/in/kenean" target="_blank" rel="noreferrer"><span aria-hidden="true">↗</span> LinkedIn</a>
+                  <a className="arrow-text-link focus-ring" href="https://github.com/KeniKT" target="_blank" rel="noreferrer"><span aria-hidden="true">↗</span> GitHub</a>
+                  <a className="arrow-text-link focus-ring" href="https://leetcode.com/u/keniKT" target="_blank" rel="noreferrer"><span aria-hidden="true">↗</span> LeetCode</a>
+                </div>
+              </div>
             </div>
           </Container>
         </section>

@@ -104,7 +104,7 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const styles = `${focus} inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-[var(--duration-fast)] ${variant === "primary" ? "bg-[var(--accent-button)] text-white hover:bg-[var(--accent-button-hover)]" : "border border-[var(--border-strong)] bg-[var(--surface)] text-[var(--text-primary)] hover:bg-[var(--surface-elevated)]"} ${className}`;
+  const styles = `${focus} inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-[var(--duration-fast)] ${variant === "primary" ? "cta-primary bg-[var(--accent-button)] text-white hover:bg-[var(--accent-button-hover)]" : "border border-[var(--border-strong)] bg-[var(--surface)] text-[var(--text-primary)] hover:bg-[var(--surface-elevated)]"} ${className}`;
   if (href)
     return (
       <a
