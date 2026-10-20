@@ -307,19 +307,22 @@ export default function App() {
           </Container>
         </section>
 
-        <section id="about" aria-labelledby="about-title" className="section">
+        <section id="about" aria-labelledby="about-title" className="section about-section">
           <Container>
             <Reveal>
               <div className="about-hero-statement">
                 <div className="section-title-rule">
                   <h2 id="about-title">About</h2>
                 </div>
+              </div>
+
+              <div className="about-overview">
                 <p className="about-lead">
                   I build production-grade software that turns complex systems
                   into seamless experiences.
                 </p>
                 <p>
-                  I&apos;m Kenean — a Software Engineer and full-stack developer
+                  I&apos;m Kenean. I&apos;m a Software Engineer and full-stack developer
                   working across fintech, AI, and enterprise platforms. Whether
                   it&apos;s designing a clean API, architecting a resilient
                   backend, or building an interface people actually enjoy using,
@@ -328,6 +331,7 @@ export default function App() {
                 </p>
               </div>
 
+              <p className="about-principles-label">Engineering principles</p>
               <div className="about-philosophy" aria-label="Engineering philosophy">
                 <article className="about-philosophy-card">
                   <span aria-hidden="true">01</span>

@@ -989,3 +989,105 @@ textarea {
   .work-card-links { margin-top: 1rem; }
   .work-card-details > p { font-size: 1.35rem; }
 }
+
+/* About: a compact editorial introduction with a clear progression into principles. */
+.about-section {
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+}
+
+.about-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(19rem, 0.74fr);
+  gap: clamp(2.5rem, 8vw, 8rem);
+  align-items: start;
+  padding: clamp(2.25rem, 4.5vw, 4.5rem) 0 clamp(2.5rem, 5vw, 5rem);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-lead {
+  max-width: 19ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.about-overview > p:last-child {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--text-secondary);
+  font-family: "Aptos", "Avenir Next", "Segoe UI Variable", var(--font-sans);
+  font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.25rem);
+  font-weight: 450;
+  line-height: 1.72;
+  letter-spacing: -0.012em;
+  font-feature-settings: "calt" 1, "ss01" 1;
+  text-wrap: pretty;
+}
+
+.about-principles-label {
+  margin: clamp(2.5rem, 5vw, 4.5rem) 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.about-philosophy {
+  gap: clamp(0.85rem, 1.7vw, 1.25rem);
+  margin-top: 0;
+}
+
+.about-philosophy-card {
+  min-height: 15.5rem;
+  padding: clamp(1.35rem, 2.2vw, 2rem);
+  background: color-mix(in srgb, var(--surface) 88%, var(--accent-soft));
+}
+
+.about-philosophy-card h3 {
+  margin-top: clamp(2rem, 4vw, 3.25rem);
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+}
+
+.about-philosophy-card p {
+  margin-top: 0.8rem;
+  font-size: var(--text-sm);
+  line-height: 1.65;
+}
+
+.about-cta {
+  margin-top: 1.35rem;
+}
+
+@media (max-width: 900px) {
+  .about-overview {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-lead {
+    max-width: 24ch;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-section {
+    padding-bottom: 4rem;
+  }
+
+  .about-overview {
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .about-lead {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .about-principles-label {
+    margin-top: 2.5rem;
+  }
+}
