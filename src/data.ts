@@ -68,7 +68,7 @@ export const projects = [
     stack: ["React 19", "Vite", "Tailwind CSS 4", "Framer Motion", "Lucide"],
     live: "https://tsion-beauty-salon.vercel.app",
     repo: "https://github.com/KeniKT/tsion-beauty-salon",
-    image: "/images/projects/tsion-beauty-salon.jpg",
+    image: "/images/projects/tsion.png",
     featured: true,
   },
   {
@@ -87,7 +87,7 @@ export const projects = [
     ],
     live: "https://lydda-market-bakery.vercel.app",
     repo: "https://github.com/KeniKT/lydda-market-bakery",
-    image: "/images/projects/lydda-market-bakery.jpg",
+    image: "/images/projects/lydda.png",
     featured: true,
   },
   {
@@ -105,7 +105,7 @@ export const projects = [
     ],
     live: "https://book-share-hazel.vercel.app",
     repo: "https://github.com/KeniKT/BookShare",
-    image: "/images/projects/bookshare.jpg",
+    image: "/images/projects/book-share.png",
     featured: true,
   },
   {
@@ -117,7 +117,7 @@ export const projects = [
     stack: ["React 19", "Vite", "Tailwind CSS 4", "Framer Motion", "Lucide"],
     live: "https://nunu-traditional-clothing.vercel.app",
     repo: "https://github.com/KeniKT/nunu-traditional-clothing",
-    image: "/images/projects/nunu-traditional-clothing.jpg",
+    image: "/images/projects/nunu.png",
     featured: false,
   },
   {
@@ -135,7 +135,7 @@ export const projects = [
     ],
     live: "https://zkflowers.com",
     repo: "https://github.com/KeniKT/zk-flowers",
-    image: "/images/projects/zk-flowers.jpg",
+    image: "/images/projects/zkflowers.png",
     featured: false,
   },
   {
@@ -145,9 +145,9 @@ export const projects = [
     description:
       "Production-ready business website for BM Coffee Export, built to present the company clearly and reliably across modern devices.",
     stack: ["React", "Vite", "Tailwind CSS"],
-    live: "https://bm-motors.vercel.app",
+    live: "https://bmcoffeeexport.com/",
     repo: null,
-    image: "/images/projects/bm-coffee-export.jpg",
+    image: "/images/projects/bmcoffeeexport.png",
     featured: false,
   },
 ] as const;

@@ -1,36 +1,182 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDownRight, ArrowUpRight, Menu, X } from "lucide-react";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  Code2,
+  Mail,
+  Menu,
+  X,
+} from "lucide-react";
 import { experience, navItems, projects } from "./data";
 
-function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function Reveal({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   const reducedMotion = useReducedMotion();
-  return <motion.div className={className} initial={reducedMotion ? false : { opacity: 0, y: 28 }} whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.16 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>{children}</motion.div>;
+  return (
+    <motion.div
+      className={className}
+      initial={reducedMotion ? false : { opacity: 0, y: 28 }}
+      whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.16 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
 function Header() {
-  const [open, setOpen] = useState(false); const [scrolled, setScrolled] = useState(false);
-  useEffect(() => { const update = () => setScrolled(window.scrollY > 28); update(); window.addEventListener("scroll", update, { passive: true }); return () => window.removeEventListener("scroll", update); }, []);
-  return <header className={`site-header${scrolled ? " is-scrolled" : ""}`}><div className="page-shell header-inner">
-    <a className="wordmark focus-ring" href="#top" aria-label="Kenean Tilahun, back to top">KT<span>.</span></a>
-    <nav className={open ? "primary-nav is-open" : "primary-nav"} aria-label="Primary navigation">{navItems.map(({ id, label }) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}</nav>
-    <a href="#contact" className="header-cta">Let&apos;s talk <ArrowUpRight size={15} aria-hidden="true" /></a>
-    <button type="button" className="menu-button focus-ring" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle navigation">{open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button>
-  </div></header>;
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 28);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return (
+    <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
+      <div className="page-shell header-inner">
+        <a
+          className="wordmark focus-ring"
+          href="#top"
+          aria-label="Kenean Tilahun, back to top"
+        >
+          KT<span>.</span>
+        </a>
+        <nav
+          className={open ? "primary-nav is-open" : "primary-nav"}
+          aria-label="Primary navigation"
+        >
+          {navItems.map(({ id, label }) => (
+            <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
+              {label}
+            </a>
+          ))}
+        </nav>
+        <a href="#contact" className="header-cta">
+          Let&apos;s talk <ArrowUpRight size={15} aria-hidden="true" />
+        </a>
+        <button
+          type="button"
+          className="menu-button focus-ring"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label="Toggle navigation"
+        >
+          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
+      </div>
+    </header>
+  );
 }
 
 function ProjectLinks({ project }: { project: (typeof projects)[number] }) {
-  return <div className="project-links"><a className="circle-link focus-ring" href={project.live} target="_blank" rel="noreferrer" aria-label={`Open ${project.name} live site`}><ArrowUpRight size={19} aria-hidden="true" /></a>{project.repo && <a className="text-link focus-ring" href={project.repo} target="_blank" rel="noreferrer">Repository <ArrowUpRight size={14} aria-hidden="true" /></a>}</div>;
+  return (
+    <div className="project-links">
+      <a
+        className="circle-link focus-ring"
+        href={project.live}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Open ${project.name} live site`}
+      >
+        <ArrowUpRight size={19} aria-hidden="true" />
+      </a>
+      {project.repo && (
+        <a
+          className="text-link focus-ring"
+          href={project.repo}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Repository <ArrowUpRight size={14} aria-hidden="true" />
+        </a>
+      )}
+    </div>
+  );
 }
 
-function WorkFeature({ project, number }: { project: (typeof projects)[number]; number: string }) {
-  return <article className="feature-work"><div className="feature-image"><img src={project.image} alt={`${project.name} interface preview`} width="960" height="600" loading="lazy" decoding="async" /><span className="feature-number" aria-hidden="true">{number}</span></div><div className="feature-copy"><p className="eyebrow">{project.category} <span>/</span> {project.year}</p><h3>{project.name}</h3><p>{project.description}</p><ul className="technology-list" aria-label={`${project.name} technologies`}>{project.stack.slice(0, 4).map((technology) => <li key={technology}>{technology}</li>)}</ul><ProjectLinks project={project} /></div></article>;
+function WorkFeature({
+  project,
+  number,
+}: {
+  project: (typeof projects)[number];
+  number: string;
+}) {
+  return (
+    <article className="feature-work">
+      <div className="feature-image">
+        <img
+          src={project.image}
+          alt={`${project.name} interface preview`}
+          width="960"
+          height="600"
+          loading="lazy"
+          decoding="async"
+        />
+        <span className="feature-number" aria-hidden="true">
+          {number}
+        </span>
+      </div>
+      <div className="feature-copy">
+        <p className="eyebrow">
+          {project.category} <span>/</span> {project.year}
+        </p>
+        <h3>{project.name}</h3>
+        <p>{project.description}</p>
+        <ul
+          className="technology-list"
+          aria-label={`${project.name} technologies`}
+        >
+          {project.stack.slice(0, 4).map((technology) => (
+            <li key={technology}>{technology}</li>
+          ))}
+        </ul>
+        <ProjectLinks project={project} />
+      </div>
+    </article>
+  );
 }
 
-const strengths = [["01", "Full-stack development", "I develop end-to-end web applications by connecting responsive React interfaces to well-structured backend services, REST APIs, authentication flows, and data stores. I keep boundaries clear and architecture maintainable so features can evolve without making the product harder to operate."], ["02", "Frontend engineering", "I use React, Next.js, and TypeScript to build responsive, accessible interfaces from reusable components. Performance, semantic markup, keyboard support, and a clear user experience are part of the implementation from the beginning, not a final polish pass."], ["03", "Backend architecture", "I design Django and Node.js services around practical data models, validated inputs, secure REST APIs, and explicit authorization. The goal is reliable backend behavior that is easy to test, reason about, and extend as the application grows."], ["04", "Delivery & technical support", "I take products through deployment and the final mile: hosting, DNS, environment configuration, Git/GitHub workflows, production troubleshooting, and release checks. I care about the details that make a shipped build dependable across real devices and browsers."]] as const;
+const strengths = [
+  [
+    "01",
+    "Full-stack development",
+    "I develop end-to-end web applications by connecting responsive React interfaces to well-structured backend services, REST APIs, authentication flows, and data stores. I keep boundaries clear and architecture maintainable so features can evolve without making the product harder to operate.",
+  ],
+  [
+    "02",
+    "Frontend engineering",
+    "I use React, Next.js, and TypeScript to build responsive, accessible interfaces from reusable components. Performance, semantic markup, keyboard support, and a clear user experience are part of the implementation from the beginning, not a final polish pass.",
+  ],
+  [
+    "03",
+    "Backend architecture",
+    "I design Django and Node.js services around practical data models, validated inputs, secure REST APIs, and explicit authorization. The goal is reliable backend behavior that is easy to test, reason about, and extend as the application grows.",
+  ],
+  [
+    "04",
+    "Delivery & technical support",
+    "I take products through deployment and the final mile: hosting, DNS, environment configuration, Git/GitHub workflows, production troubleshooting, and release checks. I care about the details that make a shipped build dependable across real devices and browsers.",
+  ],
+] as const;
 
 export default function App() {
-  const galleryImages = [projects[0], projects[4], projects[1], projects[2], projects[3], projects[5]];
+  const galleryImages = [
+    projects[0],
+    projects[4],
+    projects[1],
+    projects[2],
+    projects[3],
+    projects[5],
+  ];
   const [copied, setCopied] = useState(false);
   const copyEmail = async () => {
     try {
@@ -41,14 +187,365 @@ export default function App() {
       setCopied(false);
     }
   };
-  return <><a href="#main-content" className="skip-link">Skip to content</a><Header /><main id="main-content">
-    <section id="top" className="hero" aria-labelledby="hero-title"><div className="page-shell hero-grid"><Reveal className="hero-copy"><p className="eyebrow hero-kicker">Kenean Tilahun <span>/</span> Software Engineer</p><h1 id="hero-title">Building digital experiences with character.</h1><p className="hero-intro">Full-stack developer creating useful web products, thoughtful interfaces, and resilient systems.</p><a className="button-light focus-ring" href="#work">Explore selected work <ArrowDownRight size={18} aria-hidden="true" /></a></Reveal><Reveal className="hero-image-wrap"><figure className="hero-image"><img src="/images/projects/KT.jpg" alt="Kenean Tilahun, software engineer and full-stack developer" width="1600" height="2000" fetchPriority="high" decoding="async" /></figure><p className="hero-caption">Software Engineer<br />Full-Stack Developer</p></Reveal></div></section>
-    <section className="metrics" aria-label="Portfolio highlights"><div className="page-shell metric-grid"><div><strong>06</strong><span>Projects in this portfolio</span></div><div><strong>07</strong><span>Professional roles documented</span></div><div><strong>05</strong><span>Technical skill groups</span></div><div><strong>01</strong><span>Focused engineering practice</span></div></div></section>
-    <section id="about" className="about section-light" aria-labelledby="about-title"><div className="page-shell about-layout"><Reveal><p className="section-index">01 / About me</p></Reveal><Reveal className="about-main"><h2 id="about-title">I turn complex systems into seamless, human experiences.</h2><div className="about-body"><p>I&apos;m Kenean, a software engineer and full-stack developer working across fintech, AI, enterprise platforms, and client websites.</p><p>Whether designing a clean API, architecting a resilient backend, or building an interface people enjoy using, I focus on maintainable code that moves a product forward.</p><a className="underlined-link focus-ring" href="https://github.com/KeniKT" target="_blank" rel="noreferrer">Visit GitHub <ArrowUpRight size={16} aria-hidden="true" /></a></div></Reveal></div></section>
-    <section id="work" className="selected-work" aria-labelledby="work-title"><div className="page-shell"><Reveal className="section-heading-dark"><p className="section-index">02 / Selected work</p><h2 id="work-title">Selected work</h2><p>Production work and product concepts shaped around real needs.</p></Reveal><div className="features">{projects.map((project, index) => <Reveal key={project.name}><WorkFeature project={project} number={String(index + 1).padStart(2, "0")} /></Reveal>)}</div></div></section>
-    <section id="skills" className="strengths section-light" aria-labelledby="strengths-title"><div className="page-shell"><Reveal className="section-heading"><p className="section-index">03 / Professional strengths</p><h2 id="strengths-title">How I approach the work.</h2></Reveal><div className="strength-grid">{strengths.map(([number, title, copy]) => <Reveal key={number}><article className="strength"><span>{number}</span><h3>{title}</h3><p>{copy}</p></article></Reveal>)}</div></div></section>
-    <section id="experience" className="experience" aria-labelledby="experience-title"><div className="page-shell"><Reveal className="section-heading-dark"><p className="section-index">04 / Professional experience</p><h2 id="experience-title">Experience across products, learning, and AI.</h2></Reveal><div className="experience-list">{experience.map((item, index) => <Reveal key={`${item.company}-${item.role}`}><article className="experience-row"><span>{String(index + 1).padStart(2, "0")}</span><time>{item.period}</time><div><h3>{item.role}</h3><p className="experience-company">{item.company}</p><p>{item.description}</p></div></article></Reveal>)}</div></div></section>
-    <section id="contact" className="contact-invitation" aria-labelledby="contact-title"><div className="page-shell contact-grid"><Reveal><p className="section-index">05 / Let&apos;s work together</p><h2 id="contact-title">Let&apos;s build something meaningful.</h2></Reveal><Reveal className="contact-action"><p>I&apos;m open to job opportunities, thoughtful projects, and collaborations where careful engineering can make a real difference.</p><div className="contact-actions"><a className="button-dark focus-ring" href="mailto:keni232127@gmail.com">Send an email <ArrowUpRight size={18} aria-hidden="true" /></a><button className="button-outline-dark focus-ring" type="button" onClick={copyEmail}>{copied ? "Email copied" : "Copy email"}</button></div><p className="contact-email">keni232127@gmail.com</p><div className="contact-social-links"><a className="focus-ring" href="https://github.com/KeniKT" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} aria-hidden="true" /></a><a className="focus-ring" href="https://linkedin.com/in/kenean" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={14} aria-hidden="true" /></a></div></Reveal></div></section>
-    <section id="gallery" className="gallery section-light" aria-labelledby="gallery-title"><div className="page-shell"><Reveal className="section-heading"><p className="section-index">06 / Product gallery</p><h2 id="gallery-title">Interfaces in focus.</h2></Reveal></div><div className="gallery-grid">{galleryImages.map((project, index) => <a key={project.name} className={`gallery-item gallery-item-${index + 1} focus-ring`} href={project.live} target="_blank" rel="noreferrer" aria-label={`Open ${project.name} live site`}><img src={project.image} alt={`${project.name} interface preview`} width="960" height="600" loading="lazy" decoding="async" /><span>{project.name}<ArrowUpRight size={16} aria-hidden="true" /></span></a>)}</div></section>
-  </main><footer className="site-footer"><div className="page-shell footer-top"><a className="footer-name focus-ring" href="#top">Kenean<br />Tilahun<span>.</span></a><div><p>Get in touch</p><a className="footer-mail focus-ring" href="mailto:keni232127@gmail.com">keni232127@gmail.com</a></div><div className="footer-links"><a className="focus-ring" href="https://linkedin.com/in/kenean" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={14} /></a><a className="focus-ring" href="https://github.com/KeniKT" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14} /></a><a className="focus-ring" href="https://leetcode.com/u/keniKT" target="_blank" rel="noreferrer">LeetCode <ArrowUpRight size={14} /></a><a className="focus-ring" href="/kenean-tilahun-resume.pdf" download>Résumé <ArrowDownRight size={14} /></a></div></div><div className="page-shell footer-bottom"><span>© {new Date().getFullYear()} Kenean Tilahun</span><span>Software Engineer &amp; Full-Stack Developer</span></div></footer></>;
+  return (
+    <>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
+      <Header />
+      <main id="main-content">
+        <section id="top" className="hero" aria-labelledby="hero-title">
+          <div className="page-shell hero-grid">
+            <Reveal className="hero-copy">
+              <p className="eyebrow hero-kicker">
+                Kenean Tilahun <span>/</span> Software Engineer
+              </p>
+              <h1 id="hero-title">
+                Building digital experiences with character.
+              </h1>
+              <p className="hero-intro">
+                Full-stack developer creating useful web products, thoughtful
+                interfaces, and resilient systems.
+              </p>
+              <a className="button-light focus-ring" href="#work">
+                Explore selected work{" "}
+                <ArrowDownRight size={18} aria-hidden="true" />
+              </a>
+            </Reveal>
+            <Reveal className="hero-image-wrap">
+              <figure className="hero-image">
+                <img
+                  src="/images/projects/KT.png"
+                  alt="Kenean Tilahun, software engineer and full-stack developer"
+                  width="1600"
+                  height="2000"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </figure>
+              <p className="hero-caption">
+                Software Engineer
+                <br />
+                Full-Stack Developer
+              </p>
+            </Reveal>
+          </div>
+        </section>
+        <section className="metrics" aria-label="Portfolio highlights">
+          <div className="page-shell metric-grid">
+            <div>
+              <strong>06</strong>
+              <span>Projects in this portfolio</span>
+            </div>
+            <div>
+              <strong>07</strong>
+              <span>Professional roles documented</span>
+            </div>
+            <div>
+              <strong>05</strong>
+              <span>Technical skill groups</span>
+            </div>
+            <div>
+              <strong>01</strong>
+              <span>Focused engineering practice</span>
+            </div>
+          </div>
+        </section>
+        <section
+          id="about"
+          className="about section-light"
+          aria-labelledby="about-title"
+        >
+          <div className="page-shell about-layout">
+            <Reveal>
+              <p className="section-index">01 / About me</p>
+            </Reveal>
+            <Reveal className="about-main">
+              <h2 id="about-title">
+                I turn complex systems into seamless, human experiences.
+              </h2>
+              <div className="about-body">
+                <p>
+                  I&apos;m Kenean, a software engineer and full-stack developer
+                  working across fintech, AI, enterprise platforms, and client
+                  websites.
+                </p>
+                <p>
+                  Whether designing a clean API, architecting a resilient
+                  backend, or building an interface people enjoy using, I focus
+                  on maintainable code that moves a product forward.
+                </p>
+                <a
+                  className="underlined-link focus-ring"
+                  href="https://github.com/KeniKT"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Visit GitHub <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+        <section
+          id="work"
+          className="selected-work"
+          aria-labelledby="work-title"
+        >
+          <div className="page-shell">
+            <Reveal className="section-heading-dark">
+              <p className="section-index">02 / Selected work</p>
+              <h2 id="work-title">Selected work</h2>
+              <p>
+                Production work and product concepts shaped around real needs.
+              </p>
+            </Reveal>
+            <div className="features">
+              {projects.map((project, index) => (
+                <Reveal key={project.name}>
+                  <WorkFeature
+                    project={project}
+                    number={String(index + 1).padStart(2, "0")}
+                  />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section
+          id="skills"
+          className="strengths section-light"
+          aria-labelledby="strengths-title"
+        >
+          <div className="page-shell">
+            <Reveal className="section-heading">
+              <p className="section-index">03 / Professional strengths</p>
+              <h2 id="strengths-title">How I approach the work.</h2>
+            </Reveal>
+            <div className="strength-grid">
+              {strengths.map(([number, title, copy]) => (
+                <Reveal key={number}>
+                  <article className="strength">
+                    <span>{number}</span>
+                    <h3>{title}</h3>
+                    <p>{copy}</p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section
+          id="experience"
+          className="experience"
+          aria-labelledby="experience-title"
+        >
+          <div className="page-shell">
+            <Reveal className="section-heading-dark">
+              <p className="section-index">04 / Professional experience</p>
+              <h2 id="experience-title">
+                Experience across products, learning, and AI.
+              </h2>
+            </Reveal>
+            <div className="experience-list">
+              {experience.map((item, index) => (
+                <Reveal key={`${item.company}-${item.role}`}>
+                  <article className="experience-row">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <time>{item.period}</time>
+                    <div>
+                      <h3>{item.role}</h3>
+                      <p className="experience-company">{item.company}</p>
+                      <p>{item.description}</p>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section
+          id="contact"
+          className="contact-invitation"
+          aria-labelledby="contact-title"
+        >
+          <div className="page-shell contact-grid">
+            <Reveal>
+              <p className="section-index">05 / Let&apos;s work together</p>
+              <h2 id="contact-title">Let&apos;s build something meaningful.</h2>
+            </Reveal>
+            <Reveal className="contact-action">
+              <p>
+                I&apos;m open to job opportunities, thoughtful projects, and
+                collaborations where careful engineering can make a real
+                difference.
+              </p>
+              <div className="contact-actions">
+                <a
+                  className="button-dark focus-ring"
+                  href="mailto:keni232127@gmail.com"
+                >
+                  Send an email <ArrowUpRight size={18} aria-hidden="true" />
+                </a>
+                <button
+                  className="button-outline-dark focus-ring"
+                  type="button"
+                  onClick={copyEmail}
+                >
+                  {copied ? "Email copied" : "Copy email"}
+                </button>
+              </div>
+              <div className="contact-social-links">
+                <a
+                  className="contact-social focus-ring"
+                  href="https://github.com/KeniKT"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit Kenean Tilahun on GitHub"
+                >
+                  <span className="brand-icon" aria-hidden="true">
+                    GH
+                  </span>
+                  <span>GitHub</span>
+                </a>
+                <a
+                  className="contact-social focus-ring"
+                  href="https://leetcode.com/u/keniKT"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit Kenean Tilahun on LeetCode"
+                >
+                  <Code2 size={17} aria-hidden="true" />
+                  <span>LeetCode</span>
+                </a>
+                <a
+                  className="contact-social focus-ring"
+                  href="mailto:keni232127@gmail.com"
+                  aria-label="Email Kenean Tilahun"
+                >
+                  <Mail size={17} aria-hidden="true" />
+                  <span>Email</span>
+                </a>
+                <a
+                  className="contact-social focus-ring"
+                  href="https://www.linkedin.com/in/kenean/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit Kenean Tilahun on LinkedIn"
+                >
+                  <span className="brand-icon" aria-hidden="true">
+                    in
+                  </span>
+                  <span>LinkedIn</span>
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+        <section
+          id="gallery"
+          className="gallery section-light"
+          aria-labelledby="gallery-title"
+        >
+          <div className="page-shell">
+            <Reveal className="section-heading">
+              <p className="section-index">06 / Product gallery</p>
+              <h2 id="gallery-title">Interfaces in focus.</h2>
+            </Reveal>
+          </div>
+          <div className="gallery-grid">
+            {galleryImages.map((project, index) => (
+              <a
+                key={project.name}
+                className={`gallery-item gallery-item-${index + 1} focus-ring`}
+                href={project.live}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${project.name} live site`}
+              >
+                <img
+                  src={project.image}
+                  alt={`${project.name} interface preview`}
+                  width="960"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span>
+                  {project.name}
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </main>
+      <footer className="site-footer">
+        <div className="page-shell footer-top">
+          <a className="footer-name focus-ring" href="#top">
+            Kenean
+            <br />
+            Tilahun<span>.</span>
+          </a>
+          <div>
+            <p>Get in touch</p>
+            <a
+              className="footer-mail focus-ring"
+              href="mailto:keni232127@gmail.com"
+            >
+              keni232127@gmail.com
+            </a>
+          </div>
+          <nav className="footer-links" aria-label="Social links">
+            <a
+              className="focus-ring"
+              href="https://www.linkedin.com/in/kenean/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visit Kenean Tilahun on LinkedIn"
+            >
+              <span className="brand-icon" aria-hidden="true">
+                in
+              </span>
+              <span>LinkedIn</span>
+            </a>
+            <a
+              className="focus-ring"
+              href="https://github.com/KeniKT"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visit Kenean Tilahun on GitHub"
+            >
+              <span className="brand-icon" aria-hidden="true">
+                GH
+              </span>
+              <span>GitHub</span>
+            </a>
+            <a
+              className="focus-ring"
+              href="https://leetcode.com/u/keniKT"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visit Kenean Tilahun on LeetCode"
+            >
+              <Code2 size={16} aria-hidden="true" />
+              <span>LeetCode</span>
+            </a>
+            <a
+              className="focus-ring"
+              href="mailto:keni232127@gmail.com"
+              aria-label="Email Kenean Tilahun"
+            >
+              <Mail size={16} aria-hidden="true" />
+              <span>Email</span>
+            </a>
+          </nav>
+        </div>
+        <div className="page-shell footer-bottom">
+          <span>© {new Date().getFullYear()} Kenean Tilahun</span>
+          <span>Software Engineer &amp; Full-Stack Developer</span>
+        </div>
+      </footer>
+    </>
+  );
 }
